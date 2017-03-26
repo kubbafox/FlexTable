@@ -1,0 +1,31 @@
+.container {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: #545454;
+    display: flex;
+    flex-wrap: wrap;
+    width: 921px;
+
+}
+
+.row {
+    border: solid 1px #e0e0e0;
+    padding: 10px;
+    text-align: center;
+}
+
+.column_header {
+    border: solid 1px #e0e0e0;
+    padding: 10px;
+    text-align: center;
+    background-color: #f7f7f7;
+
+}
+
+#column1 {
+    width: 200px;
+}
+
+.column_header:hover ~ div {
+    background-color: #f7f7f7;
+}
