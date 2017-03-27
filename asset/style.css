@@ -6,7 +6,7 @@
     color: #545454;
     display: flex;
     flex-wrap: wrap;
-    width: 921px;
+    width: 1000px;
 }
 
 .avatar {
@@ -35,7 +35,7 @@
     display: none;
 }
 
-#column1 .row {
+#column1 .row_header {
     border: solid 1px #e0e0e0;
     padding: 4px;
     text-align: left;
@@ -128,7 +128,7 @@
 
 
 /* Responsive table */
-@media (max-width: 920px) {
+@media (max-width: 1000px) {
     .container {
         flex-flow: column wrap;
         width: 100%;
