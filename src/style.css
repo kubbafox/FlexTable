@@ -68,7 +68,7 @@
     height: 0px;
     width: 400px;
     color: azure;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
 }
 .user_profile_details {
     margin-left: 45px;
@@ -80,17 +80,17 @@
     margin: 0px;
     padding-top: 10px;
     padding-left: 10px;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
 }
 
 .user_profile img {
     display: none;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
 }
 
 .user_profile span {
     display: none;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
 }
 
 .modal_user_profile:checked + label > div .user_profile {
@@ -107,27 +107,27 @@
     margin-left:-4px;
     z-index: 300;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
 }
 
 .modal_user_profile:checked + label > div .user_profile_details p {
     display: inline-block;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
 }
 
 .modal_user_profile:checked + label > div .user_profile span {
     display: inline-block;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
 }
 
 .modal_user_profile:checked + label > div .user_profile img {
     display: inline-block;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
 }
 
 
 
-/* Responsive table */
+/* Responsive table */ 
 @media (max-width: 1000px) {
     .container {
         flex-flow: column wrap;

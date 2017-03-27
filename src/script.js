@@ -20,8 +20,8 @@ $(function () {
                 allColumns[i].style.borderStyle = "dashed";
                 allColumns[i].style.borderColor = "#545454";
                 allColumns[i].style.borderWidth = "0 1px 1px 1px";
+                allColumns[i].style.transition = "margin 0.2s ease"
             }
-            
         },
         stop: function (event, ui) {
 
@@ -63,6 +63,7 @@ $(function () {
             for (var i = 0; i < allColumns.length; i++) {
                 allColumns[i].style.margin = "0px";
                 allColumns[i].style.borderWidth = "0px";
+                allColumns[i].style.transition = "margin 0.2s ease"
             }
         }
 
