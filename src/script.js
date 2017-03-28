@@ -76,8 +76,8 @@ $(function () {
 
             var draggedRows = document.getElementsByClassName('row' + (this.id).split("row")[1]);
             for (var i = 0; i < draggedRows.length; i++) {
-                draggedRows[i].style.backgroundColor = "#fffdc4";
-                draggedRows[i].style.transition = "all 0.2s ease"
+                draggedRows[i].style.background = "#fffdc4";
+                draggedRows[i].style.transition = "background 1s ease"
             };
 
             console.log(draggedRows);
@@ -174,8 +174,8 @@ $(function () {
             }
             var draggedRows = document.getElementsByClassName('row' + (this.id).split("row")[1]);
             for (var i = 0; i < draggedRows.length; i++) {
-                draggedRows[i].style.backgroundColor = "";
-                draggedRows[i].style.transition = "all 0.8s ease"
+                draggedRows[i].style.background = "transparent";
+                draggedRows[i].style.transition = "background 0.8s ease"
             };
         }
     });
