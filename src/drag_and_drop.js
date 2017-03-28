@@ -13,6 +13,7 @@ $(function () {
 
             //Update CSS Properties to highlight dragged column
             var target = document.getElementById(this.id);
+            console.log(target);
             target.style.zIndex = 100;
             target.style.background = "#fffdc4";
             target.style.transition = "background 0.4s ease"
@@ -22,11 +23,9 @@ $(function () {
 
             for (var i = 0; i < allColumns.length; i++) {
                 allColumns[i].style.opacity = 0.9;
-                allColumns[i].style.margin = "0 0 0 3px";
                 allColumns[i].style.borderStyle = "dashed";
                 allColumns[i].style.borderColor = "#e0e0e0";
-                allColumns[i].style.borderWidth = "0 1px 1px 1px";
-                allColumns[i].style.transition = "margin 0.2s ease"
+                allColumns[i].style.borderWidth = "0 1px 0px 0px";
             }
         },
         stop: function (event, ui) {
@@ -35,7 +34,7 @@ $(function () {
             var target = document.getElementById(this.id);
             target.style.zIndex = null;
             target.style.background = "";
-            target.style.transition = "background 0.4s ease"
+            target.style.transition = "background 2s ease"
 
             var allColumns = document.getElementsByClassName('column');
 
@@ -43,7 +42,6 @@ $(function () {
                 allColumns[i].style.opacity = 1;
                 allColumns[i].style.margin = "0px";
                 allColumns[i].style.borderWidth = "0px";
-                allColumns[i].style.transition = "margin 0.2s ease"
             }
 
             //Sort & Re-order Columns
@@ -91,41 +89,43 @@ $(function () {
                 draggedRows[i].style.transition = "background 0.4s ease"
             };
 
-            // var allRows = document.getElementsByClassName('row');
-            // for (var i = 0; i < allRows.length; i++){
-            //     allRows[i].style.borderWidth = "1px 0px 1px 1px";
-            //     allRows[i].style.borderColor = "#e0e0e0";
-            //     allRows[i].style.transition = "margin 0.2s ease"
-            // }
-            // var allRowHeader = document.getElementsByClassName('row_header');
-            // for (var i = 0; i < allRowHeader.length; i++){
-            //     allRowHeader[i].style.borderWidth = "1px 0px 1px 1px";
-            //     allRowHeader[i].style.borderColor = "#e0e0e0";
-            //     allRowHeader[i].style.transition = "margin 0.2s ease"
-            // }
+            var allRows = document.getElementsByClassName('row');
+            for (var i = 0; i < allRows.length; i++){
+                allRows[i].style.borderWidth = "1px 1px 1px 1px";
+                allRows[i].style.borderTopStyle = "dashed";
+                allRows[i].style.borderBottomStyle = "dashed";
+                allRows[i].style.borderColor = "#e0e0e0";
+                allRows[i].style.transition = "margin 0.2s ease"
+            }
+            var allRowHeader = document.getElementsByClassName('row_header');
+            for (var i = 0; i < allRowHeader.length; i++){
+                allRowHeader[i].style.borderWidth = "1px 0px 1px 0px";
+                allRowHeader[i].style.borderColor = "#e0e0e0";
+                allRowHeader[i].style.transition = "margin 0.2s ease"
+            }
         },
 
         stop: function (event, ui) {
             var target = document.getElementById(this.id);
             target.style.zIndex = null;
 
-            //Reset CSS after drag event completed
-            // var allRows = document.getElementsByClassName('row');
-            // for (var i = 0; i < allRows.length; i++){
-            //     allRows[i].style.margin = "0";
-            //     allRows[i].style.borderWidth = "1px";
-            //     allRows[i].style.borderStyle = "solid";
-            //     allRows[i].style.borderColor = "#f2f2f2;";
-            //     allRows[i].style.transition = "margin 0.2s ease"
-            // }
-            // var allRowHeader = document.getElementsByClassName('row_header');
-            // for (var i = 0; i < allRowHeader.length; i++){
-            //     allRowHeader[i].style.margin = "0";
-            //     allRowHeader[i].style.borderWidth = "1px";
-            //     allRowHeader[i].style.borderStyle = "solid";
-            //     allRowHeader[i].style.borderColor = "#e0e0e0;";
-            //     allRowHeader[i].style.transition = "margin 0.2s ease"
-            // }
+            // Reset CSS after drag event completed
+            var allRows = document.getElementsByClassName('row');
+            for (var i = 0; i < allRows.length; i++){
+                allRows[i].style.margin = "0";
+                allRows[i].style.borderWidth = "1px";
+                allRows[i].style.borderStyle = "solid";
+                allRows[i].style.borderColor = "#f2f2f2;";
+                allRows[i].style.transition = "margin 0.2s ease"
+            }
+            var allRowHeader = document.getElementsByClassName('row_header');
+            for (var i = 0; i < allRowHeader.length; i++){
+                allRowHeader[i].style.margin = "0";
+                allRowHeader[i].style.borderWidth = "1px";
+                allRowHeader[i].style.borderStyle = "solid";
+                allRowHeader[i].style.borderColor = "#e0e0e0;";
+                allRowHeader[i].style.transition = "margin 0.2s ease"
+            }
             var draggedRows = document.getElementsByClassName('row' + (this.id).split("row")[1]);
             for (var i = 0; i < draggedRows.length; i++) {
                 draggedRows[i].style.background = "";
