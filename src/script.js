@@ -78,7 +78,7 @@ $(function () {
                 allRows[i].style.borderWidth = "1px 0px 1px 1px";
                 allRows[i].style.borderStyle = "dashed";
                 allRows[i].style.borderColor = "#e0e0e0;";
-                allRows[i].style.transition = "order margin 0.2s ease"
+                allRows[i].style.transition = "margin 0.2s ease"
             }
             var allRowHeader = document.getElementsByClassName('row_header');
             for (var i = 0; i < allRowHeader.length; i++){
@@ -86,7 +86,7 @@ $(function () {
                 allRowHeader[i].style.borderWidth = "1px 0px 1px 1px";
                 allRowHeader[i].style.borderStyle = "dashed";
                 allRowHeader[i].style.borderColor = "#e0e0e0;";
-                allRowHeader[i].style.transition = "order margin 0.2s ease"
+                allRowHeader[i].style.transition = "margin 0.2s ease"
             }
         },
         stop: function (event, ui) {
@@ -158,7 +158,7 @@ $(function () {
                 allRows[i].style.borderWidth = "1px";
                 allRows[i].style.borderStyle = "solid";
                 allRows[i].style.borderColor = "#e0e0e0;";
-                allRows[i].style.transition = "order margin 0.2s ease"
+                allRows[i].style.transition = "margin 0.2s ease"
             }
             var allRowHeader = document.getElementsByClassName('row_header');
             for (var i = 0; i < allRowHeader.length; i++){
@@ -166,7 +166,7 @@ $(function () {
                 allRowHeader[i].style.borderWidth = "1px";
                 allRowHeader[i].style.borderStyle = "solid";
                 allRowHeader[i].style.borderColor = "#e0e0e0;";
-                allRowHeader[i].style.transition = "order margin 0.2s ease"
+                allRowHeader[i].style.transition = "margin 0.2s ease"
             }
         }
     });
