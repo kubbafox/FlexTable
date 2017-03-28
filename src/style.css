@@ -64,9 +64,9 @@
     width: 200px;
 }
 
-.column_header:hover ~ div {
-    background-color: #f7f7f7;
-}
+/*.column_header:hover ~ div {*/
+    /*background: #fffdc4;*/
+/*}*/
 
 /* Name Modal */
 .modal_user_profile{
