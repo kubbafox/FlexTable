@@ -1,0 +1,72 @@
+
+        <!--<div class="row1 row_header" id="column1_row1">-->
+            <!--<input type="checkbox" id="modal1" class="modal_user_profile">-->
+            <!--<label for="modal1">-->
+                <!--<div>-->
+                    <!--<img class="avatar" src="asset/img/fbJsHoP.png">-->
+                    <!--<span>Paul Kim</span>-->
+                    <!--<div class="user_profile">-->
+                        <!--<img class="avatar" src="asset/img/fbJsHoP.png">-->
+                        <!--<span>Paul Kim</span>-->
+                        <!--<svg class="icon icon-cross">-->
+                            <!--<use xlink:href="#icon-cross"></use>-->
+                        <!--</svg>-->
+                        <!--<div class="user_profile_details">-->
+                            <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor-->
+                                <!--incididunt.</p>-->
+                            <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor-->
+                                <!--incididunt.</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</label>-->
+        <!--</div>-->
+
+
+        <!--<div class="row2 row_header" id="column1_row2">-->
+            <!--<input type="checkbox" id="modal2" class="modal_user_profile">-->
+            <!--<label for="modal2">-->
+                <!--<div>-->
+                    <!--<img class="avatar" src="asset/img/Ktstb79.png">-->
+                    <!--<span>Harry Goldberg</span>-->
+                    <!--<div class="user_profile">-->
+                        <!--<img class="avatar" src="asset/img/Ktstb79.png">-->
+                        <!--<span>Harry Goldberg</span>-->
+                        <!--<svg class="icon icon-cross">-->
+                            <!--<use xlink:href="#icon-cross"></use>-->
+                        <!--</svg>-->
+                        <!--<div class="user_profile_details">-->
+                            <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor-->
+                                <!--incididunt.</p>-->
+                            <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor-->
+                                <!--incididunt.</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</label>-->
+        <!--</div>-->
+
+
+        <!--<div class="row3 row_header" id="column1_row3">-->
+            <!--<input type="checkbox" id="modal3" class="modal_user_profile">-->
+            <!--<label for="modal3">-->
+                <!--<div>-->
+                    <!--<img class="avatar" src="asset/img/Ze2SXAt.png">-->
+                    <!--<span>Jane Hardaway</span>-->
+                    <!--<div class="user_profile">-->
+                        <!--<img class="avatar" src="asset/img/Ze2SXAt.png">-->
+                        <!--<span>Jane Hardaway</span>-->
+                        <!--<svg class="icon icon-cross">-->
+                            <!--<use xlink:href="#icon-cross"></use>-->
+                        <!--</svg>-->
+                        <!--<div class="user_profile_details">-->
+                            <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor-->
+                                <!--incididunt.</p>-->
+                            <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor-->
+                                <!--incididunt.</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</label>-->
+        <!--</div>-->
+

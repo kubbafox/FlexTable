@@ -1,6 +1,9 @@
 /**
  * Created by Neverland on 3/26/17.
  */
+
+'use strict'
+
 $(function () {
 
     // Drag & Drop Columns
@@ -42,7 +45,7 @@ $(function () {
 
             var number = 0;
             for (var i = newPosition.length; i--;) {
-                
+
                 var tmpItem = document.getElementById(newPosition[i].name);
                 tmpItem.style.order = number;
                 tmpItem.style.left = 0;
@@ -52,7 +55,7 @@ $(function () {
                 number++;
             }
 
-            //Reset Left & Right borders when the drag event completed
+            //Reset Left & Right borders after drag event completed
             var allColumns = document.getElementsByClassName('column');
 
             for (var i = 0; i < allColumns.length; i++) {
@@ -64,29 +67,35 @@ $(function () {
 
     });
 
-
-
     // Drag & Drop Rows
 
     $(".row_header").draggable({
         start: function (event, ui) {
             var target = document.getElementById(this.id);
-            // target.style.zIndex = 100;
+                // target.style.zIndex = 100;
+
+            var draggedRows = document.getElementsByClassName('row' + (this.id).split("row")[1]);
+            for (var i = 0; i < draggedRows.length; i++) {
+                draggedRows[i].style.backgroundColor = "#fffdc4";
+                draggedRows[i].style.transition = "all 0.2s ease"
+            };
+
+            console.log(draggedRows);
 
             var allRows = document.getElementsByClassName('row');
             for (var i = 0; i < allRows.length; i++){
-                allRows[i].style.margin = "0 0 4px 0";
+                allRows[i].style.margin = "0 0 1px 0";
                 allRows[i].style.borderWidth = "1px 0px 1px 1px";
                 allRows[i].style.borderStyle = "dashed";
-                allRows[i].style.borderColor = "#e0e0e0;";
+                allRows[i].style.borderColor = "#e0e0e0";
                 allRows[i].style.transition = "margin 0.2s ease"
             }
             var allRowHeader = document.getElementsByClassName('row_header');
             for (var i = 0; i < allRowHeader.length; i++){
-                allRowHeader[i].style.margin = "0 0 4px 0";
+                allRowHeader[i].style.margin = "0 0 1px 0";
                 allRowHeader[i].style.borderWidth = "1px 0px 1px 1px";
                 allRowHeader[i].style.borderStyle = "dashed";
-                allRowHeader[i].style.borderColor = "#e0e0e0;";
+                allRowHeader[i].style.borderColor = "#e0e0e0";
                 allRowHeader[i].style.transition = "margin 0.2s ease"
             }
         },
@@ -96,13 +105,14 @@ $(function () {
 
             var currentPosition = new Object();
             var newPosition = new Array();
+            var userCount = getuserCount();
 
-            for (var i = 1; i < 4; i++) {
+            for (var i = 1; i <= userCount; i++) {
                 var positionData = getRowPosition(i);
                 currentPosition = {'name': 'column1_row' + i, 'position': positionData};
                 newPosition.push(currentPosition);
-
             }
+
 
             newPosition.sort(function (a, b) {
                 if (a['position'] > b['position']) return -1;
@@ -110,9 +120,9 @@ $(function () {
                 return 0;
             });
 
-            console.log(newPosition);
+            // console.log(newPosition);
 
-            var numberOrder = 2;
+            var numberOrder = 1;
             for (var i = newPosition.length; i--;) {
 
                 var tmpItem = document.getElementById(newPosition[i].name);
@@ -121,13 +131,12 @@ $(function () {
                 tmpItem.style.left = 0;
                 tmpItem.style.top = 0;
                 numberOrder++;
-
             }
 
             // Get Original Row Index in the order
             var rowOrder = new Array();
             for (var i = 0; i < newPosition.length; i++) {
-                var originalRowIndex = parseInt(newPosition[i].name.substr(newPosition[i].name.length - 1));
+                var originalRowIndex = parseInt(newPosition[i].name.split('row')[1]);
                 rowOrder.push(originalRowIndex);
             }
 
@@ -139,17 +148,14 @@ $(function () {
 
                 var otherRows = document.getElementsByClassName('row' + rowOrder[i]);
 
-                // console.log(otherRows);
-
                 for (var j = 1; j < otherRows.length; j++) {
                     var tmpItem = otherRows[j];
                     tmpItem.style.order = newRowOrder;
-                    // console.log(tmpItem)
                 }
                 newRowOrder++;
             }
 
-            //
+            //Reset row styles after the drag event completed
             var allRows = document.getElementsByClassName('row');
             for (var i = 0; i < allRows.length; i++){
                 allRows[i].style.margin = "0";
@@ -166,6 +172,11 @@ $(function () {
                 allRowHeader[i].style.borderColor = "#e0e0e0;";
                 allRowHeader[i].style.transition = "margin 0.2s ease"
             }
+            var draggedRows = document.getElementsByClassName('row' + (this.id).split("row")[1]);
+            for (var i = 0; i < draggedRows.length; i++) {
+                draggedRows[i].style.backgroundColor = "";
+                draggedRows[i].style.transition = "all 0.8s ease"
+            };
         }
     });
 
@@ -178,4 +189,13 @@ $(function () {
         var tmpItem = document.getElementById('column1_row' + rowId);
         return tmpItem.offsetTop;
     }
+
+    function getuserCount() {
+        //Get user Count
+        //Remove column_header
+        var userCount = document.getElementById('column1').childNodes.length - 3;
+        return userCount;
+    }
+
+
 });
