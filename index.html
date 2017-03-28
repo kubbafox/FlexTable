@@ -10,10 +10,14 @@
         <title>cross</title>
         <path d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
     </symbol>
+    <symbol id="icon-arrow-down2" viewBox="0 0 32 32">
+        <title>arrow-down2</title>
+        <path d="M27.414 19.414l-10 10c-0.781 0.781-2.047 0.781-2.828 0l-10-10c-0.781-0.781-0.781-2.047 0-2.828s2.047-0.781 2.828 0l6.586 6.586v-19.172c0-1.105 0.895-2 2-2s2 0.895 2 2v19.172l6.586-6.586c0.39-0.39 0.902-0.586 1.414-0.586s1.024 0.195 1.414 0.586c0.781 0.781 0.781 2.047 0 2.828z"></path>
+    </symbol>
 </svg>
 
 
-<div class="container" id="my_mock_table">
+<div class="container" id="tableContainer">
     <div id="column1" class="header">
         <div class="column_header" style="order: 0">
             Name
@@ -22,34 +26,94 @@
     <div id="column2" class="column content2">
         <div class="column_header">
             Commission Rate
+            <p id="column_header_drop_arrow_2" class="column_drop_arrow">
+                <svg class="icon icon-arrow-down1">
+                    <use xlink:href="#icon-arrow-down2">
+                    </use>
+                </svg>
+                <svg class="icon icon-arrow-down2">
+                    <use xlink:href="#icon-arrow-down2">
+                    </use>
+                </svg>
+            </p>
         </div>
     </div>
     <div id="column3" class="column content3">
         <div class="column_header">
             Contract End Day
+            <p id="column_header_drop_arrow_3" class="column_drop_arrow">
+                <svg class="icon icon-arrow-down1">
+                    <use xlink:href="#icon-arrow-down2">
+                    </use>
+                </svg>
+                <svg class="icon icon-arrow-down2">
+                    <use xlink:href="#icon-arrow-down2">
+                    </use>
+                </svg>
+            </p>
         </div>
     </div>
     <div id="column4" class="column content4">
         <div class="column_header">
             Total Deals
+            <p id="column_header_drop_arrow_4" class="column_drop_arrow">
+                <svg class="icon icon-arrow-down1">
+                    <use xlink:href="#icon-arrow-down2">
+                    </use>
+                </svg>
+                <svg class="icon icon-arrow-down2">
+                    <use xlink:href="#icon-arrow-down2">
+                    </use>
+                </svg>
+            </p>
         </div>
     </div>
     <div id="column5" class="column content5">
         <div class="column_header">
             Payment Cycle
+            <p id="column_header_drop_arrow_5" class="column_drop_arrow">
+                <svg class="icon icon-arrow-down1">
+                    <use xlink:href="#icon-arrow-down2">
+                    </use>
+                </svg>
+                <svg class="icon icon-arrow-down2">
+                    <use xlink:href="#icon-arrow-down2">
+                    </use>
+                </svg>
+            </p>
         </div>
     </div>
-    <div id="column6" class="column content5">
+    <div id="column6" class="column content6">
         <div class="column_header">
             Outstanding Balance
+            <p id="column_header_drop_arrow_6" class="column_drop_arrow">
+                <svg class="icon icon-arrow-down1">
+                    <use xlink:href="#icon-arrow-down2">
+                    </use>
+                </svg>
+                <svg class="icon icon-arrow-down2">
+                    <use xlink:href="#icon-arrow-down2">
+                    </use>
+                </svg>
+            </p>
         </div>
     </div>
-    <div id="column7" class="column content5">
+    <div id="column7" class="column content7">
         <div class="column_header">
             Paid Amount
+            <p id="column_header_drop_arrow_7" class="column_drop_arrow">
+                <svg class="icon icon-arrow-down1">
+                    <use xlink:href="#icon-arrow-down2">
+                    </use>
+                </svg>
+                <svg class="icon icon-arrow-down2">
+                    <use xlink:href="#icon-arrow-down2">
+                    </use>
+                </svg>
+            </p>
         </div>
+    </div>
 </div>
-
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">

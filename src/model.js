@@ -338,108 +338,112 @@ $(function () {
             "paid_amount": "$4345.77"
         }];
 
+    constructTable();
 
-    var userCount = Object.keys(mockUsers).length;
+    function constructTable() {
 
-    var column1Container = document.getElementById('column1');
-    for (var i = 0; i < userCount; i++) {
-        var tempObject = mockUsers[i];
-        var rowHeaderHTML = '<div class="row' + tempObject.id + ' row_header" ' + 'id="' + 'column1_row' + tempObject.id + '">' +
-            '<input type="checkbox" id="modal' + tempObject.id + '" class="modal_user_profile">' +
-            '<label for="modal' + tempObject.id + '">' +
-            '<div>' +
-            '<img class="avatar" src="' + tempObject.img_url + '">' +
-            '<span>' + tempObject.name + '</span>' +
-            '<div class="user_profile">' +
-            '<img class="avatar" src="' + tempObject.img_url + '">' +
-            '<span>' + tempObject.name + '</span>' +
-            '<svg class="icon icon-cross">' +
-            '<use xlink:href="#icon-cross"></use>' +
-            '</svg>' +
-            '<div class="user_profile_details">' +
-            '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo incididunt.</p>' +
-            '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo incididunt.</p>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</label>' +
-            '</div>';
+        var userCount = Object.keys(mockUsers).length;
+        var column1Container = document.getElementById('column1');
+        for (var i = 0; i < userCount; i++) {
+            var tempObject = mockUsers[i];
+            var rowHeaderHTML = '<div class="row' + tempObject.id + ' row_header" ' + 'id="' + 'column1_row' + tempObject.id + '">' +
+                '<input type="checkbox" id="modal' + tempObject.id + '" class="modal_user_profile">' +
+                '<label for="modal' + tempObject.id + '">' +
+                '<div>' +
+                '<img class="avatar" src="' + tempObject.img_url + '">' +
+                '<span>' + tempObject.name + '</span>' +
+                '<div class="user_profile">' +
+                '<img class="avatar" src="' + tempObject.img_url + '">' +
+                '<span>' + tempObject.name + '</span>' +
+                '<svg class="icon icon-cross">' +
+                '<use xlink:href="#icon-cross"></use>' +
+                '</svg>' +
+                '<div class="user_profile_details">' +
+                '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo incididunt.</p>' +
+                '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo incididunt.</p>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</label>' +
+                '</div>';
 
-        column1Container.innerHTML += rowHeaderHTML;
-    }
+            column1Container.innerHTML += rowHeaderHTML;
+        }
 
-    var column2Container = document.getElementById('column2');
-    for (var i = 0; i < userCount; i++) {
-        var tempObject = mockUsers[i];
-        var tempAbbervatiedName = abbervatieLastName(tempObject.name);
-        var rowHeaderHTML = '<div class="row row' + tempObject.id + '">' +
-            '<img class="avatar" src="' + tempObject.img_url + '">' +
-            '<span>' + tempAbbervatiedName + '</span>' + tempObject.commission_rate +
-            '</div>'
+        var column2Container = document.getElementById('column2');
+        for (var i = 0; i < userCount; i++) {
+            var tempObject = mockUsers[i];
+            var tempAbbervatiedName = abbervatieLastName(tempObject.name);
+            var rowHeaderHTML = '<div class="row row' + tempObject.id + '">' +
+                '<img class="avatar" src="' + tempObject.img_url + '">' +
+                '<span>' + tempAbbervatiedName + '</span>' + tempObject.commission_rate +
+                '</div>'
 
-        column2Container.innerHTML += rowHeaderHTML;
-    }
+            column2Container.innerHTML += rowHeaderHTML;
+        }
 
-    var column3Container = document.getElementById('column3');
-    for (var i = 0; i < userCount; i++) {
-        var tempObject = mockUsers[i];
-        var tempAbbervatiedName = abbervatieLastName(tempObject.name);
-        var rowHeaderHTML = '<div class="row row' + tempObject.id + '">' +
-            '<img class="avatar" src="' + tempObject.img_url + '">' +
-            '<span>' + tempAbbervatiedName + '</span>' + tempObject.commission_rate +
-            '</div>'
+        var column3Container = document.getElementById('column3');
+        for (var i = 0; i < userCount; i++) {
+            var tempObject = mockUsers[i];
+            var tempAbbervatiedName = abbervatieLastName(tempObject.name);
+            var rowHeaderHTML = '<div class="row row' + tempObject.id + '">' +
+                '<img class="avatar" src="' + tempObject.img_url + '">' +
+                '<span>' + tempAbbervatiedName + '</span>' + tempObject.commission_rate +
+                '</div>'
 
-        column3Container.innerHTML += rowHeaderHTML;
-    }
+            column3Container.innerHTML += rowHeaderHTML;
+        }
 
-    var column4Container = document.getElementById('column4');
-    for (var i = 0; i < userCount; i++) {
-        var tempObject = mockUsers[i];
-        var tempAbbervatiedName = abbervatieLastName(tempObject.name);
-        var rowHeaderHTML = '<div class="row row' + tempObject.id + '">' +
-            '<img class="avatar" src="' + tempObject.img_url + '">' +
-            '<span>' + tempAbbervatiedName + '</span>' + tempObject.total_deals +
-            '</div>'
+        var column4Container = document.getElementById('column4');
+        for (var i = 0; i < userCount; i++) {
+            var tempObject = mockUsers[i];
+            var tempAbbervatiedName = abbervatieLastName(tempObject.name);
+            var rowHeaderHTML = '<div class="row row' + tempObject.id + '">' +
+                '<img class="avatar" src="' + tempObject.img_url + '">' +
+                '<span>' + tempAbbervatiedName + '</span>' + tempObject.total_deals +
+                '</div>'
 
-        column4Container.innerHTML += rowHeaderHTML;
-    }
+            column4Container.innerHTML += rowHeaderHTML;
+        }
 
-    var column5Container = document.getElementById('column5');
-    for (var i = 0; i < userCount; i++) {
-        var tempObject = mockUsers[i];
-        var tempAbbervatiedName = abbervatieLastName(tempObject.name);
-        var rowHeaderHTML = '<div class="row row' + tempObject.id + '">' +
-            '<img class="avatar" src="' + tempObject.img_url + '">' +
-            '<span>' + tempAbbervatiedName + '</span>' + tempObject.payment_cycle +
-            '</div>'
+        var column5Container = document.getElementById('column5');
+        for (var i = 0; i < userCount; i++) {
+            var tempObject = mockUsers[i];
+            var tempAbbervatiedName = abbervatieLastName(tempObject.name);
+            var rowHeaderHTML = '<div class="row row' + tempObject.id + '">' +
+                '<img class="avatar" src="' + tempObject.img_url + '">' +
+                '<span>' + tempAbbervatiedName + '</span>' + tempObject.payment_cycle +
+                '</div>'
 
-        column5Container.innerHTML += rowHeaderHTML;
-    }
+            column5Container.innerHTML += rowHeaderHTML;
+        }
 
-    var column6Container = document.getElementById('column6');
-    for (var i = 0; i < userCount; i++) {
-        var tempObject = mockUsers[i];
-        var tempAbbervatiedName = abbervatieLastName(tempObject.name);
-        var rowHeaderHTML = '<div class="row row' + tempObject.id + '">' +
-            '<img class="avatar" src="' + tempObject.img_url + '">' +
-            '<span>' + tempAbbervatiedName + '</span>' + tempObject.outstanding_balance +
-            '</div>'
+        var column6Container = document.getElementById('column6');
+        for (var i = 0; i < userCount; i++) {
+            var tempObject = mockUsers[i];
+            var tempAbbervatiedName = abbervatieLastName(tempObject.name);
+            var rowHeaderHTML = '<div class="row row' + tempObject.id + '">' +
+                '<img class="avatar" src="' + tempObject.img_url + '">' +
+                '<span>' + tempAbbervatiedName + '</span>' + tempObject.outstanding_balance +
+                '</div>'
 
-        column6Container.innerHTML += rowHeaderHTML;
-    }
+            column6Container.innerHTML += rowHeaderHTML;
+        }
 
-    var column7Container = document.getElementById('column7');
-    for (var i = 0; i < userCount; i++) {
-        var tempObject = mockUsers[i];
-        var tempAbbervatiedName = abbervatieLastName(tempObject.name);
-        var rowHeaderHTML = '<div class="row row' + tempObject.id + '">' +
-            '<img class="avatar" src="' + tempObject.img_url + '">' +
-            '<span>' + tempAbbervatiedName + '</span>' + tempObject.paid_amount +
-            '</div>'
+        var column7Container = document.getElementById('column7');
+        for (var i = 0; i < userCount; i++) {
+            var tempObject = mockUsers[i];
+            var tempAbbervatiedName = abbervatieLastName(tempObject.name);
+            var rowHeaderHTML = '<div class="row row' + tempObject.id + '">' +
+                '<img class="avatar" src="' + tempObject.img_url + '">' +
+                '<span>' + tempAbbervatiedName + '</span>' + tempObject.paid_amount +
+                '</div>'
 
-        column7Container.innerHTML += rowHeaderHTML;
-    }
+            column7Container.innerHTML += rowHeaderHTML;
+        }
+    };
 
+    // function 
     function abbervatieLastName(username) {
         var splitString = username.split(' ');
         var abbervatiedName = splitString.slice(0, splitString.length - 1) + " " + splitString.pop().charAt(0) + ".";
