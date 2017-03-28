@@ -67,10 +67,11 @@ $(function () {
 
 
     // Drag & Drop Rows
+
     $(".row_header").draggable({
         start: function (event, ui) {
             var target = document.getElementById(this.id);
-            target.style.zIndex = 100;
+            // target.style.zIndex = 100;
 
             var allRows = document.getElementsByClassName('row');
             for (var i = 0; i < allRows.length; i++){
@@ -91,7 +92,7 @@ $(function () {
         },
         stop: function (event, ui) {
             var target = document.getElementById(this.id);
-            target.style.zIndex = 0;
+            // target.style.zIndex = 0;
 
             var currentPosition = new Object();
             var newPosition = new Array();
@@ -99,8 +100,6 @@ $(function () {
             for (var i = 1; i < 4; i++) {
                 var positionData = getRowPosition(i);
                 currentPosition = {'name': 'column1_row' + i, 'position': positionData};
-                // console.log(currentPosition);
-
                 newPosition.push(currentPosition);
 
             }
@@ -121,7 +120,6 @@ $(function () {
                 tmpItem.style.order = numberOrder;
                 tmpItem.style.left = 0;
                 tmpItem.style.top = 0;
-                tmpItem.style.zIndex = 0;
                 numberOrder++;
 
             }
