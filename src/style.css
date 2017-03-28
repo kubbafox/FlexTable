@@ -1,5 +1,4 @@
 
-
 .container {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
@@ -7,6 +6,19 @@
     display: flex;
     flex-wrap: wrap;
     width: 1000px;
+    z-index: -1;
+}
+
+#column1 {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .avatar {
@@ -46,7 +58,6 @@
     padding: 10px;
     text-align: center;
     background-color: #f7f7f7;
-
 }
 
 #column1 {
@@ -60,6 +71,7 @@
 /* Name Modal */
 .modal_user_profile{
     display: none;
+    position: absolute;
 }
 
 .user_profile{
@@ -105,7 +117,7 @@
     padding-left: 3px;
     margin-top:-35px;
     margin-left:-4px;
-    z-index: 300;
+    z-index: 1000;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     transition: all 0.3s ease;
 }
