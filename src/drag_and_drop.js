@@ -311,7 +311,7 @@ $(function () {
     function getUserCount() {
         //Get user Count
         //Remove column_header
-        var userCount = document.getElementById('column1').childNodes.length - 3;
+        var userCount = document.getElementById('column1').childNodes.length - 1;
 
         return userCount;
     }
