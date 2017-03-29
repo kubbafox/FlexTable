@@ -149,7 +149,7 @@ $(function () {
                 draggedRow[i].style.borderWidth = 0;
                 draggedRow[i].style.height = "0px";
                 draggedRow[i].style.opacity = 0;
-                draggedRow[i].style.transition = "height 0.6s ease, opacity 0.4s ease, borderWidth 0.7s ease, padding 0.6s ease, background 0.7s ease";
+                draggedRow[i].style.transition = "height 0.5s ease, opacity 0.4s ease, borderWidth 0.5s ease, padding 0.5s ease, background 0.7s ease";
 
             }
 
@@ -203,7 +203,7 @@ $(function () {
 
                 var tmpItem = document.getElementById(ElementId);
                 tmpItem.style.top = '-38px';
-                tmpItem.style.transition = "top 0.6s ease";
+                tmpItem.style.transition = "top 0.5s ease";
             }
 
 
