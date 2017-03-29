@@ -443,7 +443,7 @@ $(function () {
         }
     };
 
-    // function 
+    //Utility functions 
     function abbervatieLastName(username) {
         var splitString = username.split(' ');
         var abbervatiedName = splitString.slice(0, splitString.length - 1) + " " + splitString.pop().charAt(0) + ".";

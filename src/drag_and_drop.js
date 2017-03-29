@@ -17,11 +17,7 @@ $(function () {
             target.style.background = "#fffdc4";
             target.style.transition = "background 0.4s ease";
 
-
-            //Show Drop Arrows
-
-
-            //Dash Left & Right borders when the drag event happens 
+            //Dash Left & Right borders when the drag event happens
             var allColumns = document.getElementsByClassName('column');
             for (var i = 0; i < allColumns.length; i++) {
                 allColumns[i].style.opacity = 0.9;
@@ -37,14 +33,50 @@ $(function () {
             var draggedColunmDropArrow = document.getElementById("column_header_drop_arrow_" + (this.id).split("olumn")[1]);
             draggedColunmDropArrow.style.opacity = 0;
 
+            // var columnInex = parseInt((this.id).split("olumn")[1]);
+
+            //Get offsetWidth Value for the Column which users are dragging
+            var draggedColunmWidth = parseInt(document.getElementById(this.id).offsetWidth);
+            // console.log(draggedColunmWidth);
+
+            //Get Order Index for the Column which users are dragging
+            var targetStyle = window.getComputedStyle(target)
+            var draggedColunmOrderIndex = parseInt(targetStyle.getPropertyValue('order'));
+            // console.log(draggedColunmOrderIndex);
+
+            //Get a map between current elements and their offsetLeft values
+            var initialPosition = new Object();
+            var currentPosition = new Array();
+
+            for (var i = 2; i < 8; i++) {
+                var positionData = getColumnPosition(i);
+                initialPosition = {'name': 'column' + i, 'position': positionData};
+                currentPosition.push(initialPosition);
+            }
+
+            currentPosition.sort(function (a, b) {
+                if (a['position'] > b['position']) return 1;
+                if (a['position'] < b['position']) return -1;
+                return 0;
+            });
+
+            //Reduce the offsetWidth for all columns which are location on the right-hand
+            for (var i = draggedColunmOrderIndex + 1; i < allColumns.length; i++) {
+                var ElementId = currentPosition[i].name;
+
+                var tmpItem = document.getElementById(ElementId);
+                tmpItem.style.left = (-Math.abs(draggedColunmWidth)).toString() + 'px';
+                
+            };
         },
+
         stop: function (event, ui) {
 
             //Reset CSS after drag event completed
             var target = document.getElementById(this.id);
             target.style.zIndex = null;
             target.style.background = "";
-            target.style.transition = "background 2s ease"
+            target.style.transition = "background 1s ease"
 
             var allColumns = document.getElementsByClassName('column');
 
@@ -67,7 +99,6 @@ $(function () {
             for (var i = 2; i < 8; i++) {
                 var positionData = getColumnPosition(i);
                 currentPosition = {'name': 'column' + i, 'position': positionData};
-
                 newPosition.push(currentPosition);
             }
 
@@ -76,6 +107,8 @@ $(function () {
                 if (a['position'] < b['position']) return 1;
                 return 0;
             });
+
+            console.log(newPosition)
 
             var number = 0;
             for (var i = newPosition.length; i--;) {
@@ -145,7 +178,7 @@ $(function () {
             var draggedRows = document.getElementsByClassName('row' + (this.id).split("row")[1]);
             for (var i = 0; i < draggedRows.length; i++) {
                 draggedRows[i].style.background = "";
-                draggedRows[i].style.transition = "background 2s ease"
+                draggedRows[i].style.transition = "background 1s ease"
             };
 
             //Sort & Re-order Rows
@@ -202,6 +235,7 @@ $(function () {
         }
     });
 
+    //Utility functions
     function getColumnPosition(columnId) {
         var tmpItem = document.getElementById('column' + columnId);
         return tmpItem.offsetLeft;
