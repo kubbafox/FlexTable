@@ -70,16 +70,16 @@
 }
 
 /*.column_header:hover ~ div {*/
-    /*background: #fffdc4;*/
+/*background: #fffdc4;*/
 /*}*/
 
 /* Name Modal */
-.modal_user_profile{
+.modal_user_profile {
     display: none;
     position: absolute;
 }
 
-.user_profile{
+.user_profile {
     opacity: 0;
     position: absolute;
     height: 0px;
@@ -87,10 +87,12 @@
     color: azure;
     transition: all 0.3s ease;
 }
+
 .user_profile_details {
     margin-left: 45px;
     z-index: 2000;
 }
+
 .user_profile_details p {
     display: none;
     width: 160px;
@@ -122,8 +124,8 @@
     height: 130px;
     padding-top: 6px;
     padding-left: 3px;
-    margin-top:-35px;
-    margin-left:-4px;
+    margin-top: -35px;
+    margin-left: -4px;
     z-index: 2000;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     transition: all 0.3s ease;
@@ -144,9 +146,7 @@
     transition: all 0.3s ease;
 }
 
-
-
-/* Responsive table */ 
+/* Responsive table */
 @media (max-width: 1000px) {
     .container {
         flex-flow: column wrap;
@@ -170,7 +170,7 @@
 }
 
 /* SVG */
-.icon-cross{
+.icon-cross {
     display: inline-block;
     position: absolute;
     width: 8px;
@@ -179,10 +179,10 @@
     stroke: currentColor;
     fill: currentColor;
     margin-left: 340px;
-    margin-top:5px;
+    margin-top: 5px;
 }
 
-.column_drop_arrow{
+.column_drop_arrow {
     opacity: 0;
     color: #545454;
 }
@@ -215,5 +215,25 @@
     fill: currentColor;
 }
 
+/* onClick Cursor */
+#column1 .row_header:active {
+    cursor: ns-resize;
+}
+#column1 .row_header div:hover {
+    cursor: pointer;
+}
+
+#column1 .row_header div:active {
+    cursor: ns-resize;
+}
+
+#column2:active,
+#column3:active,
+#column4:active,
+#column5:active,
+#column6:active,
+#column7:active {
+    cursor: ew-resize;
+}
 
 
