@@ -338,11 +338,14 @@ $(function () {
             "paid_amount": "$4345.77"
         }];
 
-    constructTable();
+    var mockUsersCopy = mockUsers.slice();
 
-    function constructTable() {
+    constructTable(mockUsers);
+    createSortByAlphaListener();
 
-        var userCount = Object.keys(mockUsers).length;
+    function constructTable(userArray) {
+
+        var userCount = Object.keys(userArray).length;
 
         var column1HTML = "";
         var column2HTML = "";
@@ -353,7 +356,7 @@ $(function () {
         var column7HTML = "";
 
         for (var i = 0; i < userCount; i++) {
-            var tempObject = mockUsers[i];
+            var tempObject = userArray[i];
             var tempAbbreviatedName = abbervatieLastName(tempObject.name);
             var tempColumn1HTML = '<div class="row' + tempObject.id + ' row_header" ' + 'id="' + 'column1_row' + tempObject.id + '">' +
                 '<input type="checkbox" id="modal' + tempObject.id + '" class="modal_user_profile">' +
@@ -421,12 +424,13 @@ $(function () {
             column7HTML += tempColumn7HTML;
         }
 
-        console.log(column1HTML);
-
         var tableContainer = document.getElementById('tableContainer');
         var tableHTML = '<div id="column1" class="header">' +
             '<div class="column_header" style="order: 0">' +
             'Name' +
+            '<p class="sort sort_asc" id="sort_name_alpha_asc">' +
+            '<svg class="icon icon-sort_by_alpha" id="icon-sort_by_alpha_name">' +
+            '<use xlink:href="#icon-sort_by_alpha"></use></svg></p>' +
             '</div>' +
             column1HTML +
             '</div>' +
@@ -537,6 +541,78 @@ $(function () {
         var abbervatiedName = splitString.slice(0, splitString.length - 1) + " " + splitString.pop().charAt(0) + ".";
         return abbervatiedName;
     }
+
+    function destroyTableDOM () {
+        var tableContainer = document.getElementById('tableContainer');
+        tableContainer.innerHTML =""
+    }
+
+    //Create a Listener for Sorting Clicks
+    function createSortByAlphaListener() {
+        var SortByAlphaTempItem = document.getElementById("icon-sort_by_alpha_name");
+        SortByAlphaTempItem.addEventListener("click", function (){clickEventHandlerForAlphaSort()}, false);
+    }
+
+
+    function sortNameAsc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if (a['name'] > b['name']) return 1;
+            if (a['name'] < b['name']) return -1;
+            return 0;
+        });
+    }
+
+    function sortNameDesc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if (a['name'] < b['name']) return 1;
+            if (a['name'] > b['name']) return -1;
+            return 0;
+        });
+    }
+
+    function displaySortByAlphaLButton() {
+        var SortByAlphaTempItem = document.getElementById("icon-sort_by_alpha_name");
+        SortByAlphaTempItem.style.opacity = 1;
+    }
+
+    function hideSortByAlphaLButton() {
+        var SortByAlphaTempItem = document.getElementById("icon-sort_by_alpha_name");
+        SortByAlphaTempItem.style.opacity = 0;
+    }
+
+    var clickTimes = 0;
+    function clickEventHandlerForAlphaSort() {
+        clickTimes++;
+        if (clickTimes % 3 == 1) {
+            sortNameAsc(mockUsers);
+            destroyTableDOM();
+            constructTable(mockUsers);
+            createSortByAlphaListener();
+            displaySortByAlphaLButton();
+        } else if (clickTimes % 3 == 2) {
+            sortNameDesc(mockUsers);
+            destroyTableDOM();
+            constructTable(mockUsers);
+            createSortByAlphaListener();
+            displaySortByAlphaLButton();
+        } else if (clickTimes % 3 == 0) {
+            destroyTableDOM();
+            constructTable(mockUsersCopy);
+            createSortByAlphaListener();
+            hideSortByAlphaLButton();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 });
