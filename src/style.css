@@ -219,6 +219,9 @@
 #column1 .row_header:active {
     cursor: ns-resize;
 }
+#column1 .row_header div:hover {
+    cursor: pointer;
+}
 
 #column1 .row_header div:active {
     cursor: ns-resize;
