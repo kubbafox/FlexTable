@@ -66,8 +66,9 @@ $(function () {
 
                 var tmpItem = document.getElementById(ElementId);
                 tmpItem.style.left = (-Math.abs(draggedColunmWidth)).toString() + 'px';
-                
+                tmpItem.style.transition = "left 0.4s ease";
             };
+
         },
 
         stop: function (event, ui) {
@@ -117,6 +118,7 @@ $(function () {
                 tmpItem.style.left = 0;
                 tmpItem.style.top = 0;
                 tmpItem.style.zIndex = 0;
+                tmpItem.style.transition = "left 0s ease";
                 number++;
             }
         }
@@ -230,8 +232,6 @@ $(function () {
                 }
                 newRowOrder++;
             }
-
-
         }
     });
 
