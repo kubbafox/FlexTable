@@ -170,8 +170,6 @@ $(function () {
                 allRowHeader[i].style.opacity = 1;
             }
 
-
-
             //Reduce the offsetTop for all RowHeader which are located below the dragged item
 
             //Get offsetWidth Value for the dragged Column
@@ -180,6 +178,7 @@ $(function () {
             // //Get Order Index for the dragged Column
             var targetStyle = window.getComputedStyle(target)
             var draggedRowOrderIndex = parseInt(targetStyle.getPropertyValue('order'));
+            console.log(draggedRowOrderIndex);
 
             //Get a map between current elements and their offsetTop values
             var initialPosition = new Object();
@@ -209,12 +208,6 @@ $(function () {
 
             //Reset the Dragged Row Transition
             target.style.transition = null;
-
-
-
-
-
-
         },
 
         stop: function (event, ui) {
@@ -248,15 +241,17 @@ $(function () {
             }
 
             //Sort & Re-order Rows
-            var currentPosition = new Object();
             var newPosition = new Array();
             var userCount = getUserCount();
 
             for (var i = 1; i <= userCount; i++) {
+                var currentPosition = new Object();
                 var positionData = getRowPosition(i);
                 currentPosition = {'name': 'column1_row' + i, 'position': positionData};
                 newPosition.push(currentPosition);
             }
+
+            console.log(newPosition);
 
             newPosition.sort(function (a, b) {
                 if (a['position'] > b['position']) return -1;
@@ -273,8 +268,11 @@ $(function () {
                 tmpItem.style.left = 0;
                 tmpItem.style.top = 0;
                 numberOrder++;
+
+                // console.log(tmpItem);
             }
 
+            // console.log(newPosition);
             // Get Original Row Index in the order
             var rowOrder = new Array();
             for (var i = 0; i < newPosition.length; i++) {
@@ -330,7 +328,7 @@ $(function () {
 
     function setInitialRowOrder() {
         var allRowHeader = document.getElementsByClassName('row_header');
-        var rowOrderIndex = 2;
+        var rowOrderIndex = 1;
         for (var i = 0; i < allRowHeader.length; i++) {
             allRowHeader[i].style.order = rowOrderIndex;
             rowOrderIndex++;
