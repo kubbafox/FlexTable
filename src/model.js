@@ -343,10 +343,19 @@ $(function () {
     function constructTable() {
 
         var userCount = Object.keys(mockUsers).length;
-        var column1Container = document.getElementById('column1');
+
+        var column1HTML = "";
+        var column2HTML = "";
+        var column3HTML = "";
+        var column4HTML = "";
+        var column5HTML = "";
+        var column6HTML = "";
+        var column7HTML = "";
+
         for (var i = 0; i < userCount; i++) {
             var tempObject = mockUsers[i];
-            var rowHeaderHTML = '<div class="row' + tempObject.id + ' row_header" ' + 'id="' + 'column1_row' + tempObject.id + '">' +
+            var tempAbbreviatedName = abbervatieLastName(tempObject.name);
+            var tempColumn1HTML = '<div class="row' + tempObject.id + ' row_header" ' + 'id="' + 'column1_row' + tempObject.id + '">' +
                 '<input type="checkbox" id="modal' + tempObject.id + '" class="modal_user_profile">' +
                 '<label for="modal' + tempObject.id + '">' +
                 '<div>' +
@@ -367,80 +376,159 @@ $(function () {
                 '</label>' +
                 '</div>';
 
-            column1Container.innerHTML += rowHeaderHTML;
-        }
+            column1HTML += tempColumn1HTML;
 
-        var column2Container = document.getElementById('column2');
-        for (var i = 0; i < userCount; i++) {
-            var tempObject = mockUsers[i];
-            var tempAbbervatiedName = abbervatieLastName(tempObject.name);
-            var rowHeaderHTML = '<div class="row row' + tempObject.id + '">' +
+            var tempColumn2HTML = '<div class="row row' + tempObject.id + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
-                '<span>' + tempAbbervatiedName + '</span>' + tempObject.commission_rate +
+                '<span>' + tempAbbreviatedName + '</span>' + tempObject.commission_rate +
                 '</div>'
 
-            column2Container.innerHTML += rowHeaderHTML;
-        }
+            column2HTML += tempColumn2HTML;
 
-        var column3Container = document.getElementById('column3');
-        for (var i = 0; i < userCount; i++) {
-            var tempObject = mockUsers[i];
-            var tempAbbervatiedName = abbervatieLastName(tempObject.name);
-            var rowHeaderHTML = '<div class="row row' + tempObject.id + '">' +
+            var tempColumn3HTML = '<div class="row row' + tempObject.id + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
-                '<span>' + tempAbbervatiedName + '</span>' + tempObject.commission_rate +
+                '<span>' + tempAbbreviatedName + '</span>' + tempObject.commission_rate +
                 '</div>'
 
-            column3Container.innerHTML += rowHeaderHTML;
-        }
+            column3HTML += tempColumn3HTML;
 
-        var column4Container = document.getElementById('column4');
-        for (var i = 0; i < userCount; i++) {
-            var tempObject = mockUsers[i];
-            var tempAbbervatiedName = abbervatieLastName(tempObject.name);
-            var rowHeaderHTML = '<div class="row row' + tempObject.id + '">' +
+            var tempColumn4HTML = '<div class="row row' + tempObject.id + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
-                '<span>' + tempAbbervatiedName + '</span>' + tempObject.total_deals +
+                '<span>' + tempAbbreviatedName + '</span>' + tempObject.total_deals +
                 '</div>'
 
-            column4Container.innerHTML += rowHeaderHTML;
-        }
+            column4HTML += tempColumn4HTML;
 
-        var column5Container = document.getElementById('column5');
-        for (var i = 0; i < userCount; i++) {
-            var tempObject = mockUsers[i];
-            var tempAbbervatiedName = abbervatieLastName(tempObject.name);
-            var rowHeaderHTML = '<div class="row row' + tempObject.id + '">' +
+            var tempColumn5HTML = '<div class="row row' + tempObject.id + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
-                '<span>' + tempAbbervatiedName + '</span>' + tempObject.payment_cycle +
+                '<span>' + tempAbbreviatedName + '</span>' + tempObject.payment_cycle +
                 '</div>'
 
-            column5Container.innerHTML += rowHeaderHTML;
-        }
+            column5HTML += tempColumn5HTML;
 
-        var column6Container = document.getElementById('column6');
-        for (var i = 0; i < userCount; i++) {
-            var tempObject = mockUsers[i];
-            var tempAbbervatiedName = abbervatieLastName(tempObject.name);
-            var rowHeaderHTML = '<div class="row row' + tempObject.id + '">' +
+            var tempColumn6HTML = '<div class="row row' + tempObject.id + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
-                '<span>' + tempAbbervatiedName + '</span>' + tempObject.outstanding_balance +
+                '<span>' + tempAbbreviatedName + '</span>' + tempObject.outstanding_balance +
                 '</div>'
 
-            column6Container.innerHTML += rowHeaderHTML;
-        }
+            column6HTML += tempColumn6HTML;
 
-        var column7Container = document.getElementById('column7');
-        for (var i = 0; i < userCount; i++) {
-            var tempObject = mockUsers[i];
-            var tempAbbervatiedName = abbervatieLastName(tempObject.name);
-            var rowHeaderHTML = '<div class="row row' + tempObject.id + '">' +
+            var tempColumn7HTML = '<div class="row row' + tempObject.id + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
-                '<span>' + tempAbbervatiedName + '</span>' + tempObject.paid_amount +
+                '<span>' + tempAbbreviatedName + '</span>' + tempObject.paid_amount +
                 '</div>'
 
-            column7Container.innerHTML += rowHeaderHTML;
+            column7HTML += tempColumn7HTML;
         }
+
+        console.log(column1HTML);
+
+        var tableContainer = document.getElementById('tableContainer');
+        var tableHTML = '<div id="column1" class="header">' +
+            '<div class="column_header" style="order: 0">' +
+            'Name' +
+            '</div>' +
+            column1HTML +
+            '</div>' +
+            '<div id="column2" class="column content2">' +
+            '<div class="column_header">' +
+            'Commission Rate'+
+            '<p id="column_header_drop_arrow_2" class="column_drop_arrow">'+
+            '<svg class="icon icon-arrow-down1">'+
+            '<use xlink:href="#icon-arrow-down2">'+
+            '</use>'+
+            '</svg>'+
+            '<svg class="icon icon-arrow-down2">'+
+            '<use xlink:href="#icon-arrow-down2">'+
+            '</use>'+
+            '</svg>'+
+            '</p>'+
+            '</div>'+
+            column2HTML +
+            '</div>'+
+            '<div id="column3" class="column content3">'+
+            '<div class="column_header">'+
+            'Contract End Day'+
+            '<p id="column_header_drop_arrow_3" class="column_drop_arrow">'+
+            '<svg class="icon icon-arrow-down1">'+
+            '<use xlink:href="#icon-arrow-down2">'+
+            '</use>'+
+            '</svg>'+
+            '<svg class="icon icon-arrow-down2">'+
+            '<use xlink:href="#icon-arrow-down2">'+
+            '</use>'+
+            '</svg>'+
+            '</p>'+
+            '</div>'+
+            column3HTML +
+            '</div>'+
+            '<div id="column4" class="column content4">'+
+            '<div class="column_header">'+
+            'Total Deals'+
+            '<p id="column_header_drop_arrow_4" class="column_drop_arrow">'+
+            '<svg class="icon icon-arrow-down1">'+
+            '<use xlink:href="#icon-arrow-down2">'+
+            '</use>'+
+            '</svg>'+
+            '<svg class="icon icon-arrow-down2">'+
+            '<use xlink:href="#icon-arrow-down2">'+
+            '</use>'+
+            '</svg>'+
+            '</p>'+
+            '</div>'+
+            column4HTML +
+            '</div>'+
+            '<div id="column5" class="column content5">'+
+            '<div class="column_header">'+
+            'Payment Cycle'+
+            '<p id="column_header_drop_arrow_5" class="column_drop_arrow">'+
+            '<svg class="icon icon-arrow-down1">'+
+            '<use xlink:href="#icon-arrow-down2">'+
+            '</use>'+
+            '</svg>'+
+            '<svg class="icon icon-arrow-down2">'+
+            '<use xlink:href="#icon-arrow-down2">'+
+            '</use>'+
+            '</svg>'+
+            '</p>'+
+            '</div>'+
+            column5HTML +
+            '</div>'+
+            '<div id="column6" class="column content6">'+
+            '<div class="column_header">'+
+            'Outstanding Balance'+
+            '<p id="column_header_drop_arrow_6" class="column_drop_arrow">'+
+            '<svg class="icon icon-arrow-down1">'+
+            '<use xlink:href="#icon-arrow-down2">'+
+            '</use>'+
+            '</svg>'+
+            '<svg class="icon icon-arrow-down2">'+
+            '<use xlink:href="#icon-arrow-down2">'+
+            '</use>'+
+            '</svg>'+
+            '</p>'+
+            '</div>'+
+            column6HTML +
+            '</div>'+
+            '<div id="column7" class="column content7">'+
+            '<div class="column_header">'+
+            'Paid Amount'+
+            '<p id="column_header_drop_arrow_7" class="column_drop_arrow">'+
+            '<svg class="icon icon-arrow-down1">'+
+            '<use xlink:href="#icon-arrow-down2">'+
+            '</use>'+
+            '</svg>'+
+            '<svg class="icon icon-arrow-down2">'+
+            '<use xlink:href="#icon-arrow-down2">'+
+            '</use>'+
+            '</svg>'+
+            '</p>'+
+            '</div>'+
+            column7HTML +
+            '</div>'
+
+        tableContainer.innerHTML += tableHTML;
+
     };
 
     //Utility functions 

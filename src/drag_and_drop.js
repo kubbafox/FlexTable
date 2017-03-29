@@ -6,6 +6,10 @@
 
 $(function () {
 
+    // Setup Initial Order to avoid some issue during the first drag event.
+    setInitialRowOrder();
+    setInitialColumnOder();
+
     // Drag & Drop Columns
 
     $(".column").draggable({
@@ -67,7 +71,8 @@ $(function () {
                 var tmpItem = document.getElementById(ElementId);
                 tmpItem.style.left = (-Math.abs(draggedColunmWidth)).toString() + 'px';
                 tmpItem.style.transition = "left 0.4s ease";
-            };
+            }
+            ;
 
         },
 
@@ -135,7 +140,7 @@ $(function () {
             target.style.zIndex = 1;
 
             var allRows = document.getElementsByClassName('row');
-            for (var i = 0; i < allRows.length; i++){
+            for (var i = 0; i < allRows.length; i++) {
                 allRows[i].style.borderWidth = "1px 1px 1px 1px";
                 allRows[i].style.borderTopStyle = "dashed";
                 allRows[i].style.borderBottomStyle = "dashed";
@@ -150,11 +155,11 @@ $(function () {
                 draggedRow[i].style.height = "0px";
                 draggedRow[i].style.opacity = 0;
                 draggedRow[i].style.transition = "height 0.5s ease, opacity 0.4s ease, borderWidth 0.5s ease, padding 0.5s ease, background 0.7s ease";
-
             }
 
+
             var allRowHeader = document.getElementsByClassName('row_header');
-            for (var i = 0; i < allRowHeader.length; i++){
+            for (var i = 0; i < allRowHeader.length; i++) {
                 allRowHeader[i].style.borderWidth = "1px 1px 1px 1px";
                 allRowHeader[i].style.borderTopStyle = "dashed";
                 allRowHeader[i].style.borderBottomStyle = "dashed";
@@ -168,8 +173,7 @@ $(function () {
             //Reduce the offsetTop for all RowHeader which are located below the dragged item
 
             //Get offsetWidth Value for the dragged Column
-            var draggedColumnHeight = parseInt(document.getElementById(this.id).offsetTop);
-            console.log(draggedColumnHeight);
+            // var draggedColumnHeight = parseInt(document.getElementById(this.id).offsetTop);
 
             // //Get Order Index for the dragged Column
             var targetStyle = window.getComputedStyle(target)
@@ -193,20 +197,17 @@ $(function () {
                 return 0;
             });
 
-            console.log(currentPosition);
-
-            // Reduce the offsetWidth for all columns which are located on the right-hand
+            // Reduce the offsetWidth for all columns which are located below the dragged item
             for (var i = draggedRowOrderIndex; i < userCount; i++) {
                 var ElementId = currentPosition[i].name;
-
                 console.log(ElementId);
-
                 var tmpItem = document.getElementById(ElementId);
                 tmpItem.style.top = '-38px';
                 tmpItem.style.transition = "top 0.5s ease";
             }
 
-
+            //Reset the Dragged Row Transition
+            target.style.transition = null;
         },
 
         stop: function (event, ui) {
@@ -215,7 +216,7 @@ $(function () {
 
             // Reset CSS after drag event completed
             var allRows = document.getElementsByClassName('row');
-            for (var i = 0; i < allRows.length; i++){
+            for (var i = 0; i < allRows.length; i++) {
                 allRows[i].style.opacity = 1;
                 allRows[i].style.margin = "0";
                 allRows[i].style.borderWidth = "1px";
@@ -226,7 +227,7 @@ $(function () {
                 allRows[i].style.transition = "opacity 0.8s ease, background 0.8s ease";
             }
             var allRowHeader = document.getElementsByClassName('row_header');
-            for (var i = 0; i < allRowHeader.length; i++){
+            for (var i = 0; i < allRowHeader.length; i++) {
                 allRowHeader[i].style.margin = "0";
                 allRowHeader[i].style.borderWidth = "1px";
                 allRowHeader[i].style.borderStyle = "solid";
@@ -240,15 +241,17 @@ $(function () {
             }
 
             //Sort & Re-order Rows
-            var currentPosition = new Object();
             var newPosition = new Array();
             var userCount = getUserCount();
 
             for (var i = 1; i <= userCount; i++) {
+                var currentPosition = new Object();
                 var positionData = getRowPosition(i);
                 currentPosition = {'name': 'column1_row' + i, 'position': positionData};
                 newPosition.push(currentPosition);
             }
+
+            console.log(newPosition);
 
             newPosition.sort(function (a, b) {
                 if (a['position'] > b['position']) return -1;
@@ -265,8 +268,11 @@ $(function () {
                 tmpItem.style.left = 0;
                 tmpItem.style.top = 0;
                 numberOrder++;
+
+                // console.log(tmpItem);
             }
 
+            // console.log(newPosition);
             // Get Original Row Index in the order
             var rowOrder = new Array();
             for (var i = 0; i < newPosition.length; i++) {
@@ -292,20 +298,45 @@ $(function () {
     //Utility functions
     function getColumnPosition(columnId) {
         var tmpItem = document.getElementById('column' + columnId);
+
         return tmpItem.offsetLeft;
     }
 
     function getRowPosition(rowId) {
         var tmpItem = document.getElementById('column1_row' + rowId);
+
         return tmpItem.offsetTop;
     }
 
     function getUserCount() {
         //Get user Count
         //Remove column_header
-        var userCount = document.getElementById('column1').childNodes.length - 3;
+        var userCount = document.getElementById('column1').childNodes.length - 1;
+
         return userCount;
     }
 
+    function setInitialColumnOder() {
+        var allColumns = document.getElementsByClassName('column');
+        var columnsOrderIndex = 0;
+        for (var i = 0; i < allColumns.length; i++) {
+            allColumns[i].style.order = columnsOrderIndex;
+            allColumns[i].style.transition = "left 0.4s ease";
+            columnsOrderIndex++;
+        }
+    }
+
+    function setInitialRowOrder() {
+        var allRowHeader = document.getElementsByClassName('row_header');
+        var rowOrderIndex = 1;
+        for (var i = 0; i < allRowHeader.length; i++) {
+            allRowHeader[i].style.order = rowOrderIndex;
+            rowOrderIndex++;
+        }
+    }
+
+
+
 
 });
+
