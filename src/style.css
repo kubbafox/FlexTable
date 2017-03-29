@@ -215,6 +215,36 @@
     fill: currentColor;
 }
 
+
+.icon-sort_by_alpha
+{
+    opacity: 0;
+    position: relative;
+    width: 14px;
+    height: 14px;
+    top: 10px;
+    stroke: currentColor;
+    fill: currentColor;
+    font-weight: 100;
+    stroke-width: 0.2;
+    transition: opacity 0.5s ease;
+
+}
+
+.sort_asc {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: 200px;
+    top: 33px;
+}
+
+.icon-sort_by_alpha:hover{
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+
 /* onClick Cursor */
 #column1 .row_header:active {
     cursor: ns-resize;
