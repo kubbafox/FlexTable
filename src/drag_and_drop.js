@@ -6,6 +6,10 @@
 
 $(function () {
 
+    // Setup Initial Order to avoid some issue during the first drag event.
+    setInitialRowOrder();
+    setInitialColumnOder();
+
     // Drag & Drop Columns
 
     $(".column").draggable({
@@ -67,7 +71,8 @@ $(function () {
                 var tmpItem = document.getElementById(ElementId);
                 tmpItem.style.left = (-Math.abs(draggedColunmWidth)).toString() + 'px';
                 tmpItem.style.transition = "left 0.4s ease";
-            };
+            }
+            ;
 
         },
 
@@ -135,7 +140,7 @@ $(function () {
             target.style.zIndex = 1;
 
             var allRows = document.getElementsByClassName('row');
-            for (var i = 0; i < allRows.length; i++){
+            for (var i = 0; i < allRows.length; i++) {
                 allRows[i].style.borderWidth = "1px 1px 1px 1px";
                 allRows[i].style.borderTopStyle = "dashed";
                 allRows[i].style.borderBottomStyle = "dashed";
@@ -150,11 +155,11 @@ $(function () {
                 draggedRow[i].style.height = "0px";
                 draggedRow[i].style.opacity = 0;
                 draggedRow[i].style.transition = "height 0.5s ease, opacity 0.4s ease, borderWidth 0.5s ease, padding 0.5s ease, background 0.7s ease";
-
             }
 
+
             var allRowHeader = document.getElementsByClassName('row_header');
-            for (var i = 0; i < allRowHeader.length; i++){
+            for (var i = 0; i < allRowHeader.length; i++) {
                 allRowHeader[i].style.borderWidth = "1px 1px 1px 1px";
                 allRowHeader[i].style.borderTopStyle = "dashed";
                 allRowHeader[i].style.borderBottomStyle = "dashed";
@@ -165,16 +170,16 @@ $(function () {
                 allRowHeader[i].style.opacity = 1;
             }
 
+
+
             //Reduce the offsetTop for all RowHeader which are located below the dragged item
 
             //Get offsetWidth Value for the dragged Column
-            var draggedColumnHeight = parseInt(document.getElementById(this.id).offsetTop);
-            console.log(draggedColumnHeight);
+            // var draggedColumnHeight = parseInt(document.getElementById(this.id).offsetTop);
 
             // //Get Order Index for the dragged Column
             var targetStyle = window.getComputedStyle(target)
             var draggedRowOrderIndex = parseInt(targetStyle.getPropertyValue('order'));
-            console.log(draggedRowOrderIndex);
 
             //Get a map between current elements and their offsetTop values
             var initialPosition = new Object();
@@ -193,18 +198,21 @@ $(function () {
                 return 0;
             });
 
-            console.log(currentPosition);
-
-            // Reduce the offsetWidth for all columns which are located on the right-hand
+            // Reduce the offsetWidth for all columns which are located below the dragged item
             for (var i = draggedRowOrderIndex; i < userCount; i++) {
                 var ElementId = currentPosition[i].name;
-
                 console.log(ElementId);
-
                 var tmpItem = document.getElementById(ElementId);
                 tmpItem.style.top = '-38px';
                 tmpItem.style.transition = "top 0.5s ease";
             }
+
+            //Reset the Dragged Row Transition
+            target.style.transition = null;
+
+
+
+
 
 
         },
@@ -215,7 +223,7 @@ $(function () {
 
             // Reset CSS after drag event completed
             var allRows = document.getElementsByClassName('row');
-            for (var i = 0; i < allRows.length; i++){
+            for (var i = 0; i < allRows.length; i++) {
                 allRows[i].style.opacity = 1;
                 allRows[i].style.margin = "0";
                 allRows[i].style.borderWidth = "1px";
@@ -226,7 +234,7 @@ $(function () {
                 allRows[i].style.transition = "opacity 0.8s ease, background 0.8s ease";
             }
             var allRowHeader = document.getElementsByClassName('row_header');
-            for (var i = 0; i < allRowHeader.length; i++){
+            for (var i = 0; i < allRowHeader.length; i++) {
                 allRowHeader[i].style.margin = "0";
                 allRowHeader[i].style.borderWidth = "1px";
                 allRowHeader[i].style.borderStyle = "solid";
@@ -292,11 +300,13 @@ $(function () {
     //Utility functions
     function getColumnPosition(columnId) {
         var tmpItem = document.getElementById('column' + columnId);
+
         return tmpItem.offsetLeft;
     }
 
     function getRowPosition(rowId) {
         var tmpItem = document.getElementById('column1_row' + rowId);
+
         return tmpItem.offsetTop;
     }
 
@@ -304,8 +314,31 @@ $(function () {
         //Get user Count
         //Remove column_header
         var userCount = document.getElementById('column1').childNodes.length - 3;
+
         return userCount;
     }
 
+    function setInitialColumnOder() {
+        var allColumns = document.getElementsByClassName('column');
+        var columnsOrderIndex = 0;
+        for (var i = 0; i < allColumns.length; i++) {
+            allColumns[i].style.order = columnsOrderIndex;
+            allColumns[i].style.transition = "left 0.4s ease";
+            columnsOrderIndex++;
+        }
+    }
+
+    function setInitialRowOrder() {
+        var allRowHeader = document.getElementsByClassName('row_header');
+        var rowOrderIndex = 2;
+        for (var i = 0; i < allRowHeader.length; i++) {
+            allRowHeader[i].style.order = rowOrderIndex;
+            rowOrderIndex++;
+        }
+    }
+
+
+
 
 });
+
