@@ -791,6 +791,8 @@ $(function () {
 
             $(".row_header").draggable({
                 start: function (event, ui) {
+                    var target = document.getElementById(this.id);
+                    target.style.zIndex = 1;
 
                     //Update CSS Properties to highlight dragged row
                     var allRows = document.getElementsByClassName('row');
@@ -824,8 +826,6 @@ $(function () {
                         allRowHeader[i].style.opacity = 1;
                     }
 
-                    var target = document.getElementById(this.id);
-                    target.style.zIndex = 1;
                     target.style.opacity = 0.8;
 
                     //Reduce the offsetTop for all RowHeader which are located below the dragged item
@@ -871,6 +871,7 @@ $(function () {
                 stop: function (event, ui) {
                     var target = document.getElementById(this.id);
                     target.style.zIndex = null;
+                    target.style.opacity = 1;
 
                     // Reset CSS after drag event completed
                     var allRows = document.getElementsByClassName('row');
