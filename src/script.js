@@ -779,7 +779,7 @@ $(function () {
                         tmpItem.style.left = 0;
                         tmpItem.style.top = 0;
                         tmpItem.style.zIndex = 0;
-                        tmpItem.style.transition = "left 0s ease";
+                        tmpItem.style.transition = "background 1s ease";
                         number++;
                     }
                 }
@@ -889,11 +889,12 @@ $(function () {
                         allRowHeader[i].style.borderStyle = "solid";
                         allRowHeader[i].style.borderColor = "#e0e0e0;";
                         allRowHeader[i].style.transition = "margin 0.2s ease"
+
                     }
                     var draggedRows = document.getElementsByClassName('row' + (this.id).split("row")[1]);
                     for (var i = 0; i < draggedRows.length; i++) {
                         draggedRows[i].style.background = "";
-                        draggedRows[i].style.transition = "background 1s ease"
+                        draggedRows[i].style.transition = "background 1.5s ease"
                     }
 
                     //Sort & Re-order Rows
