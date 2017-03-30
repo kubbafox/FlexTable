@@ -437,7 +437,7 @@ $(function () {
             '</div>' +
             column1HTML +
             '</div>' +
-            '<div id="column2" class="column content2">' +
+            '<div id="column2" class="column content2" draggable="true">' +
             '<div class="column_header">' +
             'Commission Rate' +
             '<p id="column_header_drop_arrow_2" class="column_drop_arrow">' +
@@ -633,7 +633,6 @@ $(function () {
         searchInputDOM.addEventListener("keyup", function () {
             searchUserArray(mockUsers);
         }, false);
-        console.log("a");
     }
 
     function getSearchInput() {
@@ -650,15 +649,17 @@ $(function () {
             }
         }
         refreshTableDOM(templeArray);
-
-        console.log(tempString);
-
     }
 
 
     /**
      * Dragging Feature
      */
+
+    //Make Column & Row Draggable
+
+
+    //Create Listeners for drag
 
     function dragAndDrop() {
 
@@ -676,7 +677,7 @@ $(function () {
                     //Update CSS Properties to highlight dragged column
                     var target = document.getElementById(this.id);
                     target.style.zIndex = 100;
-                    target.style.background = "#fffdc4";
+                    target.style.background = "#b5f1ff";
                     target.style.transition = "background 0.4s ease";
 
                     //Dash Left & Right borders when the drag event happens
@@ -792,9 +793,6 @@ $(function () {
                 start: function (event, ui) {
 
                     //Update CSS Properties to highlight dragged row
-                    var target = document.getElementById(this.id);
-                    target.style.zIndex = 1;
-
                     var allRows = document.getElementsByClassName('row');
                     for (var i = 0; i < allRows.length; i++) {
                         allRows[i].style.borderWidth = "1px 1px 1px 1px";
@@ -805,7 +803,7 @@ $(function () {
 
                     var draggedRow = document.getElementsByClassName('row' + (this.id).split("row")[1]);
                     for (var i = 0; i < draggedRow.length; i++) {
-                        draggedRow[i].style.background = "#fffdc4";
+                        draggedRow[i].style.background = "#b5f1ff";
                         draggedRow[i].style.padding = "0px";
                         draggedRow[i].style.borderWidth = 0;
                         draggedRow[i].style.height = "0px";
@@ -825,6 +823,10 @@ $(function () {
                         allRowHeader[i].style.height = "28px";
                         allRowHeader[i].style.opacity = 1;
                     }
+
+                    var target = document.getElementById(this.id);
+                    target.style.zIndex = 1;
+                    target.style.opacity = 0.8;
 
                     //Reduce the offsetTop for all RowHeader which are located below the dragged item
 
