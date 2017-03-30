@@ -340,8 +340,10 @@ $(function () {
 
     var mockUsersCopy = mockUsers.slice();
 
+
     constructTable(mockUsers);
     createSortByAlphaListener();
+    createSearchTypingListener();
     dragAndDrop();
 
     function constructTable(userArray) {
@@ -358,7 +360,7 @@ $(function () {
 
         for (var i = 0; i < userCount; i++) {
             var tempObject = userArray[i];
-            var tempAbbreviatedName = abbervatieLastName(tempObject.name);
+            var tempAbbreviatedName = abbreviateLastName(tempObject.name);
             var tempColumn1HTML = '<div class="row' + tempObject.id + ' row_header" ' + 'id="' + 'column1_row' + tempObject.id + '">' +
                 '<input type="checkbox" id="modal' + tempObject.id + '" class="modal_user_profile">' +
                 '<label for="modal' + tempObject.id + '">' +
@@ -391,7 +393,7 @@ $(function () {
 
             var tempColumn3HTML = '<div class="row row' + tempObject.id + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
-                '<span>' + tempAbbreviatedName + '</span>' + tempObject.commission_rate +
+                '<span>' + tempAbbreviatedName + '</span>' + tempObject.contract_end_day +
                 '</div>'
 
             column3HTML += tempColumn3HTML;
@@ -437,98 +439,98 @@ $(function () {
             '</div>' +
             '<div id="column2" class="column content2">' +
             '<div class="column_header">' +
-            'Commission Rate'+
-            '<p id="column_header_drop_arrow_2" class="column_drop_arrow">'+
-            '<svg class="icon icon-arrow-down1">'+
-            '<use xlink:href="#icon-arrow-down2">'+
-            '</use>'+
-            '</svg>'+
-            '<svg class="icon icon-arrow-down2">'+
-            '<use xlink:href="#icon-arrow-down2">'+
-            '</use>'+
-            '</svg>'+
-            '</p>'+
-            '</div>'+
+            'Commission Rate' +
+            '<p id="column_header_drop_arrow_2" class="column_drop_arrow">' +
+            '<svg class="icon icon-arrow-down1">' +
+            '<use xlink:href="#icon-arrow-down2">' +
+            '</use>' +
+            '</svg>' +
+            '<svg class="icon icon-arrow-down2">' +
+            '<use xlink:href="#icon-arrow-down2">' +
+            '</use>' +
+            '</svg>' +
+            '</p>' +
+            '</div>' +
             column2HTML +
-            '</div>'+
-            '<div id="column3" class="column content3">'+
-            '<div class="column_header">'+
-            'Contract End Day'+
-            '<p id="column_header_drop_arrow_3" class="column_drop_arrow">'+
-            '<svg class="icon icon-arrow-down1">'+
-            '<use xlink:href="#icon-arrow-down2">'+
-            '</use>'+
-            '</svg>'+
-            '<svg class="icon icon-arrow-down2">'+
-            '<use xlink:href="#icon-arrow-down2">'+
-            '</use>'+
-            '</svg>'+
-            '</p>'+
-            '</div>'+
+            '</div>' +
+            '<div id="column3" class="column content3">' +
+            '<div class="column_header">' +
+            'Contract End Day' +
+            '<p id="column_header_drop_arrow_3" class="column_drop_arrow">' +
+            '<svg class="icon icon-arrow-down1">' +
+            '<use xlink:href="#icon-arrow-down2">' +
+            '</use>' +
+            '</svg>' +
+            '<svg class="icon icon-arrow-down2">' +
+            '<use xlink:href="#icon-arrow-down2">' +
+            '</use>' +
+            '</svg>' +
+            '</p>' +
+            '</div>' +
             column3HTML +
-            '</div>'+
-            '<div id="column4" class="column content4">'+
-            '<div class="column_header">'+
-            'Total Deals'+
-            '<p id="column_header_drop_arrow_4" class="column_drop_arrow">'+
-            '<svg class="icon icon-arrow-down1">'+
-            '<use xlink:href="#icon-arrow-down2">'+
-            '</use>'+
-            '</svg>'+
-            '<svg class="icon icon-arrow-down2">'+
-            '<use xlink:href="#icon-arrow-down2">'+
-            '</use>'+
-            '</svg>'+
-            '</p>'+
-            '</div>'+
+            '</div>' +
+            '<div id="column4" class="column content4">' +
+            '<div class="column_header">' +
+            'Total Deals' +
+            '<p id="column_header_drop_arrow_4" class="column_drop_arrow">' +
+            '<svg class="icon icon-arrow-down1">' +
+            '<use xlink:href="#icon-arrow-down2">' +
+            '</use>' +
+            '</svg>' +
+            '<svg class="icon icon-arrow-down2">' +
+            '<use xlink:href="#icon-arrow-down2">' +
+            '</use>' +
+            '</svg>' +
+            '</p>' +
+            '</div>' +
             column4HTML +
-            '</div>'+
-            '<div id="column5" class="column content5">'+
-            '<div class="column_header">'+
-            'Payment Cycle'+
-            '<p id="column_header_drop_arrow_5" class="column_drop_arrow">'+
-            '<svg class="icon icon-arrow-down1">'+
-            '<use xlink:href="#icon-arrow-down2">'+
-            '</use>'+
-            '</svg>'+
-            '<svg class="icon icon-arrow-down2">'+
-            '<use xlink:href="#icon-arrow-down2">'+
-            '</use>'+
-            '</svg>'+
-            '</p>'+
-            '</div>'+
+            '</div>' +
+            '<div id="column5" class="column content5">' +
+            '<div class="column_header">' +
+            'Payment Cycle' +
+            '<p id="column_header_drop_arrow_5" class="column_drop_arrow">' +
+            '<svg class="icon icon-arrow-down1">' +
+            '<use xlink:href="#icon-arrow-down2">' +
+            '</use>' +
+            '</svg>' +
+            '<svg class="icon icon-arrow-down2">' +
+            '<use xlink:href="#icon-arrow-down2">' +
+            '</use>' +
+            '</svg>' +
+            '</p>' +
+            '</div>' +
             column5HTML +
-            '</div>'+
-            '<div id="column6" class="column content6">'+
-            '<div class="column_header">'+
-            'Outstanding Balance'+
-            '<p id="column_header_drop_arrow_6" class="column_drop_arrow">'+
-            '<svg class="icon icon-arrow-down1">'+
-            '<use xlink:href="#icon-arrow-down2">'+
-            '</use>'+
-            '</svg>'+
-            '<svg class="icon icon-arrow-down2">'+
-            '<use xlink:href="#icon-arrow-down2">'+
-            '</use>'+
-            '</svg>'+
-            '</p>'+
-            '</div>'+
+            '</div>' +
+            '<div id="column6" class="column content6">' +
+            '<div class="column_header">' +
+            'Outstanding Balance' +
+            '<p id="column_header_drop_arrow_6" class="column_drop_arrow">' +
+            '<svg class="icon icon-arrow-down1">' +
+            '<use xlink:href="#icon-arrow-down2">' +
+            '</use>' +
+            '</svg>' +
+            '<svg class="icon icon-arrow-down2">' +
+            '<use xlink:href="#icon-arrow-down2">' +
+            '</use>' +
+            '</svg>' +
+            '</p>' +
+            '</div>' +
             column6HTML +
-            '</div>'+
-            '<div id="column7" class="column content7">'+
-            '<div class="column_header">'+
-            'Paid Amount'+
-            '<p id="column_header_drop_arrow_7" class="column_drop_arrow">'+
-            '<svg class="icon icon-arrow-down1">'+
-            '<use xlink:href="#icon-arrow-down2">'+
-            '</use>'+
-            '</svg>'+
-            '<svg class="icon icon-arrow-down2">'+
-            '<use xlink:href="#icon-arrow-down2">'+
-            '</use>'+
-            '</svg>'+
-            '</p>'+
-            '</div>'+
+            '</div>' +
+            '<div id="column7" class="column content7">' +
+            '<div class="column_header">' +
+            'Paid Amount' +
+            '<p id="column_header_drop_arrow_7" class="column_drop_arrow">' +
+            '<svg class="icon icon-arrow-down1">' +
+            '<use xlink:href="#icon-arrow-down2">' +
+            '</use>' +
+            '</svg>' +
+            '<svg class="icon icon-arrow-down2">' +
+            '<use xlink:href="#icon-arrow-down2">' +
+            '</use>' +
+            '</svg>' +
+            '</p>' +
+            '</div>' +
             column7HTML +
             '</div>'
 
@@ -537,23 +539,35 @@ $(function () {
     };
 
     //Utility functions 
-    function abbervatieLastName(username) {
+    function abbreviateLastName(username) {
         var splitString = username.split(' ');
-        var abbervatiedName = splitString.slice(0, splitString.length - 1) + " " + splitString.pop().charAt(0) + ".";
-        return abbervatiedName;
+        var abbreviatedName = splitString.slice(0, splitString.length - 1) + " " + splitString.pop().charAt(0) + ".";
+        return abbreviatedName;
     }
 
-    function destroyTableDOM () {
+    function destroyTableDOM() {
         var tableContainer = document.getElementById('tableContainer');
-        tableContainer.innerHTML =""
+        tableContainer.innerHTML = ""
     }
+
+    function refreshTableDOM(userArray) {
+        destroyTableDOM();
+        constructTable(userArray);
+        createSortByAlphaListener();
+        dragAndDrop();
+    }
+
+    /**
+     * Sorting Feature
+     */
 
     //Create a Listener for Sorting Clicks
     function createSortByAlphaListener() {
         var SortByAlphaTempItem = document.getElementById("icon-sort_by_alpha_name");
-        SortByAlphaTempItem.addEventListener("click", function (){clickEventHandlerForAlphaSort()}, false);
+        SortByAlphaTempItem.addEventListener("click", function () {
+            clickEventHandlerForAlphaSort();
+        }, false);
     }
-
 
     function sortNameAsc(mockUsers) {
         mockUsers.sort(function (a, b) {
@@ -582,6 +596,7 @@ $(function () {
     }
 
     var clickTimes = 0;
+
     function clickEventHandlerForAlphaSort() {
         clickTimes++;
         if (clickTimes % 3 == 1) {
@@ -608,10 +623,45 @@ $(function () {
         }
     }
 
-    function dragAndDrop(){
-        /**
-         * Created by Neverland on 3/26/17.
-         */
+    /**
+     * Searching Feature
+     */
+
+    //Create a Listener for Typing
+    function createSearchTypingListener() {
+        var searchInputDOM = document.getElementById("search_input");
+        searchInputDOM.addEventListener("keyup", function () {
+            searchUserArray(mockUsers);
+        }, false);
+        console.log("a");
+    }
+
+    function getSearchInput() {
+        return document.getElementById('search_input').value;
+    }
+
+    function searchUserArray(mockUsers) {
+        var tempString = getSearchInput().toUpperCase();
+        var templeArray = [];
+
+        for (var i = 0; i < mockUsers.length; i++) {
+            if (mockUsers[i]['name'].substring(0, tempString.length).toUpperCase() == tempString) {
+                templeArray.push(mockUsers[i]);
+            }
+        }
+        refreshTableDOM(templeArray);
+
+        console.log(tempString);
+
+    }
+
+
+    /**
+     * Dragging Feature
+     */
+
+    function dragAndDrop() {
+
 
         $(function () {
 
@@ -620,7 +670,6 @@ $(function () {
             setInitialColumnOder();
 
             // Drag & Drop Columns
-
             $(".column").draggable({
                 start: function (event, ui) {
 
@@ -676,7 +725,6 @@ $(function () {
                     //Reduce the offsetWidth for all columns which are located on the right-hand
                     for (var i = draggedColumnOrderIndex + 1; i < allColumns.length; i++) {
                         var ElementId = currentPosition[i].name;
-
                         var tmpItem = document.getElementById(ElementId);
                         tmpItem.style.left = (-Math.abs(draggedColunmWidth)).toString() + 'px';
                         tmpItem.style.transition = "left 0.4s ease";
@@ -710,7 +758,6 @@ $(function () {
                     //Sort & Re-order Columns
                     var currentPosition = new Object();
                     var newPosition = new Array();
-
                     for (var i = 2; i < 8; i++) {
                         var positionData = getColumnPosition(i);
                         currentPosition = {'name': 'column' + i, 'position': positionData};
@@ -872,7 +919,6 @@ $(function () {
                     for (var i = newPosition.length; i--;) {
 
                         var tmpItem = document.getElementById(newPosition[i].name);
-
                         tmpItem.style.order = numberOrder;
                         tmpItem.style.left = 0;
                         tmpItem.style.top = 0;
@@ -892,9 +938,7 @@ $(function () {
                     // Update orders for all other rows
                     var newRowOrder = 2;
                     for (var i = rowOrder.length; i--;) {
-
                         var otherRows = document.getElementsByClassName('row' + rowOrder[i]);
-
                         for (var j = 1; j < otherRows.length; j++) {
                             var tmpItem = otherRows[j];
                             tmpItem.style.order = newRowOrder;
@@ -943,24 +987,6 @@ $(function () {
                     rowOrderIndex++;
                 }
             }
-
-
         });
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 });
