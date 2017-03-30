@@ -1,28 +1,32 @@
-### Demo:
+####Demo:
 https://kubbafox.github.io/FlexTable/
 
+####Git:
+https://github.com/kubbafox/FlexTable
 
-### Features in Demo:
+![](http://i.imgur.com/29KdHRq.jpg)
+###Features in Demo:
 - Populate table HTML based on JSON
 - Drag Name to switch row positions
 - Drag & Drop columns 
 - Click the name tag to review user profile pop-up
 - Responsive
-- Display Drop Zone (Arrows) when it is dragging.
+- Display drop zone (arrows) when dragging columns.
 - Collapse the empty space during dragging.
 - Cursors.
 - Sorting By Name (A-Z, Z-A, Get back to original). 
-<br><br>
-### Feature(s) in development:
-
-- Search by name (Dynamically remove or display results during typing)
+- Search by name and dynamically display results during typing
 <br><br>
 
-### Feature(s)  in my mind:
+###Feature(s) under development:
+- Replacing jQuery .draggable to pure javascript event listeners.  
+
+<br><br>
+###Feature(s)  in my mind:
 
 - Click & Change a column to a heat-map. (Background colors will stick with cells when users are storing other columns)
 <br><br>
-### Known Issues:
+###Known Issues:
 - <s>Responsive Table Feature is not working on iPhone Chrome.</s>
 - Using jQuery .draggable to listen drag & drop events. Need re-write to pure javascript.
 - Could not fix table column header simply through CSS. Need some research for JS solutions.
