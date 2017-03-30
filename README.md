@@ -1,9 +1,6 @@
-####Demo:
+###Demo:
 https://kubbafox.github.io/FlexTable/
 
-####Git:
-https://github.com/kubbafox/FlexTable
-<br><br>
 
 ###Features in Demo:
 - Populate table HTML based on JSON
