@@ -246,15 +246,28 @@
 
 
 /* onClick Cursor */
-#column1 .row_header:active {
-    cursor: ns-resize;
+
+
+#column1 .row_header div {
+    cursor: -webkit-grab;
 }
-#column1 .row_header div:hover {
+
+#column1 .row_header div img:hover,
+#column1 .row_header div span:hover{
     cursor: pointer;
 }
 
 #column1 .row_header div:active {
-    cursor: ns-resize;
+    cursor:-webkit-grabbing;
+}
+
+#column2:hover,
+#column3:hover,
+#column4:hover,
+#column5:hover,
+#column6:hover,
+#column7:hover {
+    cursor: -webkit-grab;
 }
 
 #column2:active,
@@ -263,7 +276,7 @@
 #column5:active,
 #column6:active,
 #column7:active {
-    cursor: ew-resize;
+    cursor: -webkit-grabbing;
 }
 
 
