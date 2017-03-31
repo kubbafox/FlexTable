@@ -362,7 +362,7 @@ $(function () {
         for (var i = 0; i < userCount; i++) {
             var tempObject = userArray[i];
             var tempAbbreviatedName = abbreviateLastName(tempObject.name);
-            var tempColumn1HTML = '<div class="row' + tempObject.id + ' row_header" ' + 'id="' + 'column1_row' + tempObject.id + '">' +
+            var tempColumn1HTML = '<div class="row' + tempObject.id + ' row_header" ' + 'id="' + 'column1_row' + tempObject.id + '" draggable="true">' +
                 '<input type="checkbox" id="modal' + tempObject.id + '" class="modal_user_profile">' +
                 '<label for="modal' + tempObject.id + '">' +
                 '<div>' +
@@ -661,13 +661,11 @@ $(function () {
      * Dragging Feature
      */
 
-    //Test
-
-
     //Create Listeners for drag & drop
     function createDragAndDropListener() {
+        
+        //Create Listeners for Columns
         var tempItems = document.getElementsByClassName('column');
-
         for (var i = 0; i < tempItems.length; i++) {
             tempItems[i].addEventListener('dragstart', handleDragStart, false);
             tempItems[i].addEventListener('dragenter', handleDragEnter, false)
@@ -676,6 +674,8 @@ $(function () {
             tempItems[i].addEventListener('drop', handleDrop, false);
             tempItems[i].addEventListener('dragend', handleDragEnd, false);
         }
+        
+        //Create Listeners for Rows
     }
 
     //Get Current Drag Item Id to avoid it be invoked by other events
@@ -695,8 +695,6 @@ $(function () {
 
         e.dataTransfer.effectAllowed = 'copy';
         e.dataTransfer.setData('text/html', this.innerHTML);
-
-
     }
 
     function handleDragEnter() {

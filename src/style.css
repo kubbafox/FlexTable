@@ -150,10 +150,13 @@ body{
 }
 
 /* Responsive table */
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
     .container {
         flex-flow: column wrap;
-        width: 100%;
+        width: 95%;
+    }
+    .column {
+        width: auto;
     }
 
     #column1 {
