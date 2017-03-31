@@ -8,7 +8,7 @@ body{
     margin: 30px;
     display: flex;
     flex-wrap: wrap;
-    width: 1000px;
+    width: 1200px;
     z-index: -1;
 }
 
@@ -22,6 +22,7 @@ body{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    width: 160px;
 }
 
 .avatar {
@@ -174,7 +175,7 @@ body{
 /* SVG */
 .icon-cross {
     display: inline-block;
-    position: absolute;
+    position: relative;
     width: 8px;
     height: 8px;
     stroke-width: 1;
@@ -185,7 +186,7 @@ body{
 }
 
 .column_drop_arrow {
-    opacity: 0;
+    opacity: 0.5;
     color: #545454;
 }
 

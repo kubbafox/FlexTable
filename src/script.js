@@ -344,7 +344,8 @@ $(function () {
     constructTable(mockUsers);
     createSortByAlphaListener();
     createSearchTypingListener();
-    dragAndDrop();
+    createDragAndDropListener();
+    LegacyDragAndDrop();
 
     function constructTable(userArray) {
 
@@ -453,7 +454,7 @@ $(function () {
             '</div>' +
             column2HTML +
             '</div>' +
-            '<div id="column3" class="column content3">' +
+            '<div id="column3" class="column content3" draggable="true">' +
             '<div class="column_header">' +
             'Contract End Day' +
             '<p id="column_header_drop_arrow_3" class="column_drop_arrow">' +
@@ -469,7 +470,7 @@ $(function () {
             '</div>' +
             column3HTML +
             '</div>' +
-            '<div id="column4" class="column content4">' +
+            '<div id="column4" class="column content4" draggable="true">' +
             '<div class="column_header">' +
             'Total Deals' +
             '<p id="column_header_drop_arrow_4" class="column_drop_arrow">' +
@@ -485,7 +486,7 @@ $(function () {
             '</div>' +
             column4HTML +
             '</div>' +
-            '<div id="column5" class="column content5">' +
+            '<div id="column5" class="column content5" draggable="true">' +
             '<div class="column_header">' +
             'Payment Cycle' +
             '<p id="column_header_drop_arrow_5" class="column_drop_arrow">' +
@@ -501,7 +502,7 @@ $(function () {
             '</div>' +
             column5HTML +
             '</div>' +
-            '<div id="column6" class="column content6">' +
+            '<div id="column6" class="column content6" draggable="true">' +
             '<div class="column_header">' +
             'Outstanding Balance' +
             '<p id="column_header_drop_arrow_6" class="column_drop_arrow">' +
@@ -517,7 +518,7 @@ $(function () {
             '</div>' +
             column6HTML +
             '</div>' +
-            '<div id="column7" class="column content7">' +
+            '<div id="column7" class="column content7" draggable="true">' +
             '<div class="column_header">' +
             'Paid Amount' +
             '<p id="column_header_drop_arrow_7" class="column_drop_arrow">' +
@@ -554,7 +555,8 @@ $(function () {
         destroyTableDOM();
         constructTable(userArray);
         createSortByAlphaListener();
-        dragAndDrop();
+        createDragAndDropListener();
+        LegacyDragAndDrop();
     }
 
     /**
@@ -605,21 +607,24 @@ $(function () {
             constructTable(mockUsers);
             createSortByAlphaListener();
             displaySortByAlphaLButton();
-            dragAndDrop();
+            createDragAndDropListener();
+            LegacyDragAndDrop();
         } else if (clickTimes % 3 == 2) {
             sortNameDesc(mockUsers);
             destroyTableDOM();
             constructTable(mockUsers);
             createSortByAlphaListener();
             displaySortByAlphaLButton();
-            dragAndDrop();
+            createDragAndDropListener();
+            LegacyDragAndDrop();
 
         } else if (clickTimes % 3 == 0) {
             destroyTableDOM();
             constructTable(mockUsersCopy);
             createSortByAlphaListener();
             hideSortByAlphaLButton();
-            dragAndDrop();
+            createDragAndDropListener();
+            LegacyDragAndDrop();
         }
     }
 
@@ -656,12 +661,97 @@ $(function () {
      * Dragging Feature
      */
 
-    //Make Column & Row Draggable
+    //Test
 
 
-    //Create Listeners for drag
+    //Create Listeners for drag & drop
+    function createDragAndDropListener() {
+        var tempItems = document.getElementsByClassName('column');
 
-    function dragAndDrop() {
+        for (var i = 0; i < tempItems.length; i++) {
+            tempItems[i].addEventListener('dragstart', handleDragStart, false);
+            tempItems[i].addEventListener('dragenter', handleDragEnter, false)
+            tempItems[i].addEventListener('dragover', handleDragOver, false);
+            tempItems[i].addEventListener('dragleave', handleDragLeave, false);
+            tempItems[i].addEventListener('drop', handleDrop, false);
+            tempItems[i].addEventListener('dragend', handleDragEnd, false);
+        }
+    }
+
+    //Get Current Drag Item Id to avoid it be invoked by other events
+    var dragItemId = "";
+    var dragColumnDOM = null;
+
+    function allowDrop(e) {
+        e.preventDefault();
+    }
+
+
+    function handleDragStart(e) {
+        this.style.opacity = 0;
+        this.style.width = "0px";
+        this.style.padding = "0px";
+        this.style.borderWidth = "0px";
+        this.style.transition = "all 0.6s ease";
+
+        dragItemId = document.getElementById(this.id).id;
+
+        dragColumnDOM = this;
+
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/html', this.innerHTML);
+
+
+    }
+
+    function handleDragEnter() {
+        if (document.getElementById(this.id).id != dragItemId) {
+            this.style.opacity = 0.1;
+            this.style.transition = "all 0.6s ease";
+        }
+    }
+
+    function handleDragOver() {
+        event.preventDefault();
+
+        if (document.getElementById(this.id).id != dragItemId) {
+            this.style.opacity = 0;
+            this.style.transition = "all 0.6s ease";
+        }
+        // console.log("aaaaa");
+        return false;
+    }
+
+    function handleDragLeave() {
+        if (document.getElementById(this.id).id != dragItemId) {
+            this.style.opacity = 1;
+            this.style.transition = "all 0.6s ease";
+        }
+    }
+
+    function handleDrop(e) {
+        event.preventDefault();
+        this.style.opacity = 1;
+        this.style.transition = "all 0.6s ease";
+
+        if (dragColumnDOM != this) {
+            dragColumnDOM.innerHTML = this.innerHTML;
+            this.innerHTML = e.dataTransfer.getData('text/html');
+        }
+    }
+
+    function handleDragEnd() {
+        this.style.opacity = 1;
+        this.style.width = "160px";
+        this.style.transition = "all 0.6s ease";
+
+    }
+
+
+
+
+
+    function LegacyDragAndDrop() {
 
 
         $(function () {
@@ -669,123 +759,118 @@ $(function () {
             // Setup Initial Order to avoid some issue during the first drag event.
             setInitialRowOrder();
             setInitialColumnOder();
-
-            // Drag & Drop Columns
-            $(".column").draggable({
-                start: function (event, ui) {
-
-                    //Update CSS Properties to highlight dragged column
-                    var target = document.getElementById(this.id);
-                    target.style.zIndex = 100;
-                    target.style.background = "#b5f1ff";
-                    target.style.transition = "background 0.4s ease";
-
-                    //Dash Left & Right borders when the drag event happens
-                    var allColumns = document.getElementsByClassName('column');
-                    for (var i = 0; i < allColumns.length; i++) {
-                        allColumns[i].style.opacity = 0.9;
-                    }
-
-                    //Show Drop Arrows for All Columns
-                    var allColunmDropArrow = document.getElementsByClassName("column_drop_arrow");
-                    for (var i = 0; i < allColunmDropArrow.length; i++) {
-                        allColunmDropArrow[i].style.opacity = 1;
-                    }
-
-                    //Hide Arrows for the Column which users are dragging
-                    var draggedColunmDropArrow = document.getElementById("column_header_drop_arrow_" + (this.id).split("olumn")[1]);
-                    draggedColunmDropArrow.style.opacity = 0;
-
-                    // var columnInex = parseInt((this.id).split("olumn")[1]);
-
-                    //Get offsetWidth Value for the dragged Column
-                    var draggedColunmWidth = parseInt(document.getElementById(this.id).offsetWidth);
-                    // console.log(draggedColunmWidth);
-
-                    //Get Order Index for the dragged Column
-                    var targetStyle = window.getComputedStyle(target)
-                    var draggedColumnOrderIndex = parseInt(targetStyle.getPropertyValue('order'));
-                    // console.log(draggedColunmOrderIndex);
-
-                    //Get a map between current elements and their offsetLeft values
-                    var initialPosition = new Object();
-                    var currentPosition = new Array();
-
-                    for (var i = 2; i < 8; i++) {
-                        var positionData = getColumnPosition(i);
-                        initialPosition = {'name': 'column' + i, 'position': positionData};
-                        currentPosition.push(initialPosition);
-                    }
-
-                    currentPosition.sort(function (a, b) {
-                        if (a['position'] > b['position']) return 1;
-                        if (a['position'] < b['position']) return -1;
-                        return 0;
-                    });
-
-                    //Reduce the offsetWidth for all columns which are located on the right-hand
-                    for (var i = draggedColumnOrderIndex + 1; i < allColumns.length; i++) {
-                        var ElementId = currentPosition[i].name;
-                        var tmpItem = document.getElementById(ElementId);
-                        tmpItem.style.left = (-Math.abs(draggedColunmWidth)).toString() + 'px';
-                        tmpItem.style.transition = "left 0.4s ease";
-                    }
-                    ;
-
-                },
-
-                stop: function (event, ui) {
-
-                    //Reset CSS after drag event completed
-                    var target = document.getElementById(this.id);
-                    target.style.zIndex = null;
-                    target.style.background = "";
-                    target.style.transition = "background 1s ease"
-
-                    var allColumns = document.getElementsByClassName('column');
-
-                    for (var i = 0; i < allColumns.length; i++) {
-                        allColumns[i].style.opacity = 1;
-                        allColumns[i].style.margin = "0px";
-                        allColumns[i].style.borderWidth = "0px";
-                    }
-
-                    //Reset & Hide All Arrows
-                    var allColunmDropArrow = document.getElementsByClassName("column_drop_arrow");
-                    for (var i = 0; i < allColunmDropArrow.length; i++) {
-                        allColunmDropArrow[i].style.opacity = 0;
-                    }
-
-                    //Sort & Re-order Columns
-                    var currentPosition = new Object();
-                    var newPosition = new Array();
-                    for (var i = 2; i < 8; i++) {
-                        var positionData = getColumnPosition(i);
-                        currentPosition = {'name': 'column' + i, 'position': positionData};
-                        newPosition.push(currentPosition);
-                    }
-
-                    newPosition.sort(function (a, b) {
-                        if (a['position'] > b['position']) return -1;
-                        if (a['position'] < b['position']) return 1;
-                        return 0;
-                    });
-
-                    console.log(newPosition)
-
-                    var number = 0;
-                    for (var i = newPosition.length; i--;) {
-                        var tmpItem = document.getElementById(newPosition[i].name);
-                        tmpItem.style.order = number;
-                        tmpItem.style.left = 0;
-                        tmpItem.style.top = 0;
-                        tmpItem.style.zIndex = 0;
-                        tmpItem.style.transition = "background 1s ease";
-                        number++;
-                    }
-                }
-
-            });
+        //
+        //     // Drag & Drop Columns
+        //     $(".column").draggable({
+        //         start: function (event, ui) {
+        //             //Update CSS Properties to highlight dragged column
+        //             var target = document.getElementById(this.id);
+        //             target.style.zIndex = 100;
+        //             target.style.background = "#b5f1ff";
+        //             target.style.transition = "background 0.4s ease";
+        //
+        //             //Dash Left & Right borders when the drag event happens
+        //             var allColumns = document.getElementsByClassName('column');
+        //             for (var i = 0; i < allColumns.length; i++) {
+        //                 allColumns[i].style.opacity = 0.9;
+        //             }
+        //
+        //             //Show Drop Arrows for All Columns
+        //             var allColunmDropArrow = document.getElementsByClassName("column_drop_arrow");
+        //             for (var i = 0; i < allColunmDropArrow.length; i++) {
+        //                 allColunmDropArrow[i].style.opacity = 1;
+        //             }
+        //
+        //             //Hide Arrows for the Column which users are dragging
+        //             var draggedColunmDropArrow = document.getElementById("column_header_drop_arrow_" + (this.id).split("olumn")[1]);
+        //             draggedColunmDropArrow.style.opacity = 0;
+        //
+        //             // var columnInex = parseInt((this.id).split("olumn")[1]);
+        //
+        //             //Get offsetWidth Value for the dragged Column
+        //             var draggedColunmWidth = parseInt(document.getElementById(this.id).offsetWidth);
+        //             // console.log(draggedColunmWidth);
+        //
+        //             //Get Order Index for the dragged Column
+        //             var targetStyle = window.getComputedStyle(target)
+        //             var draggedColumnOrderIndex = parseInt(targetStyle.getPropertyValue('order'));
+        //             // console.log(draggedColunmOrderIndex);
+        //
+        //             //Get a map between current elements and their offsetLeft values
+        //             var initialPosition = new Object();
+        //             var currentPosition = new Array();
+        //
+        //             for (var i = 2; i < 8; i++) {
+        //                 var positionData = getColumnPosition(i);
+        //                 initialPosition = {'name': 'column' + i, 'position': positionData};
+        //                 currentPosition.push(initialPosition);
+        //             }
+        //
+        //             currentPosition.sort(function (a, b) {
+        //                 if (a['position'] > b['position']) return 1;
+        //                 if (a['position'] < b['position']) return -1;
+        //                 return 0;
+        //             });
+        //
+        //             //Reduce the offsetWidth for all columns which are located on the right-hand
+        //             for (var i = draggedColumnOrderIndex + 1; i < allColumns.length; i++) {
+        //                 var ElementId = currentPosition[i].name;
+        //                 var tmpItem = document.getElementById(ElementId);
+        //                 tmpItem.style.left = (-Math.abs(draggedColunmWidth)).toString() + 'px';
+        //                 tmpItem.style.transition = "left 0.4s ease";
+        //             }
+        //         },
+        //
+        //         stop: function (event, ui) {
+        //
+        //             //Reset CSS after drag event completed
+        //             var target = document.getElementById(this.id);
+        //             target.style.zIndex = null;
+        //             target.style.background = "";
+        //             target.style.transition = "background 1s ease"
+        //
+        //             var allColumns = document.getElementsByClassName('column');
+        //
+        //             for (var i = 0; i < allColumns.length; i++) {
+        //                 allColumns[i].style.opacity = 1;
+        //                 allColumns[i].style.margin = "0px";
+        //                 allColumns[i].style.borderWidth = "0px";
+        //             }
+        //
+        //             //Reset & Hide All Arrows
+        //             var allColunmDropArrow = document.getElementsByClassName("column_drop_arrow");
+        //             for (var i = 0; i < allColunmDropArrow.length; i++) {
+        //                 allColunmDropArrow[i].style.opacity = 0;
+        //             }
+        //
+        //             //Sort & Re-order Columns
+        //             var currentPosition = new Object();
+        //             var newPosition = new Array();
+        //             for (var i = 2; i < 8; i++) {
+        //                 var positionData = getColumnPosition(i);
+        //                 currentPosition = {'name': 'column' + i, 'position': positionData};
+        //                 newPosition.push(currentPosition);
+        //             }
+        //
+        //             newPosition.sort(function (a, b) {
+        //                 if (a['position'] > b['position']) return -1;
+        //                 if (a['position'] < b['position']) return 1;
+        //                 return 0;
+        //             });
+        //
+        //             var number = 0;
+        //             for (var i = newPosition.length; i--;) {
+        //                 var tmpItem = document.getElementById(newPosition[i].name);
+        //                 tmpItem.style.order = number;
+        //                 tmpItem.style.left = 0;
+        //                 tmpItem.style.top = 0;
+        //                 tmpItem.style.zIndex = 0;
+        //                 tmpItem.style.transition = "background 1s ease";
+        //                 number++;
+        //             }
+        //         }
+        //
+        //     });
 
             // Drag & Drop Rows
 
