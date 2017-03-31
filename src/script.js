@@ -682,23 +682,18 @@ $(function () {
     var dragItemId = "";
     var dragColumnDOM = null;
 
-    function allowDrop(e) {
-        e.preventDefault();
-    }
-
-
     function handleDragStart(e) {
         this.style.opacity = 0;
         this.style.width = "0px";
         this.style.padding = "0px";
         this.style.borderWidth = "0px";
-        this.style.transition = "all 0.6s ease";
+        this.style.transition = "width 0.6s ease";
 
         dragItemId = document.getElementById(this.id).id;
 
         dragColumnDOM = this;
 
-        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.effectAllowed = 'copy';
         e.dataTransfer.setData('text/html', this.innerHTML);
 
 
@@ -706,19 +701,13 @@ $(function () {
 
     function handleDragEnter() {
         if (document.getElementById(this.id).id != dragItemId) {
-            this.style.opacity = 0.1;
+            this.style.opacity = 0.4;
             this.style.transition = "all 0.6s ease";
         }
     }
 
-    function handleDragOver() {
+    function handleDragOver(e) {
         event.preventDefault();
-
-        if (document.getElementById(this.id).id != dragItemId) {
-            this.style.opacity = 0;
-            this.style.transition = "all 0.6s ease";
-        }
-        // console.log("aaaaa");
         return false;
     }
 
@@ -744,7 +733,6 @@ $(function () {
         this.style.opacity = 1;
         this.style.width = "160px";
         this.style.transition = "all 0.6s ease";
-
     }
 
 
