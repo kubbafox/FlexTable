@@ -41,6 +41,7 @@ body{
     border: solid 1px #e0e0e0;
     padding: 10px;
     text-align: center;
+    display: flex;
 }
 
 .container > div:not(:first-child) .row img {
@@ -60,7 +61,7 @@ body{
 .column_header {
     border: solid 1px #e0e0e0;
     padding: 10px;
-    text-align: center;
+    text-align: left;
     background-color: #f7f7f7;
 }
 
@@ -188,37 +189,20 @@ body{
     margin-top: 5px;
 }
 
-.column_drop_arrow {
-    opacity: 0.5;
-    color: #545454;
+.column_header_drop_arrow_7 {
+    position: relative;
+
 }
 
-.icon-arrow-down1 {
-    display: inline-block;
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    stroke-width: 0;
-    right: 0;
-    top: 0;
-    margin-top: -10px;
-    margin-right: -5px;
+.icon-sort-numeric-asc {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    top: -14px;
+    left:125px;
     stroke: currentColor;
     fill: currentColor;
-}
-
-.icon-arrow-down2 {
-    display: inline-block;
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    stroke-width: 0;
-    left: 0;
-    top: 0;
-    margin-top: -10px;
-    margin-left: -5px;
-    stroke: currentColor;
-    fill: currentColor;
+    stroke-width: 0.2;
 }
 
 .column_header p {
@@ -227,24 +211,20 @@ body{
 
 .icon-sort_by_alpha
 {
-    opacity: 0;
+    opacity: 1;
     position: relative;
     width: 14px;
     height: 14px;
     padding: 8px;
-    margin-left: 30px;
     stroke: currentColor;
     fill: currentColor;
-    left: 50px;
+    left: 150px;
     top: -22px;
     stroke-width: 0.2;
     transition: opacity 0.5s ease;
 }
 
-.icon-sort_by_alpha:hover{
-    opacity: 1;
-    transition: opacity 0.5s ease;
-}
+
 
 
 /* onClick Cursor */
