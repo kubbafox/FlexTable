@@ -196,8 +196,8 @@ body{
 
 .icon-sort-numeric-asc {
     position: relative;
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     top: -14px;
     left:125px;
     stroke: currentColor;
@@ -209,6 +209,9 @@ body{
     height: 0px;
 }
 
+#icon_sort_by_cycle {
+    left: 115px;
+}
 .icon-sort_by_alpha
 {
     opacity: 1;

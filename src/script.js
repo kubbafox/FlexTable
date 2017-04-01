@@ -342,11 +342,11 @@
 
 
     constructTable(mockUsers);
-    createSortByAlphaListener();
+    createSortingListeners();
     createSearchTypingListener();
     createDragAndDropListener();
     setInitialRowOrderTag();
-    createSortByAmountListner();
+
 
     function constructTable(userArray) {
 
@@ -434,7 +434,7 @@
             '<div class="column_header" style="order: 0">' +
             'Name' +
             '<p class="sort sort_asc" id="sort_name_alpha_asc">' +
-            '<svg class="icon icon-sort_by_alpha" id="icon-sort_by_alpha_name">' +
+            '<svg class="icon icon-sort_by_alpha" id="icon_sort_by_alpha_name">' +
             '<use xlink:href="#icon-sort_by_alpha"></use></svg></p>' +
             '</div>' +
             column1HTML +
@@ -442,30 +442,45 @@
             '<div id="column2" class="column content2" draggable="true">' +
             '<div class="column_header">' +
             'Commission Rate' +
+            '<p id="column_header_drop_arrow_7" class="numeric_sort_icon">' +
+            '<svg class="icon icon-sort-numeric-asc" id="icon_sort_by_rate"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
+            '</p>' +
             '</div>' +
             column2HTML +
             '</div>' +
             '<div id="column3" class="column content3" draggable="true">' +
             '<div class="column_header">' +
             'Contract End Day' +
+            '<p id="column_header_drop_arrow_7" class="numeric_sort_icon">' +
+            '<svg class="icon icon-sort-numeric-asc" id="icon_sort_by_date"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
+            '</p>' +
             '</div>' +
             column3HTML +
             '</div>' +
             '<div id="column4" class="column content4" draggable="true">' +
             '<div class="column_header">' +
             'Total Deals' +
+            '<p id="column_header_drop_arrow_7" class="numeric_sort_icon">' +
+            '<svg class="icon icon-sort-numeric-asc" id="icon_sort_by_deals"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
+            '</p>' +
             '</div>' +
             column4HTML +
             '</div>' +
             '<div id="column5" class="column content5" draggable="true">' +
             '<div class="column_header">' +
             'Payment Cycle' +
+            '<p class="sort sort_asc" id="sort_name_alpha_asc">' +
+            '<svg class="icon icon-sort_by_alpha" id="icon_sort_by_cycle">' +
+            '<use xlink:href="#icon-sort_by_alpha"></use></svg></p>' +
             '</div>' +
             column5HTML +
             '</div>' +
             '<div id="column6" class="column content6" draggable="true">' +
             '<div class="column_header">' +
-            'Outstanding Balance' +
+            'Balance' +
+            '<p id="column_header_drop_arrow_7" class="numeric_sort_icon">' +
+            '<svg class="icon icon-sort-numeric-asc" id="icon_sort_by_out_balance"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
+            '</p>' +
             '</div>' +
             column6HTML +
             '</div>' +
@@ -498,8 +513,7 @@
     function refreshTableDOM(userArray) {
         destroyTableDOM();
         constructTable(userArray);
-        createSortByAlphaListener();
-        createSortByAmountListner();
+        createSortingListeners();
         createDragAndDropListener();
         setInitialRowOrderTag();
     }
@@ -509,13 +523,47 @@
      */
 
     //Create a Listener for Sorting Clicks
-    function createSortByAlphaListener() {
-        var SortByAlphaTempItem = document.getElementById("icon-sort_by_alpha_name");
+
+    
+    function createSortingListeners() {
+        var SortByAlphaTempItem = document.getElementById("icon_sort_by_alpha_name");
         SortByAlphaTempItem.addEventListener("click", function () {
             clickEventHandlerForAlphaSort();
         }, false);
+
+        var SortByRateTempItem = document.getElementById("icon_sort_by_rate");
+        SortByRateTempItem.addEventListener("click", function () {
+            clickEventHandlerForRateSort();
+        }, false);
+
+        var SortByDateTempItem = document.getElementById("icon_sort_by_date");
+        SortByDateTempItem.addEventListener("click", function () {
+            clickEventHandlerForDateSort();
+        }, false);
+
+        var SortByDealTempItem = document.getElementById("icon_sort_by_deals");
+        SortByDealTempItem.addEventListener("click", function () {
+            clickEventHandlerForDealSort();
+        }, false);
+
+        var SortByCycleTempItem = document.getElementById("icon_sort_by_cycle");
+        SortByCycleTempItem.addEventListener("click", function () {
+            clickEventHandlerForCycleSort();
+        }, false);
+
+        var SortByOutBlaTempItem = document.getElementById("icon_sort_by_out_balance");
+        SortByOutBlaTempItem.addEventListener("click", function () {
+            clickEventHandlerForBlanceSort();
+        }, false);
+
+        var SortByPaidTempItem = document.getElementById("icon_sort_by_paid_amount");
+        SortByPaidTempItem.addEventListener("click", function () {
+            clickEventHandlerForAmountSort();
+        }, false);
     }
 
+
+    //Sort Name
     function sortNameAsc(mockUsers) {
         mockUsers.sort(function (a, b) {
             if (a['name'] > b['name']) return 1;
@@ -538,27 +586,195 @@
         if (clickAlphaSortIconTimes % 3 == 1) {
             sortNameAsc(mockUsers);
             refreshTableDOM(mockUsers);
-            document.getElementById("icon-sort_by_alpha_name").style.color = "#51d0ef";
+            document.getElementById("icon_sort_by_alpha_name").style.color = "#51d0ef";
         } else if (clickAlphaSortIconTimes % 3 == 2) {
             sortNameDesc(mockUsers);
             refreshTableDOM(mockUsers);
-            document.getElementById("icon-sort_by_alpha_name").style.color = "#ff9191";
-
+            document.getElementById("icon_sort_by_alpha_name").style.color = "#ff9191";
         } else if (clickAlphaSortIconTimes % 3 == 0) {
             refreshTableDOM(mockUsersCopy);
-            document.getElementById("icon-sort_by_alpha_name").style.color = "#545454";
+            document.getElementById("icon_sort_by_alpha_name").style.color = "#545454";
         }
     }
 
-    function createSortByAmountListner() {
-        var SortByAlphaTempItem = document.getElementById("icon_sort_by_paid_amount");
-        SortByAlphaTempItem.addEventListener("click", function () {
-            clickEventHandlerForAmountSort();
-        }, false);
+    //Sort Rate
+    function sortRateAsc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if ((parseInt((a[('commission_rate')].replace('%', '')))) > (parseInt((b[('commission_rate')].replace('%', ''))))) return 1;
+            if ((parseInt((a[('commission_rate')].replace('%', '')))) < (parseInt((b[('commission_rate')].replace('%', ''))))) return -1;
+            return 0;
+        });
+
     }
 
-    function sortBalanceAsc(mockUsers) {
+    function sortRateDesc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if ((parseInt((a[('commission_rate')].replace('%', '')))) < (parseInt((b[('commission_rate')].replace('%', ''))))) return 1;
+            if ((parseInt((a[('commission_rate')].replace('%', '')))) > (parseInt((b[('commission_rate')].replace('%', ''))))) return -1;
+            return 0;
+        });
+    }
 
+    var clickRateSortTimes = 0;
+    function clickEventHandlerForRateSort() {
+        clickRateSortTimes++;
+        if (clickRateSortTimes % 3 == 1) {
+            sortRateAsc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_rate").style.color = "#51d0ef";
+        } else if (clickRateSortTimes % 3 == 2) {
+            sortRateDesc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_rate").style.color = "#ff9191";
+        } else if (clickRateSortTimes % 3 == 0) {
+            refreshTableDOM(mockUsersCopy);
+            document.getElementById("icon_sort_by_rate").style.color = "#545454";
+        }
+    }
+
+    //Sort Date
+    function sortDateAsc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if ((Date.parse((a[('contract_end_day')]))) > (Date.parse((b[('contract_end_day')])))) return 1;
+            if ((Date.parse((a[('contract_end_day')]))) < (Date.parse((b[('contract_end_day')])))) return -1;
+            return 0;
+        });
+
+    }
+
+    function sortDateDesc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if ((Date.parse((a[('contract_end_day')]))) < (Date.parse((b[('contract_end_day')])))) return 1;
+            if ((Date.parse((a[('contract_end_day')]))) > (Date.parse((b[('contract_end_day')])))) return -1;
+            return 0;
+        });
+    }
+
+    var clickDateSortTimes = 0;
+    function clickEventHandlerForDateSort() {
+        clickDateSortTimes++;
+        if (clickDateSortTimes % 3 == 1) {
+            sortDateAsc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_date").style.color = "#51d0ef";
+        } else if (clickDateSortTimes % 3 == 2) {
+            sortDateDesc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_date").style.color = "#ff9191";
+        } else if (clickDateSortTimes % 3 == 0) {
+            refreshTableDOM(mockUsersCopy);
+            document.getElementById("icon_sort_by_date").style.color = "#545454";
+        }
+    }
+
+    //Sort Deals
+    function sortDealAsc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if ((parseInt((a[('total_deals')]))) > (parseInt((b[('total_deals')])))) return 1;
+            if ((parseInt((a[('total_deals')]))) < (parseInt((b[('total_deals')])))) return -1;
+            return 0;
+        });
+
+    }
+
+    function sortDealDesc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if ((parseInt((a[('total_deals')]))) < (parseInt((b[('total_deals')])))) return 1;
+            if ((parseInt((a[('total_deals')]))) > (parseInt((b[('total_deals')])))) return -1;
+            return 0;
+        });
+    }
+
+    var clickDealSortTimes = 0;
+    function clickEventHandlerForDealSort() {
+        clickDealSortTimes++;
+        if (clickDealSortTimes % 3 == 1) {
+            sortDealAsc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_deals").style.color = "#51d0ef";
+        } else if (clickDealSortTimes % 3 == 2) {
+            sortDealDesc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_deals").style.color = "#ff9191";
+        } else if (clickDealSortTimes % 3 == 0) {
+            refreshTableDOM(mockUsersCopy);
+            document.getElementById("icon_sort_by_deals").style.color = "#545454";
+        }
+    }
+
+    //Sort Cycle
+    function sortCycleAsc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if (a['payment_cycle'] > b['payment_cycle']) return 1;
+            if (a['payment_cycle'] < b['payment_cycle']) return -1;
+            return 0;
+        });
+    }
+
+    function sortCycleDesc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if (a['payment_cycle'] < b['payment_cycle']) return 1;
+            if (a['payment_cycle'] > b['payment_cycle']) return -1;
+            return 0;
+        });
+    }
+
+    var clickCycleSortIconTimes = 0;
+    function clickEventHandlerForCycleSort() {
+        clickCycleSortIconTimes++;
+        if (clickCycleSortIconTimes % 3 == 1) {
+            sortCycleAsc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_cycle").style.color = "#51d0ef";
+        } else if (clickCycleSortIconTimes % 3 == 2) {
+            sortCycleDesc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_cycle").style.color = "#ff9191";
+
+        } else if (clickCycleSortIconTimes % 3 == 0) {
+            refreshTableDOM(mockUsersCopy);
+            document.getElementById("icon_sort_by_cycle").style.color = "#545454";
+        }
+    }
+
+    //Sort Balance
+    function sortBalanceAsc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if ((parseFloat((a[('outstanding_balance')].replace('$', '')))) > (parseFloat((b[('outstanding_balance')].replace('$', ''))))) return 1;
+            if ((parseFloat((a[('outstanding_balance')].replace('$', '')))) < (parseFloat((b[('outstanding_balance')].replace('$', ''))))) return -1;
+            return 0;
+        });
+
+    }
+
+    function sortBalanceDesc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if ((parseFloat((a[('outstanding_balance')].replace('$', '')))) < (parseFloat((b[('outstanding_balance')].replace('$', ''))))) return 1;
+            if ((parseFloat((a[('outstanding_balance')].replace('$', '')))) > (parseFloat((b[('outstanding_balance')].replace('$', ''))))) return -1;
+            return 0;
+        });
+    }
+
+    var clickBalanceSortTimes = 0;
+    function clickEventHandlerForBlanceSort() {
+        clickBalanceSortTimes++;
+        if (clickBalanceSortTimes % 3 == 1) {
+            sortBalanceAsc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_out_balance").style.color = "#51d0ef";
+        } else if (clickBalanceSortTimes % 3 == 2) {
+            sortBalanceDesc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_out_balance").style.color = "#ff9191";
+
+        } else if (clickBalanceSortTimes % 3 == 0) {
+            refreshTableDOM(mockUsersCopy);
+            document.getElementById("icon_sort_by_out_balance").style.color = "#545454";
+        }
+    }
+
+    //Sort Paid Amount
+    function sortPaidAmntAsc(mockUsers) {
         mockUsers.sort(function (a, b) {
             if ((parseFloat((a[('paid_amount')].replace('$', '')))) > (parseFloat((b[('paid_amount')].replace('$', ''))))) return 1;
             if ((parseFloat((a[('paid_amount')].replace('$', '')))) < (parseFloat((b[('paid_amount')].replace('$', ''))))) return -1;
@@ -567,7 +783,7 @@
 
     }
 
-    function sortBalanceDesc(mockUsers) {
+    function sortPaidAmntDesc(mockUsers) {
         mockUsers.sort(function (a, b) {
             if ((parseFloat((a[('paid_amount')].replace('$', '')))) < (parseFloat((b[('paid_amount')].replace('$', ''))))) return 1;
             if ((parseFloat((a[('paid_amount')].replace('$', '')))) > (parseFloat((b[('paid_amount')].replace('$', ''))))) return -1;
@@ -579,11 +795,11 @@
     function clickEventHandlerForAmountSort() {
         clickAmountSortTimes++;
         if (clickAmountSortTimes % 3 == 1) {
-            sortBalanceAsc(mockUsers);
+            sortPaidAmntAsc(mockUsers);
             refreshTableDOM(mockUsers);
             document.getElementById("icon_sort_by_paid_amount").style.color = "#51d0ef";
         } else if (clickAmountSortTimes % 3 == 2) {
-            sortBalanceDesc(mockUsers);
+            sortPaidAmntDesc(mockUsers);
             refreshTableDOM(mockUsers);
             document.getElementById("icon_sort_by_paid_amount").style.color = "#ff9191";
 
@@ -592,6 +808,10 @@
             document.getElementById("icon_sort_by_paid_amount").style.color = "#545454";
         }
     }
+
+
+
+
 
     /**
      * Searching Feature
@@ -620,6 +840,7 @@
         }
         refreshTableDOM(templeArray);
     }
+    
 
 
     /**
@@ -707,7 +928,7 @@
         this.style.width = "160px";
         this.style.transition = "all 0.6s ease";
 
-        createSortByAmountListner();
+        createSortingListeners();
     }
 
     //Handle Row Drag Events
@@ -748,7 +969,8 @@
         //Select and Hide the row header
         this.style.opacity = 0;
         this.style.height = "0px";
-        this.style.padding = "0px";
+        this.style.paddingTop = "0px";
+        this.style.paddingBottom = "0px";
         this.style.borderWidth = "0px";
         this.style.transition = "all 0.4s ease";
 
@@ -857,336 +1079,8 @@
         }
     }
 
-
-
     /**
-     * Legacy Dragging Feature - Using jQuery .Draggle
+     * Removed Legacy Dragging Feature - Using jQuery .Draggle
      */
 
-    // function LegacyDragAndDrop() {
-    //
-    //     $(function () {
-    //
-    //         // Setup Initial Order to avoid some issue during the first drag event.
-    //         setInitialRowOrder();
-    //         setInitialColumnOder();
-        //
-        //     // Drag & Drop Columns
-        //     $(".column").draggable({
-        //         start: function (event, ui) {
-        //             //Update CSS Properties to highlight dragged column
-        //             var target = document.getElementById(this.id);
-        //             target.style.zIndex = 100;
-        //             target.style.background = "#b5f1ff";
-        //             target.style.transition = "background 0.4s ease";
-        //
-        //             //Dash Left & Right borders when the drag event happens
-        //             var allColumns = document.getElementsByClassName('column');
-        //             for (var i = 0; i < allColumns.length; i++) {
-        //                 allColumns[i].style.opacity = 0.9;
-        //             }
-        //
-        //             //Show Drop Arrows for All Columns
-        //             var allColunmDropArrow = document.getElementsByClassName("column_drop_arrow");
-        //             for (var i = 0; i < allColunmDropArrow.length; i++) {
-        //                 allColunmDropArrow[i].style.opacity = 1;
-        //             }
-        //
-        //             //Hide Arrows for the Column which users are dragging
-        //             var draggedColunmDropArrow = document.getElementById("column_header_drop_arrow_" + (this.id).split("olumn")[1]);
-        //             draggedColunmDropArrow.style.opacity = 0;
-        //
-        //             // var columnInex = parseInt((this.id).split("olumn")[1]);
-        //
-        //             //Get offsetWidth Value for the dragged Column
-        //             var draggedColunmWidth = parseInt(document.getElementById(this.id).offsetWidth);
-        //             // console.log(draggedColunmWidth);
-        //
-        //             //Get Order Index for the dragged Column
-        //             var targetStyle = window.getComputedStyle(target)
-        //             var draggedColumnOrderIndex = parseInt(targetStyle.getPropertyValue('order'));
-        //             // console.log(draggedColunmOrderIndex);
-        //
-        //             //Get a map between current elements and their offsetLeft values
-        //             var initialPosition = new Object();
-        //             var currentPosition = new Array();
-        //
-        //             for (var i = 2; i < 8; i++) {
-        //                 var positionData = getColumnPosition(i);
-        //                 initialPosition = {'name': 'column' + i, 'position': positionData};
-        //                 currentPosition.push(initialPosition);
-        //             }
-        //
-        //             currentPosition.sort(function (a, b) {
-        //                 if (a['position'] > b['position']) return 1;
-        //                 if (a['position'] < b['position']) return -1;
-        //                 return 0;
-        //             });
-        //
-        //             //Reduce the offsetWidth for all columns which are located on the right-hand
-        //             for (var i = draggedColumnOrderIndex + 1; i < allColumns.length; i++) {
-        //                 var ElementId = currentPosition[i].name;
-        //                 var tmpItem = document.getElementById(ElementId);
-        //                 tmpItem.style.left = (-Math.abs(draggedColunmWidth)).toString() + 'px';
-        //                 tmpItem.style.transition = "left 0.4s ease";
-        //             }
-        //         },
-        //
-        //         stop: function (event, ui) {
-        //
-        //             //Reset CSS after drag event completed
-        //             var target = document.getElementById(this.id);
-        //             target.style.zIndex = null;
-        //             target.style.background = "";
-        //             target.style.transition = "background 1s ease"
-        //
-        //             var allColumns = document.getElementsByClassName('column');
-        //
-        //             for (var i = 0; i < allColumns.length; i++) {
-        //                 allColumns[i].style.opacity = 1;
-        //                 allColumns[i].style.margin = "0px";
-        //                 allColumns[i].style.borderWidth = "0px";
-        //             }
-        //
-        //             //Reset & Hide All Arrows
-        //             var allColunmDropArrow = document.getElementsByClassName("column_drop_arrow");
-        //             for (var i = 0; i < allColunmDropArrow.length; i++) {
-        //                 allColunmDropArrow[i].style.opacity = 0;
-        //             }
-        //
-        //             //Sort & Re-order Columns
-        //             var currentPosition = new Object();
-        //             var newPosition = new Array();
-        //             for (var i = 2; i < 8; i++) {
-        //                 var positionData = getColumnPosition(i);
-        //                 currentPosition = {'name': 'column' + i, 'position': positionData};
-        //                 newPosition.push(currentPosition);
-        //             }
-        //
-        //             newPosition.sort(function (a, b) {
-        //                 if (a['position'] > b['position']) return -1;
-        //                 if (a['position'] < b['position']) return 1;
-        //                 return 0;
-        //             });
-        //
-        //             var number = 0;
-        //             for (var i = newPosition.length; i--;) {
-        //                 var tmpItem = document.getElementById(newPosition[i].name);
-        //                 tmpItem.style.order = number;
-        //                 tmpItem.style.left = 0;
-        //                 tmpItem.style.top = 0;
-        //                 tmpItem.style.zIndex = 0;
-        //                 tmpItem.style.transition = "background 1s ease";
-        //                 number++;
-        //             }
-        //         }
-        //
-        //     });
-
-            // // Drag & Drop Rows
-            //
-            // $(".row_header").draggable({
-            //     start: function (event, ui) {
-            //         var target = document.getElementById(this.id);
-            //         target.style.zIndex = 1;
-            //
-            //         //Update CSS Properties to highlight dragged row
-            //         var allRows = document.getElementsByClassName('row');
-            //         for (var i = 0; i < allRows.length; i++) {
-            //             allRows[i].style.borderWidth = "1px 1px 1px 1px";
-            //             allRows[i].style.borderTopStyle = "dashed";
-            //             allRows[i].style.borderBottomStyle = "dashed";
-            //             allRows[i].style.borderColor = "#e0e0e0";
-            //         }
-            //
-            //         var draggedRow = document.getElementsByClassName('row' + (this.id).split("row")[1]);
-            //         for (var i = 0; i < draggedRow.length; i++) {
-            //             draggedRow[i].style.background = "#b5f1ff";
-            //             draggedRow[i].style.padding = "0px";
-            //             draggedRow[i].style.borderWidth = 0;
-            //             draggedRow[i].style.height = "0px";
-            //             draggedRow[i].style.opacity = 0;
-            //             draggedRow[i].style.transition = "height 0.5s ease, opacity 0.4s ease, borderWidth 0.5s ease, padding 0.5s ease, background 0.7s ease";
-            //         }
-            //
-            //
-            //         var allRowHeader = document.getElementsByClassName('row_header');
-            //         for (var i = 0; i < allRowHeader.length; i++) {
-            //             allRowHeader[i].style.borderWidth = "1px 1px 1px 1px";
-            //             allRowHeader[i].style.borderTopStyle = "dashed";
-            //             allRowHeader[i].style.borderBottomStyle = "dashed";
-            //             allRowHeader[i].style.borderColor = "#e0e0e0";
-            //             allRowHeader[i].style.padding = "4px";
-            //             allRowHeader[i].style.borderWidth = "1px";
-            //             allRowHeader[i].style.height = "28px";
-            //             allRowHeader[i].style.opacity = 1;
-            //         }
-            //
-            //         target.style.opacity = 0.8;
-            //
-            //         //Reduce the offsetTop for all RowHeader which are located below the dragged item
-            //
-            //         //Get offsetWidth Value for the dragged Column
-            //         // var draggedColumnHeight = parseInt(document.getElementById(this.id).offsetTop);
-            //
-            //         // //Get Order Index for the dragged Column
-            //         var targetStyle = window.getComputedStyle(target)
-            //         var draggedRowOrderIndex = parseInt(targetStyle.getPropertyValue('order'));
-            //         console.log(draggedRowOrderIndex);
-            //
-            //         //Get a map between current elements and their offsetTop values
-            //         var initialPosition = new Object();
-            //         var currentPosition = new Array();
-            //         var userCount = getUserCount();
-            //
-            //         for (var i = 1; i <= userCount; i++) {
-            //             var positionData = getRowPosition(i);
-            //             initialPosition = {'name': 'column1_row' + i, 'position': positionData};
-            //             currentPosition.push(initialPosition);
-            //         }
-            //
-            //         currentPosition.sort(function (a, b) {
-            //             if (a['position'] > b['position']) return 1;
-            //             if (a['position'] < b['position']) return -1;
-            //             return 0;
-            //         });
-            //
-            //         // Reduce the offsetWidth for all columns which are located below the dragged item
-            //         for (var i = draggedRowOrderIndex; i < userCount; i++) {
-            //             var ElementId = currentPosition[i].name;
-            //             console.log(ElementId);
-            //             var tmpItem = document.getElementById(ElementId);
-            //             tmpItem.style.top = '-38px';
-            //             tmpItem.style.transition = "top 0.5s ease";
-            //         }
-            //
-            //         //Reset the Dragged Row Transition
-            //         target.style.transition = null;
-            //     },
-            //
-            //     stop: function (event, ui) {
-            //         var target = document.getElementById(this.id);
-            //         target.style.zIndex = null;
-            //         target.style.opacity = 1;
-            //
-            //         // Reset CSS after drag event completed
-            //         var allRows = document.getElementsByClassName('row');
-            //         for (var i = 0; i < allRows.length; i++) {
-            //             allRows[i].style.opacity = 1;
-            //             allRows[i].style.margin = "0";
-            //             allRows[i].style.borderWidth = "1px";
-            //             allRows[i].style.borderStyle = "solid";
-            //             allRows[i].style.borderColor = "#f2f2f2;";
-            //             allRows[i].style.padding = "10px";
-            //             allRows[i].style.height = "16px";
-            //             allRows[i].style.transition = "opacity 0.8s ease, background 0.8s ease";
-            //         }
-            //         var allRowHeader = document.getElementsByClassName('row_header');
-            //         for (var i = 0; i < allRowHeader.length; i++) {
-            //             allRowHeader[i].style.margin = "0";
-            //             allRowHeader[i].style.borderWidth = "1px";
-            //             allRowHeader[i].style.borderStyle = "solid";
-            //             allRowHeader[i].style.borderColor = "#e0e0e0;";
-            //             allRowHeader[i].style.transition = "margin 0.2s ease"
-            //
-            //         }
-            //         var draggedRows = document.getElementsByClassName('row' + (this.id).split("row")[1]);
-            //         for (var i = 0; i < draggedRows.length; i++) {
-            //             draggedRows[i].style.background = "";
-            //             draggedRows[i].style.transition = "background 1.5s ease"
-            //         }
-            //
-            //         //Sort & Re-order Rows
-            //         var newPosition = new Array();
-            //         var userCount = getUserCount();
-            //
-            //         for (var i = 1; i <= userCount; i++) {
-            //             var currentPosition = new Object();
-            //             var positionData = getRowPosition(i);
-            //             currentPosition = {'name': 'column1_row' + i, 'position': positionData};
-            //             newPosition.push(currentPosition);
-            //         }
-            //
-            //         console.log(newPosition);
-            //
-            //         newPosition.sort(function (a, b) {
-            //             if (a['position'] > b['position']) return -1;
-            //             if (a['position'] < b['position']) return 1;
-            //             return 0;
-            //         });
-            //
-            //         var numberOrder = 1;
-            //         for (var i = newPosition.length; i--;) {
-            //
-            //             var tmpItem = document.getElementById(newPosition[i].name);
-            //             tmpItem.style.order = numberOrder;
-            //             tmpItem.style.left = 0;
-            //             tmpItem.style.top = 0;
-            //             numberOrder++;
-            //
-            //             // console.log(tmpItem);
-            //         }
-            //
-            //         // console.log(newPosition);
-            //         // Get Original Row Index in the order
-            //         var rowOrder = new Array();
-            //         for (var i = 0; i < newPosition.length; i++) {
-            //             var originalRowIndex = parseInt(newPosition[i].name.split('row')[1]);
-            //             rowOrder.push(originalRowIndex);
-            //         }
-            //
-            //         // Update orders for all other rows
-            //         var newRowOrder = 2;
-            //         for (var i = rowOrder.length; i--;) {
-            //             var otherRows = document.getElementsByClassName('row' + rowOrder[i]);
-            //             for (var j = 1; j < otherRows.length; j++) {
-            //                 var tmpItem = otherRows[j];
-            //                 tmpItem.style.order = newRowOrder;
-            //             }
-            //             newRowOrder++;
-            //         }
-            //     }
-            // });
-            //
-            // //Utility functions
-            // function getColumnPosition(columnId) {
-            //     var tmpItem = document.getElementById('column' + columnId);
-            //
-            //     return tmpItem.offsetLeft;
-            // }
-            //
-            // function getRowPosition(rowId) {
-            //     var tmpItem = document.getElementById('column1_row' + rowId);
-            //
-            //     return tmpItem.offsetTop;
-            // }
-            //
-            // function getUserCount() {
-            //     //Get user Count
-            //     //Remove column_header
-            //     var userCount = document.getElementById('column1').childNodes.length - 1;
-            //
-            //     return userCount;
-            // }
-            //
-            // function setInitialColumnOder() {
-            //     var allColumns = document.getElementsByClassName('column');
-            //     var columnsOrderIndex = 0;
-            //     for (var i = 0; i < allColumns.length; i++) {
-            //         allColumns[i].style.order = columnsOrderIndex;
-            //         allColumns[i].style.transition = "left 0.4s ease";
-            //         columnsOrderIndex++;
-            //     }
-            // }
-            //
-            // function setInitialRowOrder() {
-            //     var allRowHeader = document.getElementsByClassName('row_header');
-            //     var rowOrderIndex = 1;
-            //     for (var i = 0; i < allRowHeader.length; i++) {
-            //         allRowHeader[i].style.order = rowOrderIndex;
-            //         rowOrderIndex++;
-        //         }
-        //     }
-        // });
-    // }
 })();
