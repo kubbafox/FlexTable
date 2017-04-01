@@ -2,9 +2,9 @@
  * Created by Neverland on 3/27/17.
  */
 
-'use strict'
 
-$(function () {
+
+(function () {
 
     var mockUsers = [
         {
@@ -344,7 +344,9 @@ $(function () {
     constructTable(mockUsers);
     createSortByAlphaListener();
     createSearchTypingListener();
-    dragAndDrop();
+    createDragAndDropListener();
+    setInitialRowOrderTag();
+    createSortByAmountListner();
 
     function constructTable(userArray) {
 
@@ -361,10 +363,10 @@ $(function () {
         for (var i = 0; i < userCount; i++) {
             var tempObject = userArray[i];
             var tempAbbreviatedName = abbreviateLastName(tempObject.name);
-            var tempColumn1HTML = '<div class="row' + tempObject.id + ' row_header" ' + 'id="' + 'column1_row' + tempObject.id + '">' +
+            var tempColumn1HTML = '<div class="row' + tempObject.id + ' row_header ' + 'row"' + 'id="' + 'column1_row' + tempObject.id + '" draggable="true">' +
                 '<input type="checkbox" id="modal' + tempObject.id + '" class="modal_user_profile">' +
                 '<label for="modal' + tempObject.id + '">' +
-                '<div>' +
+                '<div class="row_order_index">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempObject.name + '</span>' +
                 '<div class="user_profile">' +
@@ -437,98 +439,41 @@ $(function () {
             '</div>' +
             column1HTML +
             '</div>' +
-            '<div id="column2" class="column content2">' +
+            '<div id="column2" class="column content2" draggable="true">' +
             '<div class="column_header">' +
             'Commission Rate' +
-            '<p id="column_header_drop_arrow_2" class="column_drop_arrow">' +
-            '<svg class="icon icon-arrow-down1">' +
-            '<use xlink:href="#icon-arrow-down2">' +
-            '</use>' +
-            '</svg>' +
-            '<svg class="icon icon-arrow-down2">' +
-            '<use xlink:href="#icon-arrow-down2">' +
-            '</use>' +
-            '</svg>' +
-            '</p>' +
             '</div>' +
             column2HTML +
             '</div>' +
-            '<div id="column3" class="column content3">' +
+            '<div id="column3" class="column content3" draggable="true">' +
             '<div class="column_header">' +
             'Contract End Day' +
-            '<p id="column_header_drop_arrow_3" class="column_drop_arrow">' +
-            '<svg class="icon icon-arrow-down1">' +
-            '<use xlink:href="#icon-arrow-down2">' +
-            '</use>' +
-            '</svg>' +
-            '<svg class="icon icon-arrow-down2">' +
-            '<use xlink:href="#icon-arrow-down2">' +
-            '</use>' +
-            '</svg>' +
-            '</p>' +
             '</div>' +
             column3HTML +
             '</div>' +
-            '<div id="column4" class="column content4">' +
+            '<div id="column4" class="column content4" draggable="true">' +
             '<div class="column_header">' +
             'Total Deals' +
-            '<p id="column_header_drop_arrow_4" class="column_drop_arrow">' +
-            '<svg class="icon icon-arrow-down1">' +
-            '<use xlink:href="#icon-arrow-down2">' +
-            '</use>' +
-            '</svg>' +
-            '<svg class="icon icon-arrow-down2">' +
-            '<use xlink:href="#icon-arrow-down2">' +
-            '</use>' +
-            '</svg>' +
-            '</p>' +
             '</div>' +
             column4HTML +
             '</div>' +
-            '<div id="column5" class="column content5">' +
+            '<div id="column5" class="column content5" draggable="true">' +
             '<div class="column_header">' +
             'Payment Cycle' +
-            '<p id="column_header_drop_arrow_5" class="column_drop_arrow">' +
-            '<svg class="icon icon-arrow-down1">' +
-            '<use xlink:href="#icon-arrow-down2">' +
-            '</use>' +
-            '</svg>' +
-            '<svg class="icon icon-arrow-down2">' +
-            '<use xlink:href="#icon-arrow-down2">' +
-            '</use>' +
-            '</svg>' +
-            '</p>' +
             '</div>' +
             column5HTML +
             '</div>' +
-            '<div id="column6" class="column content6">' +
+            '<div id="column6" class="column content6" draggable="true">' +
             '<div class="column_header">' +
             'Outstanding Balance' +
-            '<p id="column_header_drop_arrow_6" class="column_drop_arrow">' +
-            '<svg class="icon icon-arrow-down1">' +
-            '<use xlink:href="#icon-arrow-down2">' +
-            '</use>' +
-            '</svg>' +
-            '<svg class="icon icon-arrow-down2">' +
-            '<use xlink:href="#icon-arrow-down2">' +
-            '</use>' +
-            '</svg>' +
-            '</p>' +
             '</div>' +
             column6HTML +
             '</div>' +
-            '<div id="column7" class="column content7">' +
+            '<div id="column7" class="column content7" draggable="true">' +
             '<div class="column_header">' +
             'Paid Amount' +
-            '<p id="column_header_drop_arrow_7" class="column_drop_arrow">' +
-            '<svg class="icon icon-arrow-down1">' +
-            '<use xlink:href="#icon-arrow-down2">' +
-            '</use>' +
-            '</svg>' +
-            '<svg class="icon icon-arrow-down2">' +
-            '<use xlink:href="#icon-arrow-down2">' +
-            '</use>' +
-            '</svg>' +
+            '<p id="column_header_drop_arrow_7" class="numeric_sort_icon">' +
+            '<svg class="icon icon-sort-numeric-asc" id="icon_sort_by_paid_amount"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
             '</p>' +
             '</div>' +
             column7HTML +
@@ -554,7 +499,9 @@ $(function () {
         destroyTableDOM();
         constructTable(userArray);
         createSortByAlphaListener();
-        dragAndDrop();
+        createSortByAmountListner();
+        createDragAndDropListener();
+        setInitialRowOrderTag();
     }
 
     /**
@@ -585,41 +532,64 @@ $(function () {
         });
     }
 
-    function displaySortByAlphaLButton() {
-        var SortByAlphaTempItem = document.getElementById("icon-sort_by_alpha_name");
-        SortByAlphaTempItem.style.opacity = 1;
-    }
-
-    function hideSortByAlphaLButton() {
-        var SortByAlphaTempItem = document.getElementById("icon-sort_by_alpha_name");
-        SortByAlphaTempItem.style.opacity = 0;
-    }
-
-    var clickTimes = 0;
-
+    var clickAlphaSortIconTimes = 0;
     function clickEventHandlerForAlphaSort() {
-        clickTimes++;
-        if (clickTimes % 3 == 1) {
+        clickAlphaSortIconTimes++;
+        if (clickAlphaSortIconTimes % 3 == 1) {
             sortNameAsc(mockUsers);
-            destroyTableDOM();
-            constructTable(mockUsers);
-            createSortByAlphaListener();
-            displaySortByAlphaLButton();
-            dragAndDrop();
-        } else if (clickTimes % 3 == 2) {
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon-sort_by_alpha_name").style.color = "#51d0ef";
+        } else if (clickAlphaSortIconTimes % 3 == 2) {
             sortNameDesc(mockUsers);
-            destroyTableDOM();
-            constructTable(mockUsers);
-            createSortByAlphaListener();
-            displaySortByAlphaLButton();
-            dragAndDrop();
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon-sort_by_alpha_name").style.color = "#ff9191";
 
-        } else if (clickTimes % 3 == 0) {
-            destroyTableDOM();
-            constructTable(mockUsersCopy);
-            createSortByAlphaListener();
-            hideSortByAlphaLButton();
-            dragAndDrop();
+        } else if (clickAlphaSortIconTimes % 3 == 0) {
+            refreshTableDOM(mockUsersCopy);
+            document.getElementById("icon-sort_by_alpha_name").style.color = "#545454";
+        }
+    }
+
+    function createSortByAmountListner() {
+        var SortByAlphaTempItem = document.getElementById("icon_sort_by_paid_amount");
+        SortByAlphaTempItem.addEventListener("click", function () {
+            clickEventHandlerForAmountSort();
+        }, false);
+    }
+
+    function sortBalanceAsc(mockUsers) {
+
+        mockUsers.sort(function (a, b) {
+            if ((parseFloat((a[('paid_amount')].replace('$', '')))) > (parseFloat((b[('paid_amount')].replace('$', ''))))) return 1;
+            if ((parseFloat((a[('paid_amount')].replace('$', '')))) < (parseFloat((b[('paid_amount')].replace('$', ''))))) return -1;
+            return 0;
+        });
+
+    }
+
+    function sortBalanceDesc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if ((parseFloat((a[('paid_amount')].replace('$', '')))) < (parseFloat((b[('paid_amount')].replace('$', ''))))) return 1;
+            if ((parseFloat((a[('paid_amount')].replace('$', '')))) > (parseFloat((b[('paid_amount')].replace('$', ''))))) return -1;
+            return 0;
+        });
+    }
+
+    var clickAmountSortTimes = 0;
+    function clickEventHandlerForAmountSort() {
+        clickAmountSortTimes++;
+        if (clickAmountSortTimes % 3 == 1) {
+            sortBalanceAsc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_paid_amount").style.color = "#51d0ef";
+        } else if (clickAmountSortTimes % 3 == 2) {
+            sortBalanceDesc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_paid_amount").style.color = "#ff9191";
+
+        } else if (clickAmountSortTimes % 3 == 0) {
+            refreshTableDOM(mockUsersCopy);
+            document.getElementById("icon_sort_by_paid_amount").style.color = "#545454";
         }
     }
 
@@ -633,7 +603,6 @@ $(function () {
         searchInputDOM.addEventListener("keyup", function () {
             searchUserArray(mockUsers);
         }, false);
-        console.log("a");
     }
 
     function getSearchInput() {
@@ -650,9 +619,6 @@ $(function () {
             }
         }
         refreshTableDOM(templeArray);
-
-        console.log(tempString);
-
     }
 
 
@@ -660,333 +626,567 @@ $(function () {
      * Dragging Feature
      */
 
-    function dragAndDrop() {
-
-
-        $(function () {
-
-            // Setup Initial Order to avoid some issue during the first drag event.
-            setInitialRowOrder();
-            setInitialColumnOder();
-
-            // Drag & Drop Columns
-            $(".column").draggable({
-                start: function (event, ui) {
-
-                    //Update CSS Properties to highlight dragged column
-                    var target = document.getElementById(this.id);
-                    target.style.zIndex = 100;
-                    target.style.background = "#fffdc4";
-                    target.style.transition = "background 0.4s ease";
-
-                    //Dash Left & Right borders when the drag event happens
-                    var allColumns = document.getElementsByClassName('column');
-                    for (var i = 0; i < allColumns.length; i++) {
-                        allColumns[i].style.opacity = 0.9;
-                    }
-
-                    //Show Drop Arrows for All Columns
-                    var allColunmDropArrow = document.getElementsByClassName("column_drop_arrow");
-                    for (var i = 0; i < allColunmDropArrow.length; i++) {
-                        allColunmDropArrow[i].style.opacity = 1;
-                    }
-
-                    //Hide Arrows for the Column which users are dragging
-                    var draggedColunmDropArrow = document.getElementById("column_header_drop_arrow_" + (this.id).split("olumn")[1]);
-                    draggedColunmDropArrow.style.opacity = 0;
-
-                    // var columnInex = parseInt((this.id).split("olumn")[1]);
-
-                    //Get offsetWidth Value for the dragged Column
-                    var draggedColunmWidth = parseInt(document.getElementById(this.id).offsetWidth);
-                    // console.log(draggedColunmWidth);
-
-                    //Get Order Index for the dragged Column
-                    var targetStyle = window.getComputedStyle(target)
-                    var draggedColumnOrderIndex = parseInt(targetStyle.getPropertyValue('order'));
-                    // console.log(draggedColunmOrderIndex);
-
-                    //Get a map between current elements and their offsetLeft values
-                    var initialPosition = new Object();
-                    var currentPosition = new Array();
-
-                    for (var i = 2; i < 8; i++) {
-                        var positionData = getColumnPosition(i);
-                        initialPosition = {'name': 'column' + i, 'position': positionData};
-                        currentPosition.push(initialPosition);
-                    }
-
-                    currentPosition.sort(function (a, b) {
-                        if (a['position'] > b['position']) return 1;
-                        if (a['position'] < b['position']) return -1;
-                        return 0;
-                    });
-
-                    //Reduce the offsetWidth for all columns which are located on the right-hand
-                    for (var i = draggedColumnOrderIndex + 1; i < allColumns.length; i++) {
-                        var ElementId = currentPosition[i].name;
-                        var tmpItem = document.getElementById(ElementId);
-                        tmpItem.style.left = (-Math.abs(draggedColunmWidth)).toString() + 'px';
-                        tmpItem.style.transition = "left 0.4s ease";
-                    }
-                    ;
-
-                },
-
-                stop: function (event, ui) {
-
-                    //Reset CSS after drag event completed
-                    var target = document.getElementById(this.id);
-                    target.style.zIndex = null;
-                    target.style.background = "";
-                    target.style.transition = "background 1s ease"
-
-                    var allColumns = document.getElementsByClassName('column');
-
-                    for (var i = 0; i < allColumns.length; i++) {
-                        allColumns[i].style.opacity = 1;
-                        allColumns[i].style.margin = "0px";
-                        allColumns[i].style.borderWidth = "0px";
-                    }
-
-                    //Reset & Hide All Arrows
-                    var allColunmDropArrow = document.getElementsByClassName("column_drop_arrow");
-                    for (var i = 0; i < allColunmDropArrow.length; i++) {
-                        allColunmDropArrow[i].style.opacity = 0;
-                    }
-
-                    //Sort & Re-order Columns
-                    var currentPosition = new Object();
-                    var newPosition = new Array();
-                    for (var i = 2; i < 8; i++) {
-                        var positionData = getColumnPosition(i);
-                        currentPosition = {'name': 'column' + i, 'position': positionData};
-                        newPosition.push(currentPosition);
-                    }
-
-                    newPosition.sort(function (a, b) {
-                        if (a['position'] > b['position']) return -1;
-                        if (a['position'] < b['position']) return 1;
-                        return 0;
-                    });
-
-                    console.log(newPosition)
-
-                    var number = 0;
-                    for (var i = newPosition.length; i--;) {
-                        var tmpItem = document.getElementById(newPosition[i].name);
-                        tmpItem.style.order = number;
-                        tmpItem.style.left = 0;
-                        tmpItem.style.top = 0;
-                        tmpItem.style.zIndex = 0;
-                        tmpItem.style.transition = "left 0s ease";
-                        number++;
-                    }
-                }
-
-            });
-
-            // Drag & Drop Rows
-
-            $(".row_header").draggable({
-                start: function (event, ui) {
-
-                    //Update CSS Properties to highlight dragged row
-                    var target = document.getElementById(this.id);
-                    target.style.zIndex = 1;
-
-                    var allRows = document.getElementsByClassName('row');
-                    for (var i = 0; i < allRows.length; i++) {
-                        allRows[i].style.borderWidth = "1px 1px 1px 1px";
-                        allRows[i].style.borderTopStyle = "dashed";
-                        allRows[i].style.borderBottomStyle = "dashed";
-                        allRows[i].style.borderColor = "#e0e0e0";
-                    }
-
-                    var draggedRow = document.getElementsByClassName('row' + (this.id).split("row")[1]);
-                    for (var i = 0; i < draggedRow.length; i++) {
-                        draggedRow[i].style.background = "#fffdc4";
-                        draggedRow[i].style.padding = "0px";
-                        draggedRow[i].style.borderWidth = 0;
-                        draggedRow[i].style.height = "0px";
-                        draggedRow[i].style.opacity = 0;
-                        draggedRow[i].style.transition = "height 0.5s ease, opacity 0.4s ease, borderWidth 0.5s ease, padding 0.5s ease, background 0.7s ease";
-                    }
-
-
-                    var allRowHeader = document.getElementsByClassName('row_header');
-                    for (var i = 0; i < allRowHeader.length; i++) {
-                        allRowHeader[i].style.borderWidth = "1px 1px 1px 1px";
-                        allRowHeader[i].style.borderTopStyle = "dashed";
-                        allRowHeader[i].style.borderBottomStyle = "dashed";
-                        allRowHeader[i].style.borderColor = "#e0e0e0";
-                        allRowHeader[i].style.padding = "4px";
-                        allRowHeader[i].style.borderWidth = "1px";
-                        allRowHeader[i].style.height = "28px";
-                        allRowHeader[i].style.opacity = 1;
-                    }
-
-                    //Reduce the offsetTop for all RowHeader which are located below the dragged item
-
-                    //Get offsetWidth Value for the dragged Column
-                    // var draggedColumnHeight = parseInt(document.getElementById(this.id).offsetTop);
-
-                    // //Get Order Index for the dragged Column
-                    var targetStyle = window.getComputedStyle(target)
-                    var draggedRowOrderIndex = parseInt(targetStyle.getPropertyValue('order'));
-                    console.log(draggedRowOrderIndex);
-
-                    //Get a map between current elements and their offsetTop values
-                    var initialPosition = new Object();
-                    var currentPosition = new Array();
-                    var userCount = getUserCount();
-
-                    for (var i = 1; i <= userCount; i++) {
-                        var positionData = getRowPosition(i);
-                        initialPosition = {'name': 'column1_row' + i, 'position': positionData};
-                        currentPosition.push(initialPosition);
-                    }
-
-                    currentPosition.sort(function (a, b) {
-                        if (a['position'] > b['position']) return 1;
-                        if (a['position'] < b['position']) return -1;
-                        return 0;
-                    });
-
-                    // Reduce the offsetWidth for all columns which are located below the dragged item
-                    for (var i = draggedRowOrderIndex; i < userCount; i++) {
-                        var ElementId = currentPosition[i].name;
-                        console.log(ElementId);
-                        var tmpItem = document.getElementById(ElementId);
-                        tmpItem.style.top = '-38px';
-                        tmpItem.style.transition = "top 0.5s ease";
-                    }
-
-                    //Reset the Dragged Row Transition
-                    target.style.transition = null;
-                },
-
-                stop: function (event, ui) {
-                    var target = document.getElementById(this.id);
-                    target.style.zIndex = null;
-
-                    // Reset CSS after drag event completed
-                    var allRows = document.getElementsByClassName('row');
-                    for (var i = 0; i < allRows.length; i++) {
-                        allRows[i].style.opacity = 1;
-                        allRows[i].style.margin = "0";
-                        allRows[i].style.borderWidth = "1px";
-                        allRows[i].style.borderStyle = "solid";
-                        allRows[i].style.borderColor = "#f2f2f2;";
-                        allRows[i].style.padding = "10px";
-                        allRows[i].style.height = "16px";
-                        allRows[i].style.transition = "opacity 0.8s ease, background 0.8s ease";
-                    }
-                    var allRowHeader = document.getElementsByClassName('row_header');
-                    for (var i = 0; i < allRowHeader.length; i++) {
-                        allRowHeader[i].style.margin = "0";
-                        allRowHeader[i].style.borderWidth = "1px";
-                        allRowHeader[i].style.borderStyle = "solid";
-                        allRowHeader[i].style.borderColor = "#e0e0e0;";
-                        allRowHeader[i].style.transition = "margin 0.2s ease"
-                    }
-                    var draggedRows = document.getElementsByClassName('row' + (this.id).split("row")[1]);
-                    for (var i = 0; i < draggedRows.length; i++) {
-                        draggedRows[i].style.background = "";
-                        draggedRows[i].style.transition = "background 1s ease"
-                    }
-
-                    //Sort & Re-order Rows
-                    var newPosition = new Array();
-                    var userCount = getUserCount();
-
-                    for (var i = 1; i <= userCount; i++) {
-                        var currentPosition = new Object();
-                        var positionData = getRowPosition(i);
-                        currentPosition = {'name': 'column1_row' + i, 'position': positionData};
-                        newPosition.push(currentPosition);
-                    }
-
-                    console.log(newPosition);
-
-                    newPosition.sort(function (a, b) {
-                        if (a['position'] > b['position']) return -1;
-                        if (a['position'] < b['position']) return 1;
-                        return 0;
-                    });
-
-                    var numberOrder = 1;
-                    for (var i = newPosition.length; i--;) {
-
-                        var tmpItem = document.getElementById(newPosition[i].name);
-                        tmpItem.style.order = numberOrder;
-                        tmpItem.style.left = 0;
-                        tmpItem.style.top = 0;
-                        numberOrder++;
-
-                        // console.log(tmpItem);
-                    }
-
-                    // console.log(newPosition);
-                    // Get Original Row Index in the order
-                    var rowOrder = new Array();
-                    for (var i = 0; i < newPosition.length; i++) {
-                        var originalRowIndex = parseInt(newPosition[i].name.split('row')[1]);
-                        rowOrder.push(originalRowIndex);
-                    }
-
-                    // Update orders for all other rows
-                    var newRowOrder = 2;
-                    for (var i = rowOrder.length; i--;) {
-                        var otherRows = document.getElementsByClassName('row' + rowOrder[i]);
-                        for (var j = 1; j < otherRows.length; j++) {
-                            var tmpItem = otherRows[j];
-                            tmpItem.style.order = newRowOrder;
-                        }
-                        newRowOrder++;
-                    }
-                }
-            });
-
-            //Utility functions
-            function getColumnPosition(columnId) {
-                var tmpItem = document.getElementById('column' + columnId);
-
-                return tmpItem.offsetLeft;
-            }
-
-            function getRowPosition(rowId) {
-                var tmpItem = document.getElementById('column1_row' + rowId);
-
-                return tmpItem.offsetTop;
-            }
-
-            function getUserCount() {
-                //Get user Count
-                //Remove column_header
-                var userCount = document.getElementById('column1').childNodes.length - 1;
-
-                return userCount;
-            }
-
-            function setInitialColumnOder() {
-                var allColumns = document.getElementsByClassName('column');
-                var columnsOrderIndex = 0;
-                for (var i = 0; i < allColumns.length; i++) {
-                    allColumns[i].style.order = columnsOrderIndex;
-                    allColumns[i].style.transition = "left 0.4s ease";
-                    columnsOrderIndex++;
-                }
-            }
-
-            function setInitialRowOrder() {
-                var allRowHeader = document.getElementsByClassName('row_header');
-                var rowOrderIndex = 1;
-                for (var i = 0; i < allRowHeader.length; i++) {
-                    allRowHeader[i].style.order = rowOrderIndex;
-                    rowOrderIndex++;
-                }
-            }
-        });
+    //Create Listeners for drag & drop
+    function createDragAndDropListener() {
+        
+        //Create Listeners for Columns
+        var tempColumns = document.getElementsByClassName('column');
+        for (var i = 0; i < tempColumns.length; i++) {
+            tempColumns[i].addEventListener('dragstart', handleColumnDragStart, false);
+            tempColumns[i].addEventListener('dragenter', handleColumnDragEnter, false)
+            tempColumns[i].addEventListener('dragover', handleColumnDragOver, false);
+            tempColumns[i].addEventListener('dragleave', handleColumnDragLeave, false);
+            tempColumns[i].addEventListener('drop', handleColumnDrop, false);
+            tempColumns[i].addEventListener('dragend', handleColumnDragEnd, false);
+        }
+        //Create Listeners for Rows
+        var tempRows = document.getElementsByClassName('row_header');
+        for (var i = 0; i < tempRows.length; i++) {
+            tempRows[i].addEventListener('dragstart', handleRowDragStart, false);
+            tempRows[i].addEventListener('dragenter', handleRowDragEnter, false)
+            tempRows[i].addEventListener('dragover', handleRowDragOver, false);
+            tempRows[i].addEventListener('dragleave', handleRowDragLeave, false);
+            tempRows[i].addEventListener('drop', handleRowDrop, false);
+            tempRows[i].addEventListener('dragend', handleRowDragEnd, false);
+        }
     }
-});
+
+
+    //Handle Column Drag Events
+    //Get Current Drag Item Id to avoid it be invoked by other events
+    var dragColumnId = "";
+    var dragColumnDOM = null;
+    function handleColumnDragStart(e) {
+        this.style.opacity = 0;
+        this.style.width = "0px";
+        this.style.padding = "0px";
+        this.style.borderWidth = "0px";
+        this.style.borderWidth = "0px";
+        this.style.transition = "width 0.4s ease";
+
+
+        dragColumnId = document.getElementById(this.id).id;
+        dragColumnDOM = this;
+
+        e.dataTransfer.effectAllowed = 'copy';
+        e.dataTransfer.setData('text/html', this.innerHTML);
+    }
+
+    function handleColumnDragEnter() {
+        if (document.getElementById(this.id).id != dragColumnId) {
+            this.style.opacity = 0.4;
+            this.style.transition = "all 0.4s ease";
+        }
+    }
+
+    function handleColumnDragOver(e) {
+        event.preventDefault();
+        return false;
+    }
+
+    function handleColumnDragLeave() {
+        if (document.getElementById(this.id).id != dragColumnId) {
+            this.style.opacity = 1;
+            this.style.transition = "all 0.4s ease";
+        }
+    }
+
+    function handleColumnDrop(e) {
+        event.preventDefault();
+        this.style.opacity = 1;
+        this.style.transition = "all 0.4s ease";
+
+        if (dragColumnDOM != this) {
+            dragColumnDOM.innerHTML = this.innerHTML;
+            this.innerHTML = e.dataTransfer.getData('text/html');
+        }
+    }
+
+    function handleColumnDragEnd() {
+        this.style.opacity = 1;
+        this.style.width = "160px";
+        this.style.transition = "all 0.6s ease";
+
+        createSortByAmountListner();
+    }
+
+    //Handle Row Drag Events
+
+    //Create Row Order Index inside each row header dom.
+
+    function setInitialRowOrderTag() {
+        var allRowHeader = document.getElementsByClassName('row_header');
+        var rowOrderIndex = 1;
+        for (var i = 0; i < allRowHeader.length; i++) {
+            allRowHeader[i].style.order = rowOrderIndex;
+            rowOrderIndex++;
+        }
+    }
+
+    function getUpdatedRowOrderTag() {
+        var UpdatedRowOrderTag = new Array();
+        var allRowHeader = document.getElementsByClassName('row_header');
+
+        for (var i = 0; i < allRowHeader.length; i++) {
+            var tempRowHeader = window.getComputedStyle(allRowHeader[i]);
+            UpdatedRowOrderTag.push(parseInt(tempRowHeader.getPropertyValue('order')));
+        }
+        return UpdatedRowOrderTag;
+    }
+
+
+
+    var dragRowId = "";
+    var dragRowOrder = 0;
+    var dragRowDOM;
+    function handleRowDragStart(e) {
+        dragRowDOM = this;
+
+        //Get row idea
+        dragRowId = document.getElementById(this.id).id;
+
+        //Select and Hide the row header
+        this.style.opacity = 0;
+        this.style.height = "0px";
+        this.style.padding = "0px";
+        this.style.borderWidth = "0px";
+        this.style.transition = "all 0.4s ease";
+
+
+        //Select and Hide other cells in the same row
+        var draggedRow = document.getElementsByClassName('row' + (dragRowId).split("row")[1]);
+        for (var i = 1; i < draggedRow.length; i++) {
+            draggedRow[i].style.opacity = 0;
+            draggedRow[i].style.height = "0px";
+            draggedRow[i].style.padding = "0px";
+            draggedRow[i].style.borderWidth = "0px";
+            draggedRow[i].style.transition = "all 0.4s ease";
+        }
+
+        dragRowOrder = parseInt((window.getComputedStyle(this)).getPropertyValue('order'));
+    }
+
+    function handleRowDragEnter() {
+        if (document.getElementById(this.id).id != dragRowId) {
+            this.style.opacity = 0.5;
+            this.style.transition = "all 0.4s ease";
+
+
+            var draggedRow = document.getElementsByClassName('row' + (document.getElementById(this.id).id).split("row")[1]);
+            for (var i = 1; i < draggedRow.length; i++) {
+                draggedRow[i].style.opacity = 0.5;
+                draggedRow[i].style.transition = "all 0.4s ease";
+            }
+        }
+    }
+
+    function handleRowDragOver(e) {
+        event.preventDefault();
+        return false;
+    }
+
+    function handleRowDragLeave() {
+        if (document.getElementById(this.id).id != dragRowId) {
+            this.style.opacity = 1;
+            this.style.transition = "all 0.4s ease";
+
+            var draggedRow = document.getElementsByClassName('row' + (document.getElementById(this.id).id).split("row")[1]);
+            for (var i = 1; i < draggedRow.length; i++) {
+                draggedRow[i].style.opacity = 1;
+                draggedRow[i].style.transition = "all 0.4s ease";
+            }
+        }
+    }
+
+
+    function handleRowDrop(e) {
+        event.preventDefault();
+        this.style.opacity = 1;
+        this.style.transition = "all 0.4s ease";
+
+        //get drop location
+        var dropRowId = document.getElementById(this.id).id;
+        //get drop location order
+        var dropRowOrder = parseInt((window.getComputedStyle(this)).getPropertyValue('order'));
+        //swap the order between drag row and drop row
+        this.style.order = dragRowOrder;
+        dragRowDOM.style.order = dropRowOrder;
+
+        //Update orders for all cells in other columns
+        var updatedRowOrder = getUpdatedRowOrderTag();
+
+        var allColumns = new Array();
+        for (var i = 2; i < 8; i++){
+            allColumns.push("column" + i);
+        }
+
+        var tempRows = document.getElementById("column2").childNodes;
+        console.log(tempRows);
+
+        // for (var i = 0; i < allColumns.length; i++) {
+        //     var tempRows = document.getElementById("column2").childNodes;
+        //     for (var j = 0; j < 30; j++) {
+        //         var tmpItem = tempRows[j + 1]
+        //         tmpItem.style.order = updatedRowOrder[j];
+        //     }
+        // }
+
+        for (var i = 0; i < updatedRowOrder.length; i++) {
+            var otherRows = document.getElementsByClassName('row' + (i + 1));
+            for (var j = 0; j < otherRows.length; j++) {
+                var tmpItem = otherRows[j];
+                tmpItem.style.order = updatedRowOrder[i];
+            }
+        }
+    }
+
+    function handleRowDragEnd() {
+        this.style.opacity = 1;
+        this.style.height = "28px";
+        this.style.padding = "4px";
+        this.style.borderWidth = "1px";
+        this.style.transition = "all 0.4s ease";
+
+        var draggedRow = document.getElementsByClassName('row' + (dragRowId).split("row")[1]);
+        for (var i = 1; i < draggedRow.length; i++) {
+            draggedRow[i].style.opacity = 1;
+            draggedRow[i].style.height = "16px";
+            draggedRow[i].style.padding = "10px";
+            draggedRow[i].style.borderWidth = "1px";
+            draggedRow[i].style.transition = "all 0.4s ease";
+        }
+    }
+
+
+
+    /**
+     * Legacy Dragging Feature - Using jQuery .Draggle
+     */
+
+    // function LegacyDragAndDrop() {
+    //
+    //     $(function () {
+    //
+    //         // Setup Initial Order to avoid some issue during the first drag event.
+    //         setInitialRowOrder();
+    //         setInitialColumnOder();
+        //
+        //     // Drag & Drop Columns
+        //     $(".column").draggable({
+        //         start: function (event, ui) {
+        //             //Update CSS Properties to highlight dragged column
+        //             var target = document.getElementById(this.id);
+        //             target.style.zIndex = 100;
+        //             target.style.background = "#b5f1ff";
+        //             target.style.transition = "background 0.4s ease";
+        //
+        //             //Dash Left & Right borders when the drag event happens
+        //             var allColumns = document.getElementsByClassName('column');
+        //             for (var i = 0; i < allColumns.length; i++) {
+        //                 allColumns[i].style.opacity = 0.9;
+        //             }
+        //
+        //             //Show Drop Arrows for All Columns
+        //             var allColunmDropArrow = document.getElementsByClassName("column_drop_arrow");
+        //             for (var i = 0; i < allColunmDropArrow.length; i++) {
+        //                 allColunmDropArrow[i].style.opacity = 1;
+        //             }
+        //
+        //             //Hide Arrows for the Column which users are dragging
+        //             var draggedColunmDropArrow = document.getElementById("column_header_drop_arrow_" + (this.id).split("olumn")[1]);
+        //             draggedColunmDropArrow.style.opacity = 0;
+        //
+        //             // var columnInex = parseInt((this.id).split("olumn")[1]);
+        //
+        //             //Get offsetWidth Value for the dragged Column
+        //             var draggedColunmWidth = parseInt(document.getElementById(this.id).offsetWidth);
+        //             // console.log(draggedColunmWidth);
+        //
+        //             //Get Order Index for the dragged Column
+        //             var targetStyle = window.getComputedStyle(target)
+        //             var draggedColumnOrderIndex = parseInt(targetStyle.getPropertyValue('order'));
+        //             // console.log(draggedColunmOrderIndex);
+        //
+        //             //Get a map between current elements and their offsetLeft values
+        //             var initialPosition = new Object();
+        //             var currentPosition = new Array();
+        //
+        //             for (var i = 2; i < 8; i++) {
+        //                 var positionData = getColumnPosition(i);
+        //                 initialPosition = {'name': 'column' + i, 'position': positionData};
+        //                 currentPosition.push(initialPosition);
+        //             }
+        //
+        //             currentPosition.sort(function (a, b) {
+        //                 if (a['position'] > b['position']) return 1;
+        //                 if (a['position'] < b['position']) return -1;
+        //                 return 0;
+        //             });
+        //
+        //             //Reduce the offsetWidth for all columns which are located on the right-hand
+        //             for (var i = draggedColumnOrderIndex + 1; i < allColumns.length; i++) {
+        //                 var ElementId = currentPosition[i].name;
+        //                 var tmpItem = document.getElementById(ElementId);
+        //                 tmpItem.style.left = (-Math.abs(draggedColunmWidth)).toString() + 'px';
+        //                 tmpItem.style.transition = "left 0.4s ease";
+        //             }
+        //         },
+        //
+        //         stop: function (event, ui) {
+        //
+        //             //Reset CSS after drag event completed
+        //             var target = document.getElementById(this.id);
+        //             target.style.zIndex = null;
+        //             target.style.background = "";
+        //             target.style.transition = "background 1s ease"
+        //
+        //             var allColumns = document.getElementsByClassName('column');
+        //
+        //             for (var i = 0; i < allColumns.length; i++) {
+        //                 allColumns[i].style.opacity = 1;
+        //                 allColumns[i].style.margin = "0px";
+        //                 allColumns[i].style.borderWidth = "0px";
+        //             }
+        //
+        //             //Reset & Hide All Arrows
+        //             var allColunmDropArrow = document.getElementsByClassName("column_drop_arrow");
+        //             for (var i = 0; i < allColunmDropArrow.length; i++) {
+        //                 allColunmDropArrow[i].style.opacity = 0;
+        //             }
+        //
+        //             //Sort & Re-order Columns
+        //             var currentPosition = new Object();
+        //             var newPosition = new Array();
+        //             for (var i = 2; i < 8; i++) {
+        //                 var positionData = getColumnPosition(i);
+        //                 currentPosition = {'name': 'column' + i, 'position': positionData};
+        //                 newPosition.push(currentPosition);
+        //             }
+        //
+        //             newPosition.sort(function (a, b) {
+        //                 if (a['position'] > b['position']) return -1;
+        //                 if (a['position'] < b['position']) return 1;
+        //                 return 0;
+        //             });
+        //
+        //             var number = 0;
+        //             for (var i = newPosition.length; i--;) {
+        //                 var tmpItem = document.getElementById(newPosition[i].name);
+        //                 tmpItem.style.order = number;
+        //                 tmpItem.style.left = 0;
+        //                 tmpItem.style.top = 0;
+        //                 tmpItem.style.zIndex = 0;
+        //                 tmpItem.style.transition = "background 1s ease";
+        //                 number++;
+        //             }
+        //         }
+        //
+        //     });
+
+            // // Drag & Drop Rows
+            //
+            // $(".row_header").draggable({
+            //     start: function (event, ui) {
+            //         var target = document.getElementById(this.id);
+            //         target.style.zIndex = 1;
+            //
+            //         //Update CSS Properties to highlight dragged row
+            //         var allRows = document.getElementsByClassName('row');
+            //         for (var i = 0; i < allRows.length; i++) {
+            //             allRows[i].style.borderWidth = "1px 1px 1px 1px";
+            //             allRows[i].style.borderTopStyle = "dashed";
+            //             allRows[i].style.borderBottomStyle = "dashed";
+            //             allRows[i].style.borderColor = "#e0e0e0";
+            //         }
+            //
+            //         var draggedRow = document.getElementsByClassName('row' + (this.id).split("row")[1]);
+            //         for (var i = 0; i < draggedRow.length; i++) {
+            //             draggedRow[i].style.background = "#b5f1ff";
+            //             draggedRow[i].style.padding = "0px";
+            //             draggedRow[i].style.borderWidth = 0;
+            //             draggedRow[i].style.height = "0px";
+            //             draggedRow[i].style.opacity = 0;
+            //             draggedRow[i].style.transition = "height 0.5s ease, opacity 0.4s ease, borderWidth 0.5s ease, padding 0.5s ease, background 0.7s ease";
+            //         }
+            //
+            //
+            //         var allRowHeader = document.getElementsByClassName('row_header');
+            //         for (var i = 0; i < allRowHeader.length; i++) {
+            //             allRowHeader[i].style.borderWidth = "1px 1px 1px 1px";
+            //             allRowHeader[i].style.borderTopStyle = "dashed";
+            //             allRowHeader[i].style.borderBottomStyle = "dashed";
+            //             allRowHeader[i].style.borderColor = "#e0e0e0";
+            //             allRowHeader[i].style.padding = "4px";
+            //             allRowHeader[i].style.borderWidth = "1px";
+            //             allRowHeader[i].style.height = "28px";
+            //             allRowHeader[i].style.opacity = 1;
+            //         }
+            //
+            //         target.style.opacity = 0.8;
+            //
+            //         //Reduce the offsetTop for all RowHeader which are located below the dragged item
+            //
+            //         //Get offsetWidth Value for the dragged Column
+            //         // var draggedColumnHeight = parseInt(document.getElementById(this.id).offsetTop);
+            //
+            //         // //Get Order Index for the dragged Column
+            //         var targetStyle = window.getComputedStyle(target)
+            //         var draggedRowOrderIndex = parseInt(targetStyle.getPropertyValue('order'));
+            //         console.log(draggedRowOrderIndex);
+            //
+            //         //Get a map between current elements and their offsetTop values
+            //         var initialPosition = new Object();
+            //         var currentPosition = new Array();
+            //         var userCount = getUserCount();
+            //
+            //         for (var i = 1; i <= userCount; i++) {
+            //             var positionData = getRowPosition(i);
+            //             initialPosition = {'name': 'column1_row' + i, 'position': positionData};
+            //             currentPosition.push(initialPosition);
+            //         }
+            //
+            //         currentPosition.sort(function (a, b) {
+            //             if (a['position'] > b['position']) return 1;
+            //             if (a['position'] < b['position']) return -1;
+            //             return 0;
+            //         });
+            //
+            //         // Reduce the offsetWidth for all columns which are located below the dragged item
+            //         for (var i = draggedRowOrderIndex; i < userCount; i++) {
+            //             var ElementId = currentPosition[i].name;
+            //             console.log(ElementId);
+            //             var tmpItem = document.getElementById(ElementId);
+            //             tmpItem.style.top = '-38px';
+            //             tmpItem.style.transition = "top 0.5s ease";
+            //         }
+            //
+            //         //Reset the Dragged Row Transition
+            //         target.style.transition = null;
+            //     },
+            //
+            //     stop: function (event, ui) {
+            //         var target = document.getElementById(this.id);
+            //         target.style.zIndex = null;
+            //         target.style.opacity = 1;
+            //
+            //         // Reset CSS after drag event completed
+            //         var allRows = document.getElementsByClassName('row');
+            //         for (var i = 0; i < allRows.length; i++) {
+            //             allRows[i].style.opacity = 1;
+            //             allRows[i].style.margin = "0";
+            //             allRows[i].style.borderWidth = "1px";
+            //             allRows[i].style.borderStyle = "solid";
+            //             allRows[i].style.borderColor = "#f2f2f2;";
+            //             allRows[i].style.padding = "10px";
+            //             allRows[i].style.height = "16px";
+            //             allRows[i].style.transition = "opacity 0.8s ease, background 0.8s ease";
+            //         }
+            //         var allRowHeader = document.getElementsByClassName('row_header');
+            //         for (var i = 0; i < allRowHeader.length; i++) {
+            //             allRowHeader[i].style.margin = "0";
+            //             allRowHeader[i].style.borderWidth = "1px";
+            //             allRowHeader[i].style.borderStyle = "solid";
+            //             allRowHeader[i].style.borderColor = "#e0e0e0;";
+            //             allRowHeader[i].style.transition = "margin 0.2s ease"
+            //
+            //         }
+            //         var draggedRows = document.getElementsByClassName('row' + (this.id).split("row")[1]);
+            //         for (var i = 0; i < draggedRows.length; i++) {
+            //             draggedRows[i].style.background = "";
+            //             draggedRows[i].style.transition = "background 1.5s ease"
+            //         }
+            //
+            //         //Sort & Re-order Rows
+            //         var newPosition = new Array();
+            //         var userCount = getUserCount();
+            //
+            //         for (var i = 1; i <= userCount; i++) {
+            //             var currentPosition = new Object();
+            //             var positionData = getRowPosition(i);
+            //             currentPosition = {'name': 'column1_row' + i, 'position': positionData};
+            //             newPosition.push(currentPosition);
+            //         }
+            //
+            //         console.log(newPosition);
+            //
+            //         newPosition.sort(function (a, b) {
+            //             if (a['position'] > b['position']) return -1;
+            //             if (a['position'] < b['position']) return 1;
+            //             return 0;
+            //         });
+            //
+            //         var numberOrder = 1;
+            //         for (var i = newPosition.length; i--;) {
+            //
+            //             var tmpItem = document.getElementById(newPosition[i].name);
+            //             tmpItem.style.order = numberOrder;
+            //             tmpItem.style.left = 0;
+            //             tmpItem.style.top = 0;
+            //             numberOrder++;
+            //
+            //             // console.log(tmpItem);
+            //         }
+            //
+            //         // console.log(newPosition);
+            //         // Get Original Row Index in the order
+            //         var rowOrder = new Array();
+            //         for (var i = 0; i < newPosition.length; i++) {
+            //             var originalRowIndex = parseInt(newPosition[i].name.split('row')[1]);
+            //             rowOrder.push(originalRowIndex);
+            //         }
+            //
+            //         // Update orders for all other rows
+            //         var newRowOrder = 2;
+            //         for (var i = rowOrder.length; i--;) {
+            //             var otherRows = document.getElementsByClassName('row' + rowOrder[i]);
+            //             for (var j = 1; j < otherRows.length; j++) {
+            //                 var tmpItem = otherRows[j];
+            //                 tmpItem.style.order = newRowOrder;
+            //             }
+            //             newRowOrder++;
+            //         }
+            //     }
+            // });
+            //
+            // //Utility functions
+            // function getColumnPosition(columnId) {
+            //     var tmpItem = document.getElementById('column' + columnId);
+            //
+            //     return tmpItem.offsetLeft;
+            // }
+            //
+            // function getRowPosition(rowId) {
+            //     var tmpItem = document.getElementById('column1_row' + rowId);
+            //
+            //     return tmpItem.offsetTop;
+            // }
+            //
+            // function getUserCount() {
+            //     //Get user Count
+            //     //Remove column_header
+            //     var userCount = document.getElementById('column1').childNodes.length - 1;
+            //
+            //     return userCount;
+            // }
+            //
+            // function setInitialColumnOder() {
+            //     var allColumns = document.getElementsByClassName('column');
+            //     var columnsOrderIndex = 0;
+            //     for (var i = 0; i < allColumns.length; i++) {
+            //         allColumns[i].style.order = columnsOrderIndex;
+            //         allColumns[i].style.transition = "left 0.4s ease";
+            //         columnsOrderIndex++;
+            //     }
+            // }
+            //
+            // function setInitialRowOrder() {
+            //     var allRowHeader = document.getElementsByClassName('row_header');
+            //     var rowOrderIndex = 1;
+            //     for (var i = 0; i < allRowHeader.length; i++) {
+            //         allRowHeader[i].style.order = rowOrderIndex;
+            //         rowOrderIndex++;
+        //         }
+        //     }
+        // });
+    // }
+})();
