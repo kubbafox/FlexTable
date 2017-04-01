@@ -342,11 +342,11 @@
 
 
     constructTable(mockUsers);
-    createSortByAlphaListener();
+    createSortingListeners();
     createSearchTypingListener();
     createDragAndDropListener();
     setInitialRowOrderTag();
-    createSortByAmountListner();
+
 
     function constructTable(userArray) {
 
@@ -434,7 +434,7 @@
             '<div class="column_header" style="order: 0">' +
             'Name' +
             '<p class="sort sort_asc" id="sort_name_alpha_asc">' +
-            '<svg class="icon icon-sort_by_alpha" id="icon-sort_by_alpha_name">' +
+            '<svg class="icon icon-sort_by_alpha" id="icon_sort_by_alpha_name">' +
             '<use xlink:href="#icon-sort_by_alpha"></use></svg></p>' +
             '</div>' +
             column1HTML +
@@ -442,30 +442,45 @@
             '<div id="column2" class="column content2" draggable="true">' +
             '<div class="column_header">' +
             'Commission Rate' +
+            '<p id="column_header_drop_arrow_7" class="numeric_sort_icon">' +
+            '<svg class="icon icon-sort-numeric-asc" id="icon_sort_by_rate"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
+            '</p>' +
             '</div>' +
             column2HTML +
             '</div>' +
             '<div id="column3" class="column content3" draggable="true">' +
             '<div class="column_header">' +
             'Contract End Day' +
+            '<p id="column_header_drop_arrow_7" class="numeric_sort_icon">' +
+            '<svg class="icon icon-sort-numeric-asc" id="icon_sort_by_date"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
+            '</p>' +
             '</div>' +
             column3HTML +
             '</div>' +
             '<div id="column4" class="column content4" draggable="true">' +
             '<div class="column_header">' +
             'Total Deals' +
+            '<p id="column_header_drop_arrow_7" class="numeric_sort_icon">' +
+            '<svg class="icon icon-sort-numeric-asc" id="icon_sort_by_deals"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
+            '</p>' +
             '</div>' +
             column4HTML +
             '</div>' +
             '<div id="column5" class="column content5" draggable="true">' +
             '<div class="column_header">' +
             'Payment Cycle' +
+            '<p class="sort sort_asc" id="sort_name_alpha_asc">' +
+            '<svg class="icon icon-sort_by_alpha" id="icon_sort_by_cycle">' +
+            '<use xlink:href="#icon-sort_by_alpha"></use></svg></p>' +
             '</div>' +
             column5HTML +
             '</div>' +
             '<div id="column6" class="column content6" draggable="true">' +
             '<div class="column_header">' +
-            'Outstanding Balance' +
+            'Balance' +
+            '<p id="column_header_drop_arrow_7" class="numeric_sort_icon">' +
+            '<svg class="icon icon-sort-numeric-asc" id="icon_sort_by_out_balance"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
+            '</p>' +
             '</div>' +
             column6HTML +
             '</div>' +
@@ -498,8 +513,7 @@
     function refreshTableDOM(userArray) {
         destroyTableDOM();
         constructTable(userArray);
-        createSortByAlphaListener();
-        createSortByAmountListner();
+        createSortingListeners();
         createDragAndDropListener();
         setInitialRowOrderTag();
     }
@@ -509,13 +523,47 @@
      */
 
     //Create a Listener for Sorting Clicks
-    function createSortByAlphaListener() {
-        var SortByAlphaTempItem = document.getElementById("icon-sort_by_alpha_name");
+
+    
+    function createSortingListeners() {
+        var SortByAlphaTempItem = document.getElementById("icon_sort_by_alpha_name");
         SortByAlphaTempItem.addEventListener("click", function () {
             clickEventHandlerForAlphaSort();
         }, false);
+
+        var SortByRateTempItem = document.getElementById("icon_sort_by_rate");
+        SortByRateTempItem.addEventListener("click", function () {
+            clickEventHandlerForRateSort();
+        }, false);
+
+        var SortByDateTempItem = document.getElementById("icon_sort_by_date");
+        SortByDateTempItem.addEventListener("click", function () {
+            clickEventHandlerForDateSort();
+        }, false);
+
+        var SortByDealTempItem = document.getElementById("icon_sort_by_deals");
+        SortByDealTempItem.addEventListener("click", function () {
+            clickEventHandlerForDealSort();
+        }, false);
+
+        var SortByCycleTempItem = document.getElementById("icon_sort_by_cycle");
+        SortByCycleTempItem.addEventListener("click", function () {
+            clickEventHandlerForCycleSort();
+        }, false);
+
+        var SortByOutBlaTempItem = document.getElementById("icon_sort_by_out_balance");
+        SortByOutBlaTempItem.addEventListener("click", function () {
+            clickEventHandlerForBlanceSort();
+        }, false);
+
+        var SortByPaidTempItem = document.getElementById("icon_sort_by_paid_amount");
+        SortByPaidTempItem.addEventListener("click", function () {
+            clickEventHandlerForAmountSort();
+        }, false);
     }
 
+
+    //Sort Name
     function sortNameAsc(mockUsers) {
         mockUsers.sort(function (a, b) {
             if (a['name'] > b['name']) return 1;
@@ -538,27 +586,195 @@
         if (clickAlphaSortIconTimes % 3 == 1) {
             sortNameAsc(mockUsers);
             refreshTableDOM(mockUsers);
-            document.getElementById("icon-sort_by_alpha_name").style.color = "#51d0ef";
+            document.getElementById("icon_sort_by_alpha_name").style.color = "#51d0ef";
         } else if (clickAlphaSortIconTimes % 3 == 2) {
             sortNameDesc(mockUsers);
             refreshTableDOM(mockUsers);
-            document.getElementById("icon-sort_by_alpha_name").style.color = "#ff9191";
-
+            document.getElementById("icon_sort_by_alpha_name").style.color = "#ff9191";
         } else if (clickAlphaSortIconTimes % 3 == 0) {
             refreshTableDOM(mockUsersCopy);
-            document.getElementById("icon-sort_by_alpha_name").style.color = "#545454";
+            document.getElementById("icon_sort_by_alpha_name").style.color = "#545454";
         }
     }
 
-    function createSortByAmountListner() {
-        var SortByAlphaTempItem = document.getElementById("icon_sort_by_paid_amount");
-        SortByAlphaTempItem.addEventListener("click", function () {
-            clickEventHandlerForAmountSort();
-        }, false);
+    //Sort Rate
+    function sortRateAsc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if ((parseInt((a[('commission_rate')].replace('%', '')))) > (parseInt((b[('commission_rate')].replace('%', ''))))) return 1;
+            if ((parseInt((a[('commission_rate')].replace('%', '')))) < (parseInt((b[('commission_rate')].replace('%', ''))))) return -1;
+            return 0;
+        });
+
     }
 
-    function sortBalanceAsc(mockUsers) {
+    function sortRateDesc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if ((parseInt((a[('commission_rate')].replace('%', '')))) < (parseInt((b[('commission_rate')].replace('%', ''))))) return 1;
+            if ((parseInt((a[('commission_rate')].replace('%', '')))) > (parseInt((b[('commission_rate')].replace('%', ''))))) return -1;
+            return 0;
+        });
+    }
 
+    var clickRateSortTimes = 0;
+    function clickEventHandlerForRateSort() {
+        clickRateSortTimes++;
+        if (clickRateSortTimes % 3 == 1) {
+            sortRateAsc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_rate").style.color = "#51d0ef";
+        } else if (clickRateSortTimes % 3 == 2) {
+            sortRateDesc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_rate").style.color = "#ff9191";
+        } else if (clickRateSortTimes % 3 == 0) {
+            refreshTableDOM(mockUsersCopy);
+            document.getElementById("icon_sort_by_rate").style.color = "#545454";
+        }
+    }
+
+    //Sort Date
+    function sortDateAsc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if ((Date.parse((a[('contract_end_day')]))) > (Date.parse((b[('contract_end_day')])))) return 1;
+            if ((Date.parse((a[('contract_end_day')]))) < (Date.parse((b[('contract_end_day')])))) return -1;
+            return 0;
+        });
+
+    }
+
+    function sortDateDesc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if ((Date.parse((a[('contract_end_day')]))) < (Date.parse((b[('contract_end_day')])))) return 1;
+            if ((Date.parse((a[('contract_end_day')]))) > (Date.parse((b[('contract_end_day')])))) return -1;
+            return 0;
+        });
+    }
+
+    var clickDateSortTimes = 0;
+    function clickEventHandlerForDateSort() {
+        clickDateSortTimes++;
+        if (clickDateSortTimes % 3 == 1) {
+            sortDateAsc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_date").style.color = "#51d0ef";
+        } else if (clickDateSortTimes % 3 == 2) {
+            sortDateDesc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_date").style.color = "#ff9191";
+        } else if (clickDateSortTimes % 3 == 0) {
+            refreshTableDOM(mockUsersCopy);
+            document.getElementById("icon_sort_by_date").style.color = "#545454";
+        }
+    }
+
+    //Sort Deals
+    function sortDealAsc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if ((parseInt((a[('total_deals')]))) > (parseInt((b[('total_deals')])))) return 1;
+            if ((parseInt((a[('total_deals')]))) < (parseInt((b[('total_deals')])))) return -1;
+            return 0;
+        });
+
+    }
+
+    function sortDealDesc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if ((parseInt((a[('total_deals')]))) < (parseInt((b[('total_deals')])))) return 1;
+            if ((parseInt((a[('total_deals')]))) > (parseInt((b[('total_deals')])))) return -1;
+            return 0;
+        });
+    }
+
+    var clickDealSortTimes = 0;
+    function clickEventHandlerForDealSort() {
+        clickDealSortTimes++;
+        if (clickDealSortTimes % 3 == 1) {
+            sortDealAsc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_deals").style.color = "#51d0ef";
+        } else if (clickDealSortTimes % 3 == 2) {
+            sortDealDesc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_deals").style.color = "#ff9191";
+        } else if (clickDealSortTimes % 3 == 0) {
+            refreshTableDOM(mockUsersCopy);
+            document.getElementById("icon_sort_by_deals").style.color = "#545454";
+        }
+    }
+
+    //Sort Cycle
+    function sortCycleAsc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if (a['payment_cycle'] > b['payment_cycle']) return 1;
+            if (a['payment_cycle'] < b['payment_cycle']) return -1;
+            return 0;
+        });
+    }
+
+    function sortCycleDesc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if (a['payment_cycle'] < b['payment_cycle']) return 1;
+            if (a['payment_cycle'] > b['payment_cycle']) return -1;
+            return 0;
+        });
+    }
+
+    var clickCycleSortIconTimes = 0;
+    function clickEventHandlerForCycleSort() {
+        clickCycleSortIconTimes++;
+        if (clickCycleSortIconTimes % 3 == 1) {
+            sortCycleAsc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_cycle").style.color = "#51d0ef";
+        } else if (clickCycleSortIconTimes % 3 == 2) {
+            sortCycleDesc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_cycle").style.color = "#ff9191";
+
+        } else if (clickCycleSortIconTimes % 3 == 0) {
+            refreshTableDOM(mockUsersCopy);
+            document.getElementById("icon_sort_by_cycle").style.color = "#545454";
+        }
+    }
+
+    //Sort Balance
+    function sortBalanceAsc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if ((parseFloat((a[('outstanding_balance')].replace('$', '')))) > (parseFloat((b[('outstanding_balance')].replace('$', ''))))) return 1;
+            if ((parseFloat((a[('outstanding_balance')].replace('$', '')))) < (parseFloat((b[('outstanding_balance')].replace('$', ''))))) return -1;
+            return 0;
+        });
+
+    }
+
+    function sortBalanceDesc(mockUsers) {
+        mockUsers.sort(function (a, b) {
+            if ((parseFloat((a[('outstanding_balance')].replace('$', '')))) < (parseFloat((b[('outstanding_balance')].replace('$', ''))))) return 1;
+            if ((parseFloat((a[('outstanding_balance')].replace('$', '')))) > (parseFloat((b[('outstanding_balance')].replace('$', ''))))) return -1;
+            return 0;
+        });
+    }
+
+    var clickBalanceSortTimes = 0;
+    function clickEventHandlerForBlanceSort() {
+        clickBalanceSortTimes++;
+        if (clickBalanceSortTimes % 3 == 1) {
+            sortBalanceAsc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_out_balance").style.color = "#51d0ef";
+        } else if (clickBalanceSortTimes % 3 == 2) {
+            sortBalanceDesc(mockUsers);
+            refreshTableDOM(mockUsers);
+            document.getElementById("icon_sort_by_out_balance").style.color = "#ff9191";
+
+        } else if (clickBalanceSortTimes % 3 == 0) {
+            refreshTableDOM(mockUsersCopy);
+            document.getElementById("icon_sort_by_out_balance").style.color = "#545454";
+        }
+    }
+
+    //Sort Paid Amount
+    function sortPaidAmntAsc(mockUsers) {
         mockUsers.sort(function (a, b) {
             if ((parseFloat((a[('paid_amount')].replace('$', '')))) > (parseFloat((b[('paid_amount')].replace('$', ''))))) return 1;
             if ((parseFloat((a[('paid_amount')].replace('$', '')))) < (parseFloat((b[('paid_amount')].replace('$', ''))))) return -1;
@@ -567,7 +783,7 @@
 
     }
 
-    function sortBalanceDesc(mockUsers) {
+    function sortPaidAmntDesc(mockUsers) {
         mockUsers.sort(function (a, b) {
             if ((parseFloat((a[('paid_amount')].replace('$', '')))) < (parseFloat((b[('paid_amount')].replace('$', ''))))) return 1;
             if ((parseFloat((a[('paid_amount')].replace('$', '')))) > (parseFloat((b[('paid_amount')].replace('$', ''))))) return -1;
@@ -579,11 +795,11 @@
     function clickEventHandlerForAmountSort() {
         clickAmountSortTimes++;
         if (clickAmountSortTimes % 3 == 1) {
-            sortBalanceAsc(mockUsers);
+            sortPaidAmntAsc(mockUsers);
             refreshTableDOM(mockUsers);
             document.getElementById("icon_sort_by_paid_amount").style.color = "#51d0ef";
         } else if (clickAmountSortTimes % 3 == 2) {
-            sortBalanceDesc(mockUsers);
+            sortPaidAmntDesc(mockUsers);
             refreshTableDOM(mockUsers);
             document.getElementById("icon_sort_by_paid_amount").style.color = "#ff9191";
 
@@ -592,6 +808,10 @@
             document.getElementById("icon_sort_by_paid_amount").style.color = "#545454";
         }
     }
+
+
+
+
 
     /**
      * Searching Feature
@@ -620,6 +840,7 @@
         }
         refreshTableDOM(templeArray);
     }
+    
 
 
     /**
@@ -707,7 +928,7 @@
         this.style.width = "160px";
         this.style.transition = "all 0.6s ease";
 
-        createSortByAmountListner();
+        createSortByAmountListener();
     }
 
     //Handle Row Drag Events
@@ -748,7 +969,8 @@
         //Select and Hide the row header
         this.style.opacity = 0;
         this.style.height = "0px";
-        this.style.padding = "0px";
+        this.style.paddingTop = "0px";
+        this.style.paddingBottom = "0px";
         this.style.borderWidth = "0px";
         this.style.transition = "all 0.4s ease";
 
