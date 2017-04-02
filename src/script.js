@@ -340,13 +340,8 @@
 
     var mockUsersCopy = mockUsers.slice();
 
-
-    constructTable(mockUsers);
-    createSortingListeners();
     createSearchTypingListener();
-    createDragAndDropListener();
-    setInitialRowOrderTag();
-
+    refreshTableDOM(mockUsers);
 
     function constructTable(userArray) {
 
@@ -363,7 +358,7 @@
         for (var i = 0; i < userCount; i++) {
             var tempObject = userArray[i];
             var tempAbbreviatedName = abbreviateLastName(tempObject.name);
-            var tempColumn1HTML = '<div class="row' + tempObject.id + ' row_header ' + 'row"' + 'id="' + 'column1_row' + tempObject.id + '" draggable="true">' +
+            var tempColumn1HTML = '<div class="row' + (i + 1) + ' row_header ' + 'row"' + 'id="' + 'column1_row' + (i + 1) + '" draggable="true">' +
                 '<input type="checkbox" id="modal' + tempObject.id + '" class="modal_user_profile">' +
                 '<label for="modal' + tempObject.id + '">' +
                 '<div class="row_order_index">' +
@@ -386,42 +381,42 @@
 
             column1HTML += tempColumn1HTML;
 
-            var tempColumn2HTML = '<div class="row row' + tempObject.id + '">' +
+            var tempColumn2HTML = '<div class="row row' + (i + 1) + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempAbbreviatedName + '</span>' + tempObject.commission_rate +
                 '</div>'
 
             column2HTML += tempColumn2HTML;
 
-            var tempColumn3HTML = '<div class="row row' + tempObject.id + '">' +
+            var tempColumn3HTML = '<div class="row row' + (i + 1) + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempAbbreviatedName + '</span>' + tempObject.contract_end_day +
                 '</div>'
 
             column3HTML += tempColumn3HTML;
 
-            var tempColumn4HTML = '<div class="row row' + tempObject.id + '">' +
+            var tempColumn4HTML = '<div class="row row' + (i + 1) + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempAbbreviatedName + '</span>' + tempObject.total_deals +
                 '</div>'
 
             column4HTML += tempColumn4HTML;
 
-            var tempColumn5HTML = '<div class="row row' + tempObject.id + '">' +
+            var tempColumn5HTML = '<div class="row row' + (i + 1) + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempAbbreviatedName + '</span>' + tempObject.payment_cycle +
                 '</div>'
 
             column5HTML += tempColumn5HTML;
 
-            var tempColumn6HTML = '<div class="row row' + tempObject.id + '">' +
+            var tempColumn6HTML = '<div class="row row' + (i + 1) + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempAbbreviatedName + '</span>' + tempObject.outstanding_balance +
                 '</div>'
 
             column6HTML += tempColumn6HTML;
 
-            var tempColumn7HTML = '<div class="row row' + tempObject.id + '">' +
+            var tempColumn7HTML = '<div class="row row' + (i + 1) + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempAbbreviatedName + '</span>' + tempObject.paid_amount +
                 '</div>'
@@ -523,7 +518,6 @@
      */
 
     //Create a Listener for Sorting Clicks
-
     
     function createSortingListeners() {
         var SortByAlphaTempItem = document.getElementById("icon_sort_by_alpha_name");
@@ -883,25 +877,28 @@
         this.style.padding = "0px";
         this.style.borderWidth = "0px";
         this.style.borderWidth = "0px";
-        this.style.transition = "width 0.4s ease";
-
+        this.style.transition = "all 0.4s ease";
 
         dragColumnId = document.getElementById(this.id).id;
         dragColumnDOM = this;
-
-        e.dataTransfer.effectAllowed = 'copy';
+        e.dataTransfer.effectAllowed = 'all';
         e.dataTransfer.setData('text/html', this.innerHTML);
     }
 
     function handleColumnDragEnter() {
         if (document.getElementById(this.id).id != dragColumnId) {
-            this.style.opacity = 0.4;
+            this.style.opacity = 0.2;
             this.style.transition = "all 0.4s ease";
         }
     }
 
-    function handleColumnDragOver(e) {
+    //Disable DragOver
+    function handleColumnDragOver() {
         event.preventDefault();
+        if (document.getElementById(this.id).id != dragColumnId) {
+            this.style.opacity = 0.2;
+            this.style.transition = "all 0.4s ease";
+        }
         return false;
     }
 
@@ -931,13 +928,13 @@
         createSortingListeners();
     }
 
+
     //Handle Row Drag Events
-
     //Create Row Order Index inside each row header dom.
-
     function setInitialRowOrderTag() {
         var allRowHeader = document.getElementsByClassName('row_header');
         var rowOrderIndex = 1;
+
         for (var i = 0; i < allRowHeader.length; i++) {
             allRowHeader[i].style.order = rowOrderIndex;
             rowOrderIndex++;
@@ -954,8 +951,6 @@
         }
         return UpdatedRowOrderTag;
     }
-
-
 
     var dragRowId = "";
     var dragRowOrder = 0;
@@ -974,7 +969,6 @@
         this.style.borderWidth = "0px";
         this.style.transition = "all 0.4s ease";
 
-
         //Select and Hide other cells in the same row
         var draggedRow = document.getElementsByClassName('row' + (dragRowId).split("row")[1]);
         for (var i = 1; i < draggedRow.length; i++) {
@@ -990,13 +984,12 @@
 
     function handleRowDragEnter() {
         if (document.getElementById(this.id).id != dragRowId) {
-            this.style.opacity = 0.5;
+            this.style.opacity = 0.2;
             this.style.transition = "all 0.4s ease";
-
 
             var draggedRow = document.getElementsByClassName('row' + (document.getElementById(this.id).id).split("row")[1]);
             for (var i = 1; i < draggedRow.length; i++) {
-                draggedRow[i].style.opacity = 0.5;
+                draggedRow[i].style.opacity = 0.2;
                 draggedRow[i].style.transition = "all 0.4s ease";
             }
         }
@@ -1004,6 +997,16 @@
 
     function handleRowDragOver(e) {
         event.preventDefault();
+        if (document.getElementById(this.id).id != dragRowId) {
+            this.style.opacity = 0.2;
+            this.style.transition = "all 0.4s ease";
+
+            var draggedRow = document.getElementsByClassName('row' + (document.getElementById(this.id).id).split("row")[1]);
+            for (var i = 1; i < draggedRow.length; i++) {
+                draggedRow[i].style.opacity = 0.2;
+                draggedRow[i].style.transition = "all 0.4s ease";
+            }
+        }
         return false;
     }
 
@@ -1028,6 +1031,16 @@
 
         //get drop location
         var dropRowId = document.getElementById(this.id).id;
+
+        var droppedRow = document.getElementsByClassName('row' + (dropRowId).split("row")[1]);
+        for (var i = 1; i < droppedRow.length; i++) {
+            droppedRow[i].style.opacity = 1;
+            droppedRow[i].style.height = "16px";
+            droppedRow[i].style.padding = "10px";
+            droppedRow[i].style.borderWidth = "1px";
+            droppedRow[i].style.transition = "all 0.4s ease";
+        }
+
         //get drop location order
         var dropRowOrder = parseInt((window.getComputedStyle(this)).getPropertyValue('order'));
         //swap the order between drag row and drop row
@@ -1043,7 +1056,6 @@
         }
 
         var tempRows = document.getElementById("column2").childNodes;
-        console.log(tempRows);
 
         // for (var i = 0; i < allColumns.length; i++) {
         //     var tempRows = document.getElementById("column2").childNodes;
@@ -1077,10 +1089,7 @@
             draggedRow[i].style.borderWidth = "1px";
             draggedRow[i].style.transition = "all 0.4s ease";
         }
+
+
     }
-
-    /**
-     * Removed Legacy Dragging Feature - Using jQuery .Draggle
-     */
-
 })();
