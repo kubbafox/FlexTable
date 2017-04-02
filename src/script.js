@@ -510,6 +510,7 @@
         constructTable(userArray);
         createSortingListeners();
         createDragAndDropListener();
+        switchDragAndDropListenerBasedOnWidth();
         setInitialRowOrderTag();
     }
 
@@ -846,32 +847,57 @@
 
     //Create Listeners for drag & drop
     function createDragAndDropListener() {
+        
+        //Create Listeners for Columns
+        var tempColumns = document.getElementsByClassName('column');
+        for (var i = 0; i < tempColumns.length; i++) {
+            tempColumns[i].addEventListener('dragstart', handleColumnDragStart, false);
+            tempColumns[i].addEventListener('dragenter', handleColumnDragEnter, false)
+            tempColumns[i].addEventListener('dragover', handleColumnDragOver, false);
+            tempColumns[i].addEventListener('dragleave', handleColumnDragLeave, false);
+            tempColumns[i].addEventListener('drop', handleColumnDrop, false);
+            tempColumns[i].addEventListener('dragend', handleColumnDragEnd, false);
+        }
+        //Create Listeners for Rows
+        var tempRows = document.getElementsByClassName('row_header');
+        for (var i = 0; i < tempRows.length; i++) {
+            tempRows[i].addEventListener('dragstart', handleRowDragStart, false);
+            tempRows[i].addEventListener('dragenter', handleRowDragEnter, false)
+            tempRows[i].addEventListener('dragover', handleRowDragOver, false);
+            tempRows[i].addEventListener('dragleave', handleRowDragLeave, false);
+            tempRows[i].addEventListener('drop', handleRowDrop, false);
+            tempRows[i].addEventListener('dragend', handleRowDragEnd, false);
+        }
 
+    }
+
+    function switchDragAndDropListenerBasedOnWidth() {
         window.addEventListener('resize', function () {
-            if (window.innerWidth > 720) {
-
-                //Create Listeners for Columns
+            if (window.innerWidth < 720) {   //Create Listeners for Columns
                 var tempColumns = document.getElementsByClassName('column');
                 for (var i = 0; i < tempColumns.length; i++) {
-                    tempColumns[i].addEventListener('dragstart', handleColumnDragStart, false);
-                    tempColumns[i].addEventListener('dragenter', handleColumnDragEnter, false)
-                    tempColumns[i].addEventListener('dragover', handleColumnDragOver, false);
-                    tempColumns[i].addEventListener('dragleave', handleColumnDragLeave, false);
-                    tempColumns[i].addEventListener('drop', handleColumnDrop, false);
-                    tempColumns[i].addEventListener('dragend', handleColumnDragEnd, false);
+                    tempColumns[i].removeEventListener('dragstart', handleColumnDragStart, false);
+                    tempColumns[i].removeEventListener('dragenter', handleColumnDragEnter, false)
+                    tempColumns[i].removeEventListener('dragover', handleColumnDragOver, false);
+                    tempColumns[i].removeEventListener('dragleave', handleColumnDragLeave, false);
+                    tempColumns[i].removeEventListener('drop', handleColumnDrop, false);
+                    tempColumns[i].removeEventListener('dragend', handleColumnDragEnd, false);
                 }
                 //Create Listeners for Rows
                 var tempRows = document.getElementsByClassName('row_header');
                 for (var i = 0; i < tempRows.length; i++) {
-                    tempRows[i].addEventListener('dragstart', handleRowDragStart, false);
-                    tempRows[i].addEventListener('dragenter', handleRowDragEnter, false)
-                    tempRows[i].addEventListener('dragover', handleRowDragOver, false);
-                    tempRows[i].addEventListener('dragleave', handleRowDragLeave, false);
-                    tempRows[i].addEventListener('drop', handleRowDrop, false);
-                    tempRows[i].addEventListener('dragend', handleRowDragEnd, false);
+                    tempRows[i].removeEventListener('dragstart', handleRowDragStart, false);
+                    tempRows[i].removeEventListener('dragenter', handleRowDragEnter, false)
+                    tempRows[i].removeEventListener('dragover', handleRowDragOver, false);
+                    tempRows[i].removeEventListener('dragleave', handleRowDragLeave, false);
+                    tempRows[i].removeEventListener('drop', handleRowDrop, false);
+                    tempRows[i].removeEventListener('dragend', handleRowDragEnd, false);
                 }
+            } else {
+                createDragAndDropListener();
             }
         });
+
     }
 
 
