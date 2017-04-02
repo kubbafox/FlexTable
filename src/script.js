@@ -848,7 +848,7 @@
     function createDragAndDropListener() {
 
         window.addEventListener('resize', function () {
-            if (window.innerWidth > 1000) {
+            if (window.innerWidth > 720) {
 
                 //Create Listeners for Columns
                 var tempColumns = document.getElementsByClassName('column');
