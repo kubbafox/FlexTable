@@ -160,6 +160,10 @@ body{
         width: auto;
     }
 
+    .row {
+        display: inline-block;
+    }
+
     #column1 {
         display: none;
     }
@@ -185,8 +189,8 @@ body{
     stroke-width: 1;
     stroke: currentColor;
     fill: currentColor;
-    margin-left: 340px;
-    margin-top: 5px;
+    left: 340px;
+    top: -10px;
 }
 
 .column_header_drop_arrow_7 {
@@ -227,13 +231,9 @@ body{
     transition: opacity 0.5s ease;
 }
 
-
-
-
 /* onClick Cursor */
 
-
-#column1 .row_header div {
+#column1 .row_header  {
     cursor: -webkit-grab;
 }
 
