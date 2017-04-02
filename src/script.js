@@ -517,8 +517,8 @@
      * Sorting Feature
      */
 
-    //Create a Listener for Sorting Clicks
-    
+    //Create Listeners for Sorting Clicks
+
     function createSortingListeners() {
         var SortByAlphaTempItem = document.getElementById("icon_sort_by_alpha_name");
         SortByAlphaTempItem.addEventListener("click", function () {
@@ -575,6 +575,7 @@
     }
 
     var clickAlphaSortIconTimes = 0;
+
     function clickEventHandlerForAlphaSort() {
         clickAlphaSortIconTimes++;
         if (clickAlphaSortIconTimes % 3 == 1) {
@@ -610,6 +611,7 @@
     }
 
     var clickRateSortTimes = 0;
+
     function clickEventHandlerForRateSort() {
         clickRateSortTimes++;
         if (clickRateSortTimes % 3 == 1) {
@@ -645,6 +647,7 @@
     }
 
     var clickDateSortTimes = 0;
+
     function clickEventHandlerForDateSort() {
         clickDateSortTimes++;
         if (clickDateSortTimes % 3 == 1) {
@@ -680,6 +683,7 @@
     }
 
     var clickDealSortTimes = 0;
+
     function clickEventHandlerForDealSort() {
         clickDealSortTimes++;
         if (clickDealSortTimes % 3 == 1) {
@@ -714,6 +718,7 @@
     }
 
     var clickCycleSortIconTimes = 0;
+
     function clickEventHandlerForCycleSort() {
         clickCycleSortIconTimes++;
         if (clickCycleSortIconTimes % 3 == 1) {
@@ -750,6 +755,7 @@
     }
 
     var clickBalanceSortTimes = 0;
+
     function clickEventHandlerForBlanceSort() {
         clickBalanceSortTimes++;
         if (clickBalanceSortTimes % 3 == 1) {
@@ -786,6 +792,7 @@
     }
 
     var clickAmountSortTimes = 0;
+
     function clickEventHandlerForAmountSort() {
         clickAmountSortTimes++;
         if (clickAmountSortTimes % 3 == 1) {
@@ -802,9 +809,6 @@
             document.getElementById("icon_sort_by_paid_amount").style.color = "#545454";
         }
     }
-
-
-
 
 
     /**
@@ -834,7 +838,6 @@
         }
         refreshTableDOM(templeArray);
     }
-    
 
 
     /**
@@ -843,27 +846,32 @@
 
     //Create Listeners for drag & drop
     function createDragAndDropListener() {
-        
-        //Create Listeners for Columns
-        var tempColumns = document.getElementsByClassName('column');
-        for (var i = 0; i < tempColumns.length; i++) {
-            tempColumns[i].addEventListener('dragstart', handleColumnDragStart, false);
-            tempColumns[i].addEventListener('dragenter', handleColumnDragEnter, false)
-            tempColumns[i].addEventListener('dragover', handleColumnDragOver, false);
-            tempColumns[i].addEventListener('dragleave', handleColumnDragLeave, false);
-            tempColumns[i].addEventListener('drop', handleColumnDrop, false);
-            tempColumns[i].addEventListener('dragend', handleColumnDragEnd, false);
-        }
-        //Create Listeners for Rows
-        var tempRows = document.getElementsByClassName('row_header');
-        for (var i = 0; i < tempRows.length; i++) {
-            tempRows[i].addEventListener('dragstart', handleRowDragStart, false);
-            tempRows[i].addEventListener('dragenter', handleRowDragEnter, false)
-            tempRows[i].addEventListener('dragover', handleRowDragOver, false);
-            tempRows[i].addEventListener('dragleave', handleRowDragLeave, false);
-            tempRows[i].addEventListener('drop', handleRowDrop, false);
-            tempRows[i].addEventListener('dragend', handleRowDragEnd, false);
-        }
+
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 1000) {
+
+                //Create Listeners for Columns
+                var tempColumns = document.getElementsByClassName('column');
+                for (var i = 0; i < tempColumns.length; i++) {
+                    tempColumns[i].addEventListener('dragstart', handleColumnDragStart, false);
+                    tempColumns[i].addEventListener('dragenter', handleColumnDragEnter, false)
+                    tempColumns[i].addEventListener('dragover', handleColumnDragOver, false);
+                    tempColumns[i].addEventListener('dragleave', handleColumnDragLeave, false);
+                    tempColumns[i].addEventListener('drop', handleColumnDrop, false);
+                    tempColumns[i].addEventListener('dragend', handleColumnDragEnd, false);
+                }
+                //Create Listeners for Rows
+                var tempRows = document.getElementsByClassName('row_header');
+                for (var i = 0; i < tempRows.length; i++) {
+                    tempRows[i].addEventListener('dragstart', handleRowDragStart, false);
+                    tempRows[i].addEventListener('dragenter', handleRowDragEnter, false)
+                    tempRows[i].addEventListener('dragover', handleRowDragOver, false);
+                    tempRows[i].addEventListener('dragleave', handleRowDragLeave, false);
+                    tempRows[i].addEventListener('drop', handleRowDrop, false);
+                    tempRows[i].addEventListener('dragend', handleRowDragEnd, false);
+                }
+            }
+        });
     }
 
 
@@ -871,6 +879,7 @@
     //Get Current Drag Item Id to avoid it be invoked by other events
     var dragColumnId = "";
     var dragColumnDOM = null;
+
     function handleColumnDragStart(e) {
         this.style.opacity = 0;
         this.style.width = "0px";
@@ -878,6 +887,8 @@
         this.style.borderWidth = "0px";
         this.style.borderWidth = "0px";
         this.style.transition = "all 0.4s ease";
+
+        console.log(document.getElementById(this.id).id.split("_")[1])
 
         dragColumnId = document.getElementById(this.id).id;
         dragColumnDOM = this;
@@ -913,8 +924,9 @@
         event.preventDefault();
         this.style.opacity = 1;
         this.style.transition = "all 0.4s ease";
+        console.log(dragRowId);
 
-        if (dragColumnDOM != this) {
+        if (dragColumnDOM != this && dragRowId === "") {
             dragColumnDOM.innerHTML = this.innerHTML;
             this.innerHTML = e.dataTransfer.getData('text/html');
         }
@@ -927,7 +939,6 @@
 
         createSortingListeners();
     }
-
 
     //Handle Row Drag Events
     //Create Row Order Index inside each row header dom.
@@ -955,6 +966,7 @@
     var dragRowId = "";
     var dragRowOrder = 0;
     var dragRowDOM;
+
     function handleRowDragStart(e) {
         dragRowDOM = this;
 
@@ -979,6 +991,7 @@
             draggedRow[i].style.transition = "all 0.4s ease";
         }
 
+        e.dataTransfer.effectAllowed = 'all';
         dragRowOrder = parseInt((window.getComputedStyle(this)).getPropertyValue('order'));
     }
 
@@ -1051,19 +1064,9 @@
         var updatedRowOrder = getUpdatedRowOrderTag();
 
         var allColumns = new Array();
-        for (var i = 2; i < 8; i++){
+        for (var i = 2; i < 8; i++) {
             allColumns.push("column" + i);
         }
-
-        var tempRows = document.getElementById("column2").childNodes;
-
-        // for (var i = 0; i < allColumns.length; i++) {
-        //     var tempRows = document.getElementById("column2").childNodes;
-        //     for (var j = 0; j < 30; j++) {
-        //         var tmpItem = tempRows[j + 1]
-        //         tmpItem.style.order = updatedRowOrder[j];
-        //     }
-        // }
 
         for (var i = 0; i < updatedRowOrder.length; i++) {
             var otherRows = document.getElementsByClassName('row' + (i + 1));
@@ -1089,7 +1092,5 @@
             draggedRow[i].style.borderWidth = "1px";
             draggedRow[i].style.transition = "all 0.4s ease";
         }
-
-
     }
 })();
