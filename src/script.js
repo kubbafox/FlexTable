@@ -32,7 +32,7 @@
         {
             "id": 3,
             "name": "Victor Simmons",
-            "img_url": "asset/img/fbJsHoP.png",
+            "img_url": "asset/img/pa3G9iy.png",
             "commission_rate": "9%",
             "contract_end_day": "9/2/2016",
             "total_deals": 97,
@@ -43,7 +43,7 @@
         {
             "id": 4,
             "name": "Donna Reyes",
-            "img_url": "asset/img/YePW5NR.jpg",
+            "img_url": "asset/img/pa3G9iy.png",
             "commission_rate": "90%",
             "contract_end_day": "8/3/2016",
             "total_deals": 51,
@@ -65,7 +65,7 @@
         {
             "id": 6,
             "name": "Patricia Carr",
-            "img_url": "asset/img/Kk6IdRL.jpg",
+            "img_url": "asset/img/pa3G9iy.png",
             "commission_rate": "21%",
             "contract_end_day": "2/11/2017",
             "total_deals": 72,
@@ -76,7 +76,7 @@
         {
             "id": 7,
             "name": "Jacqueline Davis",
-            "img_url": "asset/img/YePW5NR.jpg",
+            "img_url": "asset/img/pa3G9iy.png",
             "commission_rate": "23%",
             "contract_end_day": "11/29/2016",
             "total_deals": 81,
@@ -341,6 +341,7 @@
     var mockUsersCopy = mockUsers.slice();
 
     createSearchTypingListener();
+    createResizeListener();
     refreshTableDOM(mockUsers);
 
     function constructTable(userArray) {
@@ -844,6 +845,30 @@
      * Dragging Feature
      */
 
+    //Crete a Listener for Resize. Disable Dragging Feature if innerWidth is less than 720px
+    
+    function createResizeListener() {
+        window.addEventListener('resize', function () {
+            if(window.innerWidth < 720) {
+
+                //Disable Listeners for Columns
+                var tempColumns = document.getElementsByClassName('column');
+                for (var i = 0; i < tempColumns.length; i++) {
+                    tempColumns[i].removeEventListener('dragstart', handleColumnDragStart, false);
+                    tempColumns[i].removeEventListener('dragenter', handleColumnDragEnter, false)
+                    tempColumns[i].removeEventListener('dragover', handleColumnDragOver, false);
+                    tempColumns[i].removeEventListener('dragleave', handleColumnDragLeave, false);
+                    tempColumns[i].removeEventListener('drop', handleColumnDrop, false);
+                    tempColumns[i].removeEventListener('dragend', handleColumnDragEnd, false);
+                }
+            } else {
+
+                //Refresh the DOM to avoid duplicated listners. Not the best solution for this issue.
+                refreshTableDOM(mockUsers);
+            }
+        });
+    }
+
     //Create Listeners for drag & drop
     function createDragAndDropListener() {
 
@@ -898,7 +923,6 @@
         }
     }
 
-    //Disable DragOver
     function handleColumnDragOver() {
         event.preventDefault();
         if (document.getElementById(this.id).id != dragColumnId) {
@@ -928,14 +952,24 @@
     }
 
     function handleColumnDragEnd() {
+
         this.style.opacity = 1;
-        this.style.width = "160px";
+        // this.style.width = "160px";
         this.style.transition = "all 0.6s ease";
         dragColumnId = "";
         dragColumnDOM = "";
         dragRowId = "";
         dragRowDOM = "";
         createSortingListeners();
+
+        console.log(window.innerWidth);
+
+        if (window.innerWidth > 720) {
+            this.style.width = "14%";
+        }
+        else {
+            this.style.width = "auto";
+        }
     }
 
     //Handle Row Drag Events

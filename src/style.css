@@ -8,40 +8,8 @@ body{
     margin: 30px;
     display: flex;
     flex-wrap: wrap;
-    width: 1200px;
+    width: 95%;
     z-index: -1;
-}
-
-#column1 {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-}
-
-.column {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    width: 160px;
-}
-
-.avatar {
-    width: 25px;
-    margin-left: 15px;
-    border-radius: 50%;
-}
-
-#column1 div span {
-    position: absolute;
-    margin-left: 15px;
-    margin-top: 5px;
-}
-
-.row {
-    border: solid 1px #e0e0e0;
-    padding: 10px;
-    text-align: center;
-    display: flex;
 }
 
 .container > div:not(:first-child) .row img {
@@ -52,10 +20,12 @@ body{
     display: none;
 }
 
-#column1 .row_header {
-    border: solid 1px #e0e0e0;
-    padding: 4px;
-    text-align: left;
+
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 14%;
 }
 
 .column_header {
@@ -63,19 +33,49 @@ body{
     padding: 10px;
     text-align: left;
     background-color: #f7f7f7;
+    height: 20px;
+    transition: height 0.5s ease;
 }
 
 .column_header p {
     margin: 0px;
 }
 
-#column1 {
-    width: 200px;
+.row {
+    border: solid 1px #e0e0e0;
+    padding: 10px;
+    text-align: center;
+    display: flex;
 }
 
-/*.column_header:hover ~ div {*/
-/*background: #fffdc4;*/
-/*}*/
+#column1 {
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+#column1 div span {
+    position: absolute;
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
+#column1 .row_header {
+    border: solid 1px #e0e0e0;
+    padding: 4px;
+    text-align: left;
+}
+
+.avatar {
+    width: 25px;
+    margin-left: 15px;
+    border-radius: 50%;
+}
+
+
+
+
 
 /* Name Modal */
 .modal_user_profile {
@@ -99,7 +99,7 @@ body{
 
 .user_profile_details p {
     display: none;
-    width: 160px;
+    width: 40%;
     height: 20px;
     margin: 0px;
     padding-top: 10px;
@@ -153,54 +153,31 @@ body{
 
 
 /* SVG */
-.icon-cross {
-    display: inline-block;
-    position: relative;
-    width: 8px;
-    height: 8px;
-    stroke-width: 1;
-    stroke: currentColor;
-    fill: currentColor;
-    left: 340px;
-    top: -10px;
-}
 
-.column_header_drop_arrow_7 {
-    position: relative;
 
-}
 
-.icon-sort-numeric-asc {
-    position: relative;
-    width: 12px;
-    height: 12px;
-    top: -14px;
-    left:125px;
-    stroke: currentColor;
-    fill: currentColor;
-    stroke-width: 0.2;
-}
-
-.column_header p {
-    height: 0px;
-}
-
-#icon_sort_by_cycle {
-    left: 115px;
-}
-.icon-sort_by_alpha
-{
-    opacity: 1;
+.icon {
     position: relative;
     width: 14px;
     height: 14px;
     padding: 8px;
     stroke: currentColor;
     fill: currentColor;
-    left: 150px;
-    top: -22px;
     stroke-width: 0.2;
-    transition: opacity 0.5s ease;
+    float: right;
+    top: -22px;
+}
+
+.icon-cross {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    stroke-width: 0.2;
+    stroke: currentColor;
+    fill: currentColor;
+    right: 4px;
+    top: -3px;
+
 }
 
 .icon:hover{
@@ -247,10 +224,10 @@ body{
     font-size:14px;
     color: #545454;;
     height: 30px;
-    width: 200px;
+    width: 14%;
     border-color:#e0e0e0;
     border-width: 0px 0px 1px 0px;
-    transition: border-color 1s ease;
+    transition: all 1s ease;
 }
 
 #search_input:focus {
@@ -262,48 +239,37 @@ body{
 /* Responsive table */
 
 @media (max-width: 1200px) {
-    .container {
-        width: 95%;
+    .column_header{
+        font-size: 13px;
+        height: 60px;
+        transition: height 0.5s ease;
+        white-space: normal;
     }
-    .column_header {
-        height: 40px;
+    .icon {
+        top:0px;
+        float: left;
+        padding-left: 0px;
     }
-    #column1 {
-        width: 20%;
+    #column1 .row_header div span{
+        font-size: 12px;
+        width:8%
     }
-    #column2,
-    #column3,
-    #column4,
-    #column5,
-    #column6,
-    #column7{
-        width: 13%;
-    }
-    .icon-sort-numeric-asc,
-    .icon-sort_by_alpha{
-        top: 0px;
-        left: 0px;
-        padding: 0px;
-        float: right;
-    }
-    #icon_sort_by_cycle{
-        left: 0px;
-        float: right;
-    }
-
 }
 
 
 @media (max-width: 720px) {
+    #search_input {
+        width: 80%;
+        transition: all 1s ease;
+    }
+
     .container {
         flex-flow: column wrap;
         width: 95%;
     }
     .column_header {
         height: 20px;
-    }
-    #column1 {
-        width: auto;
+        transition: height 0.5s ease;
     }
     #column2,
     #column3,
@@ -312,6 +278,10 @@ body{
     #column6,
     #column7{
         width: auto;
+    }
+    .icon {
+        float: right;
+        top:-20px;
     }
 
     .row {
