@@ -227,7 +227,7 @@ body{
     width: 14%;
     border-color:#e0e0e0;
     border-width: 0px 0px 1px 0px;
-    transition: all 1s ease;
+    transition: width 1s ease, color 1s ease;
 }
 
 #search_input:focus {
@@ -260,7 +260,7 @@ body{
 @media (max-width: 720px) {
     #search_input {
         width: 80%;
-        transition: all 1s ease;
+        transition: width 1s ease, color 1s ease;
     }
 
     .container {
