@@ -873,7 +873,7 @@
     //Handle Column Drag Events
     //Get Current Drag Item Id to avoid it be invoked by other events
     var dragColumnId = "";
-    var dragColumnDOM = null;
+    var dragColumnDOM = "";
 
     function handleColumnDragStart(e) {
         this.style.opacity = 0;
@@ -931,7 +931,10 @@
         this.style.opacity = 1;
         this.style.width = "160px";
         this.style.transition = "all 0.6s ease";
-
+        dragColumnId = "";
+        dragColumnDOM = "";
+        dragRowId = "";
+        dragRowDOM = "";
         createSortingListeners();
     }
 
@@ -960,7 +963,7 @@
 
     var dragRowId = "";
     var dragRowOrder = 0;
-    var dragRowDOM;
+    var dragRowDOM = "";
 
     function handleRowDragStart(e) {
         dragRowDOM = this;
@@ -1087,5 +1090,10 @@
             draggedRow[i].style.borderWidth = "1px";
             draggedRow[i].style.transition = "all 0.4s ease";
         }
+
+        dragColumnId = "";
+        dragColumnDOM = "";
+        dragRowId = "";
+        dragRowDOM = "";
     }
 })();
