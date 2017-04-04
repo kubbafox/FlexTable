@@ -359,7 +359,7 @@
         for (var i = 0; i < userCount; i++) {
             var tempObject = userArray[i];
             var tempAbbreviatedName = abbreviateLastName(tempObject.name);
-            var tempColumn1HTML = '<div class="row' + (i + 1) + ' row_header ' + 'row"' + 'id="' + 'column1_row' + (i + 1) + '" draggable="true">' +
+            var tempColumn1HTML = '<div class="evo_c-divtable-row' + (i + 1) + ' row_header ' + 'evo_c-divtable-row"' + 'id="' + 'evo_c-divtable-column1_evo_c-divtable-row' + (i + 1) + '" draggable="true">' +
                 '<input type="checkbox" id="modal' + tempObject.id + '" class="modal_user_profile">' +
                 '<label for="modal' + tempObject.id + '">' +
                 '<div class="row_order_index">' +
@@ -382,42 +382,42 @@
 
             column1HTML += tempColumn1HTML;
 
-            var tempColumn2HTML = '<div class="row row' + (i + 1) + '">' +
+            var tempColumn2HTML = '<div class="evo_c-divtable-row evo_c-divtable-row' + (i + 1) + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempAbbreviatedName + '</span>' + tempObject.commission_rate +
                 '</div>'
 
             column2HTML += tempColumn2HTML;
 
-            var tempColumn3HTML = '<div class="row row' + (i + 1) + '">' +
+            var tempColumn3HTML = '<div class="evo_c-divtable-row evo_c-divtable-row' + (i + 1) + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempAbbreviatedName + '</span>' + tempObject.contract_end_day +
                 '</div>'
 
             column3HTML += tempColumn3HTML;
 
-            var tempColumn4HTML = '<div class="row row' + (i + 1) + '">' +
+            var tempColumn4HTML = '<div class="evo_c-divtable-row evo_c-divtable-row' + (i + 1) + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempAbbreviatedName + '</span>' + tempObject.total_deals +
                 '</div>'
 
             column4HTML += tempColumn4HTML;
 
-            var tempColumn5HTML = '<div class="row row' + (i + 1) + '">' +
+            var tempColumn5HTML = '<div class="evo_c-divtable-row evo_c-divtable-row' + (i + 1) + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempAbbreviatedName + '</span>' + tempObject.payment_cycle +
                 '</div>'
 
             column5HTML += tempColumn5HTML;
 
-            var tempColumn6HTML = '<div class="row row' + (i + 1) + '">' +
+            var tempColumn6HTML = '<div class="evo_c-divtable-row evo_c-divtable-row' + (i + 1) + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempAbbreviatedName + '</span>' + tempObject.outstanding_balance +
                 '</div>'
 
             column6HTML += tempColumn6HTML;
 
-            var tempColumn7HTML = '<div class="row row' + (i + 1) + '">' +
+            var tempColumn7HTML = '<div class="evo_c-divtable-row evo_c-divtable-row' + (i + 1) + '">' +
                 '<img class="avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempAbbreviatedName + '</span>' + tempObject.paid_amount +
                 '</div>'
@@ -908,8 +908,6 @@
         this.style.borderWidth = "0px";
         this.style.transition = "all 0.4s ease";
 
-        console.log(document.getElementById(this.id).id.split("_")[1])
-
         dragColumnId = document.getElementById(this.id).id;
         dragColumnDOM = this;
         e.dataTransfer.effectAllowed = 'all';
@@ -943,7 +941,6 @@
         event.preventDefault();
         this.style.opacity = 1;
         this.style.transition = "all 0.4s ease";
-        console.log(dragRowId);
 
         if (dragColumnDOM != this && dragRowId === "") {
             dragColumnDOM.innerHTML = this.innerHTML;
@@ -961,8 +958,6 @@
         dragRowId = "";
         dragRowDOM = "";
         createSortingListeners();
-
-        console.log(window.innerWidth);
 
         if (window.innerWidth > 720) {
             this.style.width = "14%";
@@ -1014,7 +1009,8 @@
         this.style.transition = "all 0.4s ease";
 
         //Select and Hide other cells in the same row
-        var draggedRow = document.getElementsByClassName('row' + (dragRowId).split("row")[1]);
+        var draggedRow = document.getElementsByClassName('evo_c-divtable-row' + (dragRowId).split("evo_c-divtable-row")[1]);
+
         for (var i = 1; i < draggedRow.length; i++) {
             draggedRow[i].style.opacity = 0;
             draggedRow[i].style.height = "0px";
@@ -1032,7 +1028,7 @@
             this.style.opacity = 0.2;
             this.style.transition = "all 0.4s ease";
 
-            var draggedRow = document.getElementsByClassName('row' + (document.getElementById(this.id).id).split("row")[1]);
+            var draggedRow = document.getElementsByClassName('evo_c-divtable-row' + (document.getElementById(this.id).id).split("evo_c-divtable-row")[1]);
             for (var i = 1; i < draggedRow.length; i++) {
                 draggedRow[i].style.opacity = 0.2;
                 draggedRow[i].style.transition = "all 0.4s ease";
@@ -1046,7 +1042,7 @@
             this.style.opacity = 0.2;
             this.style.transition = "all 0.4s ease";
 
-            var draggedRow = document.getElementsByClassName('row' + (document.getElementById(this.id).id).split("row")[1]);
+            var draggedRow = document.getElementsByClassName('evo_c-divtable-row' + (document.getElementById(this.id).id).split("evo_c-divtable-row")[1]);
             for (var i = 1; i < draggedRow.length; i++) {
                 draggedRow[i].style.opacity = 0.2;
                 draggedRow[i].style.transition = "all 0.4s ease";
@@ -1060,7 +1056,7 @@
             this.style.opacity = 1;
             this.style.transition = "all 0.4s ease";
 
-            var draggedRow = document.getElementsByClassName('row' + (document.getElementById(this.id).id).split("row")[1]);
+            var draggedRow = document.getElementsByClassName('evo_c-divtable-row' + (document.getElementById(this.id).id).split("evo_c-divtable-row")[1]);
             for (var i = 1; i < draggedRow.length; i++) {
                 draggedRow[i].style.opacity = 1;
                 draggedRow[i].style.transition = "all 0.4s ease";
@@ -1077,7 +1073,7 @@
         //get drop location
         var dropRowId = document.getElementById(this.id).id;
 
-        var droppedRow = document.getElementsByClassName('row' + (dropRowId).split("row")[1]);
+        var droppedRow = document.getElementsByClassName('evo_c-divtable-row' + (dropRowId).split("evo_c-divtable-row")[1]);
         for (var i = 1; i < droppedRow.length; i++) {
             droppedRow[i].style.opacity = 1;
             droppedRow[i].style.height = "16px";
@@ -1101,7 +1097,7 @@
         }
 
         for (var i = 0; i < updatedRowOrder.length; i++) {
-            var otherRows = document.getElementsByClassName('row' + (i + 1));
+            var otherRows = document.getElementsByClassName('evo_c-divtable-row' + (i + 1));
             for (var j = 0; j < otherRows.length; j++) {
                 var tmpItem = otherRows[j];
                 tmpItem.style.order = updatedRowOrder[i];
@@ -1116,7 +1112,7 @@
         this.style.borderWidth = "1px";
         this.style.transition = "all 0.4s ease";
 
-        var draggedRow = document.getElementsByClassName('row' + (dragRowId).split("row")[1]);
+        var draggedRow = document.getElementsByClassName('evo_c-divtable-row' + (dragRowId).split("evo_c-divtable-row")[1]);
         for (var i = 1; i < draggedRow.length; i++) {
             draggedRow[i].style.opacity = 1;
             draggedRow[i].style.height = "16px";

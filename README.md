@@ -7,7 +7,7 @@ https://github.com/kubbafox/FlexTable
 ![](http://i.imgur.com/29KdHRq.jpg)
 ### Features in Demo:
 - Populate table HTML based on JSON
-- Drag Name to switch row positions
+- Drag Name to switch evo_c-divtable-row positions
 - Drag & Drop columns 
 - Click the name tag to review user profile pop-up
 - Responsive
@@ -27,7 +27,7 @@ https://github.com/kubbafox/FlexTable
 <br><br>
 ### Known Issues:
 - Could not fix table column header simply through CSS. Need some research for JS solutions.
-- Sorting will break the row swap feature due to some hard code issues. The root cause has been defined and will be fixed tomorrow. 
+- Sorting will break the evo_c-divtable-row swap feature due to some hard code issues. The root cause has been defined and will be fixed tomorrow.
 <br></br>
 - <s>Responsive Table Feature is not working on iPhone Chrome.</s>
 - <s>Using jQuery .draggable to listen drag & drop events. Need re-write to pure javascript.</s>
