@@ -425,7 +425,7 @@
             column7HTML += tempColumn7HTML;
         }
 
-        var tableContainer = document.getElementById('tableContainer');
+        var tableContainer = document.getElementById('evo_c-divtable-tableContainer');
         var tableHTML = '<div id="column1" class="header">' +
             '<div class="column_header" style="order: 0">' +
             'Name' +
@@ -502,7 +502,7 @@
     }
 
     function destroyTableDOM() {
-        var tableContainer = document.getElementById('tableContainer');
+        var tableContainer = document.getElementById('evo_c-divtable-tableContainer');
         tableContainer.innerHTML = ""
     }
 
@@ -818,14 +818,14 @@
 
     //Create a Listener for Typing
     function createSearchTypingListener() {
-        var searchInputDOM = document.getElementById("search_input");
+        var searchInputDOM = document.getElementById("evo_c-divtable-search_input");
         searchInputDOM.addEventListener("keyup", function () {
             searchUserArray(mockUsers);
         }, false);
     }
 
     function getSearchInput() {
-        return document.getElementById('search_input').value;
+        return document.getElementById('evo_c-divtable-search_input').value;
     }
 
     function searchUserArray(mockUsers) {
