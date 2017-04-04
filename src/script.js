@@ -359,19 +359,19 @@
         for (var i = 0; i < userCount; i++) {
             var tempObject = userArray[i];
             var tempAbbreviatedName = abbreviateLastName(tempObject.name);
-            var tempColumn1HTML = '<div class="evo_c-divtable-row' + (i + 1) + ' row_header ' + 'evo_c-divtable-row"' + 'id="' + 'evo_c-divtable-column1_evo_c-divtable-row' + (i + 1) + '" draggable="true">' +
-                '<input type="checkbox" id="modal' + tempObject.id + '" class="modal_user_profile">' +
-                '<label for="modal' + tempObject.id + '">' +
-                '<div class="row_order_index">' +
-                '<img class="avatar" src="' + tempObject.img_url + '">' +
+            var tempColumn1HTML = '<div class="evo_c-divtable-row' + (i + 1) + ' evo_c-divtable-row_evo_c-divtable-header ' + 'evo_c-divtable-row"' + 'id="' + 'evo_c-divtable-column1_evo_c-divtable-row' + (i + 1) + '" draggable="true">' +
+                '<input type="checkbox" id="evo_c-divtable-modal' + tempObject.id + '" class="evo_c-divtable-modal_user_profile">' +
+                '<label for="evo_c-divtable-modal' + tempObject.id + '">' +
+                '<div class="evo_c-divtable-row_order_index">' +
+                '<img class="evo_c-divtable-avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempObject.name + '</span>' +
-                '<div class="user_profile">' +
-                '<img class="avatar" src="' + tempObject.img_url + '">' +
+                '<div class="evo_c-divtable-user_profile">' +
+                '<img class="evo_c-divtable-avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempObject.name + '</span>' +
-                '<svg class="icon icon-cross">' +
+                '<svg class="evo_c-divtable-icon icon-cross">' +
                 '<use xlink:href="#icon-cross"></use>' +
                 '</svg>' +
-                '<div class="user_profile_details">' +
+                '<div class="evo_c-divtable-user_profile_details">' +
                 '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo incididunt.</p>' +
                 '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo incididunt.</p>' +
                 '</div>' +
@@ -383,42 +383,42 @@
             column1HTML += tempColumn1HTML;
 
             var tempColumn2HTML = '<div class="evo_c-divtable-row evo_c-divtable-row' + (i + 1) + '">' +
-                '<img class="avatar" src="' + tempObject.img_url + '">' +
+                '<img class="evo_c-divtable-avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempAbbreviatedName + '</span>' + tempObject.commission_rate +
                 '</div>'
 
             column2HTML += tempColumn2HTML;
 
             var tempColumn3HTML = '<div class="evo_c-divtable-row evo_c-divtable-row' + (i + 1) + '">' +
-                '<img class="avatar" src="' + tempObject.img_url + '">' +
+                '<img class="evo_c-divtable-avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempAbbreviatedName + '</span>' + tempObject.contract_end_day +
                 '</div>'
 
             column3HTML += tempColumn3HTML;
 
             var tempColumn4HTML = '<div class="evo_c-divtable-row evo_c-divtable-row' + (i + 1) + '">' +
-                '<img class="avatar" src="' + tempObject.img_url + '">' +
+                '<img class="evo_c-divtable-avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempAbbreviatedName + '</span>' + tempObject.total_deals +
                 '</div>'
 
             column4HTML += tempColumn4HTML;
 
             var tempColumn5HTML = '<div class="evo_c-divtable-row evo_c-divtable-row' + (i + 1) + '">' +
-                '<img class="avatar" src="' + tempObject.img_url + '">' +
+                '<img class="evo_c-divtable-avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempAbbreviatedName + '</span>' + tempObject.payment_cycle +
                 '</div>'
 
             column5HTML += tempColumn5HTML;
 
             var tempColumn6HTML = '<div class="evo_c-divtable-row evo_c-divtable-row' + (i + 1) + '">' +
-                '<img class="avatar" src="' + tempObject.img_url + '">' +
+                '<img class="evo_c-divtable-avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempAbbreviatedName + '</span>' + tempObject.outstanding_balance +
                 '</div>'
 
             column6HTML += tempColumn6HTML;
 
             var tempColumn7HTML = '<div class="evo_c-divtable-row evo_c-divtable-row' + (i + 1) + '">' +
-                '<img class="avatar" src="' + tempObject.img_url + '">' +
+                '<img class="evo_c-divtable-avatar" src="' + tempObject.img_url + '">' +
                 '<span>' + tempAbbreviatedName + '</span>' + tempObject.paid_amount +
                 '</div>'
 
@@ -426,65 +426,65 @@
         }
 
         var tableContainer = document.getElementById('evo_c-divtable-tableContainer');
-        var tableHTML = '<div id="column1" class="header">' +
-            '<div class="column_header" style="order: 0">' +
+        var tableHTML = '<div id="column1" class="evo_c-divtable-header">' +
+            '<div class="evo_c-divtable-column_header" style="order: 0">' +
             'Name' +
             '<p class="sort sort_asc" id="sort_name_alpha_asc">' +
-            '<svg class="icon icon-sort_by_alpha" id="icon_sort_by_alpha_name">' +
+            '<svg class="evo_c-divtable-icon icon-sort_by_alpha" id="icon_sort_by_alpha_name">' +
             '<use xlink:href="#icon-sort_by_alpha"></use></svg></p>' +
             '</div>' +
             column1HTML +
             '</div>' +
-            '<div id="column2" class="column content2" draggable="true">' +
-            '<div class="column_header">' +
+            '<div id="column2" class="evo_c-divtable-column" draggable="true">' +
+            '<div class="evo_c-divtable-column_header">' +
             'Commission Rate' +
-            '<p id="column_header_drop_arrow_7" class="numeric_sort_icon">' +
-            '<svg class="icon icon-sort-numeric-asc" id="icon_sort_by_rate"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
+            '<p id="" class="evo_c-divtable-numeric_sort_icon">' +
+            '<svg class="evo_c-divtable-icon icon-sort-numeric-asc" id="icon_sort_by_rate"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
             '</p>' +
             '</div>' +
             column2HTML +
             '</div>' +
-            '<div id="column3" class="column content3" draggable="true">' +
-            '<div class="column_header">' +
+            '<div id="column3" class="evo_c-divtable-column" draggable="true">' +
+            '<div class="evo_c-divtable-column_header">' +
             'Contract End Day' +
-            '<p id="column_header_drop_arrow_7" class="numeric_sort_icon">' +
-            '<svg class="icon icon-sort-numeric-asc" id="icon_sort_by_date"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
+            '<p id="" class="evo_c-divtable-numeric_sort_icon">' +
+            '<svg class="evo_c-divtable-icon icon-sort-numeric-asc" id="icon_sort_by_date"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
             '</p>' +
             '</div>' +
             column3HTML +
             '</div>' +
-            '<div id="column4" class="column content4" draggable="true">' +
-            '<div class="column_header">' +
+            '<div id="column4" class="evo_c-divtable-column" draggable="true">' +
+            '<div class="evo_c-divtable-column_header">' +
             'Total Deals' +
-            '<p id="column_header_drop_arrow_7" class="numeric_sort_icon">' +
-            '<svg class="icon icon-sort-numeric-asc" id="icon_sort_by_deals"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
+            '<p id="" class="evo_c-divtable-numeric_sort_icon">' +
+            '<svg class="evo_c-divtable-icon icon-sort-numeric-asc" id="icon_sort_by_deals"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
             '</p>' +
             '</div>' +
             column4HTML +
             '</div>' +
-            '<div id="column5" class="column content5" draggable="true">' +
-            '<div class="column_header">' +
+            '<div id="column5" class="evo_c-divtable-column" draggable="true">' +
+            '<div class="evo_c-divtable-column_header">' +
             'Payment Cycle' +
             '<p class="sort sort_asc" id="sort_name_alpha_asc">' +
-            '<svg class="icon icon-sort_by_alpha" id="icon_sort_by_cycle">' +
+            '<svg class="evo_c-divtable-icon icon-sort_by_alpha" id="icon_sort_by_cycle">' +
             '<use xlink:href="#icon-sort_by_alpha"></use></svg></p>' +
             '</div>' +
             column5HTML +
             '</div>' +
-            '<div id="column6" class="column content6" draggable="true">' +
-            '<div class="column_header">' +
+            '<div id="column6" class="evo_c-divtable-column" draggable="true">' +
+            '<div class="evo_c-divtable-column_header">' +
             'Balance' +
-            '<p id="column_header_drop_arrow_7" class="numeric_sort_icon">' +
-            '<svg class="icon icon-sort-numeric-asc" id="icon_sort_by_out_balance"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
+            '<p id="" class="evo_c-divtable-numeric_sort_icon">' +
+            '<svg class="evo_c-divtable-icon icon-sort-numeric-asc" id="icon_sort_by_out_balance"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
             '</p>' +
             '</div>' +
             column6HTML +
             '</div>' +
-            '<div id="column7" class="column content7" draggable="true">' +
-            '<div class="column_header">' +
+            '<div id="column7" class="evo_c-divtable-column content7" draggable="true">' +
+            '<div class="evo_c-divtable-column_header">' +
             'Paid Amount' +
-            '<p id="column_header_drop_arrow_7" class="numeric_sort_icon">' +
-            '<svg class="icon icon-sort-numeric-asc" id="icon_sort_by_paid_amount"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
+            '<p id="" class="evo_c-divtable-numeric_sort_icon">' +
+            '<svg class="evo_c-divtable-icon icon-sort-numeric-asc" id="icon_sort_by_paid_amount"><use xlink:href="#icon-sort-numeric-asc"></use></svg>' +
             '</p>' +
             '</div>' +
             column7HTML +
@@ -852,7 +852,7 @@
             if(window.innerWidth < 720) {
 
                 //Disable Listeners for Columns
-                var tempColumns = document.getElementsByClassName('column');
+                var tempColumns = document.getElementsByClassName('evo_c-divtable-column');
                 for (var i = 0; i < tempColumns.length; i++) {
                     tempColumns[i].removeEventListener('dragstart', handleColumnDragStart, false);
                     tempColumns[i].removeEventListener('dragenter', handleColumnDragEnter, false)
@@ -873,7 +873,7 @@
     function createDragAndDropListener() {
 
         //Create Listeners for Columns
-        var tempColumns = document.getElementsByClassName('column');
+        var tempColumns = document.getElementsByClassName('evo_c-divtable-column');
         for (var i = 0; i < tempColumns.length; i++) {
             tempColumns[i].addEventListener('dragstart', handleColumnDragStart, false);
             tempColumns[i].addEventListener('dragenter', handleColumnDragEnter, false)
@@ -883,7 +883,7 @@
             tempColumns[i].addEventListener('dragend', handleColumnDragEnd, false);
         }
         //Create Listeners for Rows
-        var tempRows = document.getElementsByClassName('row_header');
+        var tempRows = document.getElementsByClassName('evo_c-divtable-row_evo_c-divtable-header');
         for (var i = 0; i < tempRows.length; i++) {
             tempRows[i].addEventListener('dragstart', handleRowDragStart, false);
             tempRows[i].addEventListener('dragenter', handleRowDragEnter, false)
@@ -970,7 +970,7 @@
     //Handle Row Drag Events
     //Create Row Order Index inside each row header dom.
     function setInitialRowOrderTag() {
-        var allRowHeader = document.getElementsByClassName('row_header');
+        var allRowHeader = document.getElementsByClassName('evo_c-divtable-row_evo_c-divtable-header');
         var rowOrderIndex = 1;
 
         for (var i = 0; i < allRowHeader.length; i++) {
@@ -981,7 +981,7 @@
 
     function getUpdatedRowOrderTag() {
         var UpdatedRowOrderTag = new Array();
-        var allRowHeader = document.getElementsByClassName('row_header');
+        var allRowHeader = document.getElementsByClassName('evo_c-divtable-row_evo_c-divtable-header');
 
         for (var i = 0; i < allRowHeader.length; i++) {
             var tempRowHeader = window.getComputedStyle(allRowHeader[i]);
@@ -1093,7 +1093,7 @@
 
         var allColumns = new Array();
         for (var i = 2; i < 8; i++) {
-            allColumns.push("column" + i);
+            allColumns.push("evo_c-divtable-column" + i);
         }
 
         for (var i = 0; i < updatedRowOrder.length; i++) {

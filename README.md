@@ -26,7 +26,7 @@ https://github.com/kubbafox/FlexTable
 - Click & Change a column to a heat-map. (Background colors will stick with cells when users are storing other columns)
 <br><br>
 ### Known Issues:
-- Could not fix table column header simply through CSS. Need some research for JS solutions.
+- Could not fix table column evo_c-divtable-header simply through CSS. Need some research for JS solutions.
 - Sorting will break the evo_c-divtable-row swap feature due to some hard code issues. The root cause has been defined and will be fixed tomorrow.
 <br></br>
 - <s>Responsive Table Feature is not working on iPhone Chrome.</s>
