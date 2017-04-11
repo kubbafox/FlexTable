@@ -12,6 +12,7 @@ https://github.com/kubbafox/FlexTable
 - Drag & Drop any column or row
 - Click user name to expand a popup
 - Responsive for mobile
+- Pure Javascript solution
 <br><br>
 
 ### Feature(s) under development:
