@@ -6,29 +6,27 @@ https://github.com/kubbafox/FlexTable
 
 ![](http://i.imgur.com/29KdHRq.jpg)
 ### Features in Demo:
-- Populate table HTML based on JSON
-- Drag Name to switch evo_c-divtable-row positions
-- Drag & Drop columns 
-- Click the name tag to review user profile pop-up
-- Responsive
-- Display drop zone (arrows) when dragging columns.
-- Collapse the empty space during dragging.
-- Cursors.
-- Sorting on all columns.
-- Search by name and dynamically display results during typing
+- Using JSON, object, and array to populate table
+- Search by username
+- Sort by any column
+- Drag & Drop any column or row
+- Click user name to expand a popup
+- Responsive for mobile
 <br><br>
 
 ### Feature(s) under development:
 - Fixing known issues
 <br><br>
-### Feature(s)  in my mind:
-
-- Click & Change a column to a heat-map. (Background colors will stick with cells when users are storing other columns)
+### Upcoming Features
+- When the table is very long vertically (many records), part of the table will shrink
+- Sticky headers; when the user scrolls, fix the header row at the top of the window so that the user can see the label for each column.
+- Please request more features or report any issues.
 <br><br>
 ### Known Issues:
+- Drag Row feature is not working in Firefox.
 - Could not fix table column evo_c-divtable-header simply through CSS. Need some research for JS solutions.
-- Sorting will break the evo_c-divtable-row swap feature due to some hard code issues. The root cause has been defined and will be fixed tomorrow.
 <br></br>
+- <s>Sorting will break the evo_c-divtable-row swap feature due to some hard code issues. The root cause has been defined and will be fixed tomorrow.</s>
 - <s>Responsive Table Feature is not working on iPhone Chrome.</s>
 - <s>Using jQuery .draggable to listen drag & drop events. Need re-write to pure javascript.</s>
 - <s>Duplicate code in sorting & style changing logics. Need code refactoring once major features are completed.</s>
